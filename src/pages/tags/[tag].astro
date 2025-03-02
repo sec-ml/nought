@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/Base.astro';
+import BlogPost from '../../components/BlogPost.astro';
+
+export async function getStaticPaths() {
+  const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
+  allPosts.sort((a: any, b: any) => Date.parse(b.frontmatter.dateCreated) - Date.parse(a.frontmatter.dateCreated));
+
+  const uniqueTags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+
+  return uniqueTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post: any) => post.frontmatter.tags.includes(tag));
+    return {
+      params: { tag: tag.replace(/\s+/g, '-') },
+      props: { posts: filteredPosts, originalTag: tag },
+    };
+  });
+}
+
+const { posts, originalTag } = Astro.props;
+---
+<BaseLayout>
+  <h1 class="text-4xl font-bold mb-4">Posts tagged with {originalTag}</h1>
+  <div class="xl:columns-2 xl:gap-6 2xl:columns-3">
+    {posts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} tags={post.frontmatter.tags} post={post} author={post.frontmatter.author} created={post.frontmatter.dateCreated} image={post.frontmatter.image} tag={originalTag} />)}
+  </div>
+</BaseLayout>

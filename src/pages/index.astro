@@ -1,16 +1,14 @@
 ---
+import BaseLayout from '../layouts/Base.astro';
+import BlogPost from '../components/BlogPost.astro';
+const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
 
+allPosts.sort((a:any, b:any) => Date.parse(b.frontmatter.dateCreated) - Date.parse(a.frontmatter.dateCreated));
+
+const pageTitle = "Home Page";
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+<div class="xl:columns-2 xl:gap-6 2xl:columns-3">
+  {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} tags={post.frontmatter.tags} post={post} image={post.frontmatter.image} tag=null author={post.frontmatter.author} created={post.frontmatter.dateCreated} />)}
+</div>
+</BaseLayout>

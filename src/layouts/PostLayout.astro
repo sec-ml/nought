@@ -1,0 +1,46 @@
+---
+import BaseLayout from './Base.astro';
+import TagSingle from '../components/TagSingle.astro';
+const { frontmatter } = Astro.props;
+import { CONFIG } from "../config/config.js";
+
+if (CONFIG.BLOG_POST_SHOW_AUTHOR == false && CONFIG.BLOG_POST_SHOW_DATE == false) {
+    var POSTED_BY_ON = '';
+} else {
+    var POSTED_BY_ON = '<p class="byline mb-2">Posted';
+    if (CONFIG.BLOG_POST_SHOW_AUTHOR == true) {POSTED_BY_ON += ' by ' + frontmatter.author;}
+    if (CONFIG.BLOG_POST_SHOW_DATE == true) {POSTED_BY_ON += ' on ' + frontmatter.dateCreated.toString().slice(0,10);}
+    POSTED_BY_ON += '</p>';
+}
+
+if (frontmatter.image) {
+    if (frontmatter.image.includes('http')) {
+        var IMGPATH:string = frontmatter.image;
+    } else {
+        var IMGPATH:string = '/images/' + frontmatter.image;
+    }
+    var POST_IMAGE = '<img src="' + IMGPATH + '" alt="' + frontmatter.title + '" class="--ml-6 mr-6 w-full h-96 object-cover object-center mb-8">';
+} else {
+    var POST_IMAGE = '';
+}
+---
+<BaseLayout>
+  <Fragment set:html={POST_IMAGE} />
+  <div id="meta_content" class="max-w-[65ch]">
+    <h1 class="text-4xl font-bold max-w-[65ch]">{frontmatter.title}</h1>
+    <Fragment set:html={POSTED_BY_ON} />
+    <div class="tags mb-8">
+      {frontmatter.tags.map((tag: string) => (
+        <TagSingle
+          label={tag}
+          url={`/tags/${tag.replace(/\s+/g, '-')}`}
+          count={0}
+          display_count={false}
+        />
+      ))}
+    </div>
+  </div>
+  <article class="prose mt-2 prose-headings:-my-2 prose-h2:mb-2">
+    <slot />
+  </article>
+</BaseLayout>

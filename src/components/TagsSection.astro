@@ -1,0 +1,78 @@
+---
+import {CONFIG} from "../config/config.js";
+import TagSingle from "./TagSingle.astro";
+
+const SIDEBAR_TAGS_MIN_POST_QTY = CONFIG.SIDEBAR_TAGS_MIN_POST_QTY ?? 1;
+const SIDEBAR_TAGS_SUPPRESS = CONFIG.SIDEBAR_TAGS_SUPPRESS ?? [];
+const SIDEBAR_TAGS_SHOW_COUNT = CONFIG.SIDEBAR_TAGS_SHOW_COUNT ?? false;
+
+const allPosts = await Astro.glob("../pages/posts/*.md*");
+let tagMeta: { [key: string]: { count: number } } = {};
+
+allPosts.forEach((post) => {
+  post.frontmatter.tags.forEach((tag: string) => {
+    if (tagMeta[tag]) {
+      tagMeta[tag].count++;
+    } else {
+      tagMeta[tag] = { count: 1 };
+    }
+  });
+});
+
+let tags = []
+for (let tag in tagMeta) {
+  if (tagMeta[tag].count >= SIDEBAR_TAGS_MIN_POST_QTY && !SIDEBAR_TAGS_SUPPRESS.includes(tag))
+  {
+    tags.push(tag);
+  }
+}
+---
+<style>
+/* https://jsfiddle.net/cv8w2ph9/ */
+.strike {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.strike > span {
+  position: relative;
+  display: inline-block;
+}
+
+.strike > span:before, .strike > span:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 9999px;
+  height: 3px;
+  background: white;
+}
+
+.strike > span:before {
+  right: 100%;
+  margin-right: 0px;
+}
+
+.strike > span:after {
+  left: 100%;
+  margin-left: 0px;
+}
+</style>
+<div class="mt-4">
+  <div class="strike text-center">
+    <span class="boxed rounded-btn border-2 border-secondary px-1">Tags</span>
+  </div>
+<div>
+  {
+    tags.map((tag) => (
+      <TagSingle
+        label={tag}
+        url={`/tags/${tag.replace(/\s+/g, '-')}`}
+        count={tagMeta[tag].count}
+        display_count={SIDEBAR_TAGS_SHOW_COUNT}
+      />
+    ))
+  }
+</div>

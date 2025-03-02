@@ -1,0 +1,9 @@
+---
+import {CONFIG} from "../config/config.js";
+
+const YEAR = new Date().getFullYear();
+const COPYRIGHT = CONFIG.COPYRIGHT ?? '© '+YEAR+' - '+CONFIG.TITLE+'. All rights reserved';
+---
+<footer class="bg-gray-200 text-center p-4 md:ml-64">
+  <Fragment set:html={COPYRIGHT} />
+</footer>
