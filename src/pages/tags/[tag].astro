@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/Base.astro';
 import BlogPost from '../../components/BlogPost.astro';
+import { CONFIG } from "../../config/config.js";
 
 export async function getStaticPaths() {
   const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
@@ -16,10 +17,11 @@ export async function getStaticPaths() {
     };
   });
 }
-
 const { posts, originalTag } = Astro.props;
+
+const pageTitle = originalTag+" | "+CONFIG.TITLE;
 ---
-<BaseLayout>
+<BaseLayout pageTitle={pageTitle}>
   <h1 class="text-4xl font-bold mb-4">Posts tagged with {originalTag}</h1>
   <div class="xl:columns-2 xl:gap-6 2xl:columns-3">
     {posts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} tags={post.frontmatter.tags} post={post} author={post.frontmatter.author} created={post.frontmatter.dateCreated} image={post.frontmatter.image} tag={originalTag} />)}

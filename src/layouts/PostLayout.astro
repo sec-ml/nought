@@ -23,8 +23,10 @@ if (frontmatter.image) {
 } else {
     var POST_IMAGE = '';
 }
+
+const pageTitle = frontmatter.title+" | "+CONFIG.TITLE;
 ---
-<BaseLayout>
+<BaseLayout pageTitle={pageTitle}>
   <Fragment set:html={POST_IMAGE} />
   <div id="meta_content" class="max-w-[65ch]">
     <h1 class="text-4xl font-bold max-w-[65ch]">{frontmatter.title}</h1>

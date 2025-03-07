@@ -8,16 +8,16 @@ import "../config/custom.css";
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
+		<link rel="sitemap" href="/sitemap-index.xml" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="preload" href="/fonts/otto.woff2" as="font" type="font/woff2">
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>{pageTitle}</title>
 	</head>
 	<body class="relative bg-gray-100 min-h-screen flex flex-col">
 		<Header />
 		<main id="mainContent" class="flex-grow md:ml-64 p-6">
-        <h1 class="text-4xl font-otto">{pageTitle}</h1>
         <div class=""><slot /></div>
 		</main>
 		<Footer />
