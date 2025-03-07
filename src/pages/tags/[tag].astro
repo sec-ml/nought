@@ -1,4 +1,5 @@
 ---
+import { Masonry } from 'astro-masonry';
 import BaseLayout from '../../layouts/Base.astro';
 import BlogPost from '../../components/BlogPost.astro';
 import { CONFIG } from "../../config/config.js";
@@ -11,21 +12,30 @@ export async function getStaticPaths() {
 
   return uniqueTags.map((tag) => {
     const filteredPosts = allPosts.filter((post: any) => post.frontmatter.tags.includes(tag));
+    const postQty = filteredPosts.length;
     return {
       params: { tag: tag.replace(/\s+/g, '-') },
-      props: { posts: filteredPosts, originalTag: tag },
+      props: { posts: filteredPosts, originalTag: tag, count: postQty },
     };
   });
 }
-const { posts, originalTag } = Astro.props;
+
+const { posts, originalTag, count } = Astro.props;
+
+if (count == 1) {
+  var break_two = 1;
+} else {
+  var break_two = 2;
+}
 
 const pageTitle = originalTag+" | "+CONFIG.TITLE;
 const DESCRIPTION = "Posts tagged with '"+originalTag+"'";
 const pageURL = CONFIG.URL+"/tags/"+originalTag.replace(/\s+/g, '-');
 ---
 <BaseLayout pageTitle={pageTitle} pageDescription={DESCRIPTION} pageURL={pageURL}>
-  <h1 class="text-4xl font-bold mb-4">Posts tagged with {originalTag}</h1>
-  <div class="xl:columns-2 xl:gap-6 2xl:columns-3">
+  
+  <Masonry breakpointCols={{default: break_two, 1224: 1}}, class=" gap-6">
+    <div class="boxed border-2 mb-6 border-grey-900 p-4"><h1 class="text-4xl font-bold">{ count } post{count == 1 ? '' : 's'} tagged with <i>{originalTag}</i></h1></div>
     {posts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} tags={post.frontmatter.tags} post={post} author={post.frontmatter.author} created={post.frontmatter.dateCreated} image={post.frontmatter.image} tag={originalTag} />)}
-  </div>
+  </Masonry>
 </BaseLayout>
