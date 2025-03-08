@@ -7,8 +7,9 @@ const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true })
 allPosts.sort((a:any, b:any) => Date.parse(b.frontmatter.dateCreated) - Date.parse(a.frontmatter.dateCreated));
 
 const pageTitle = CONFIG.TITLE+" - "+CONFIG.DESCRIPTION;
+const pageURL = CONFIG.URL;
 ---
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} pageDescription={CONFIG.DESCRIPTION} pageURL={pageURL}>
 <div class="xl:columns-2 xl:gap-6 2xl:columns-3">
   {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} tags={post.frontmatter.tags} post={post} image={post.frontmatter.image} tag=null author={post.frontmatter.author} created={post.frontmatter.dateCreated} />)}
 </div>

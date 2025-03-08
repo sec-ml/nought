@@ -34,4 +34,5 @@ export const CONFIG = {
     POST_LISTING_SHOW_AUTHOR: true, // true/1 or false/0. SHOW AUTHOR ON POST LISTING PAGES
     POST_LISTING_SHOW_DATE: true, // true/1 or false/0. SHOW DATE ON POST LISTING PAGES
 
+    SUPPORT_TWITTER_META: true, // true/1 or false/0. ADD TWITTER META TAGS
 };

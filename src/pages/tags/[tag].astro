@@ -20,8 +20,10 @@ export async function getStaticPaths() {
 const { posts, originalTag } = Astro.props;
 
 const pageTitle = originalTag+" | "+CONFIG.TITLE;
+const DESCRIPTION = "Posts tagged with '"+originalTag+"'";
+const pageURL = CONFIG.URL+"/tags/"+originalTag.replace(/\s+/g, '-');
 ---
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} pageDescription={DESCRIPTION} pageURL={pageURL}>
   <h1 class="text-4xl font-bold mb-4">Posts tagged with {originalTag}</h1>
   <div class="xl:columns-2 xl:gap-6 2xl:columns-3">
     {posts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} tags={post.frontmatter.tags} post={post} author={post.frontmatter.author} created={post.frontmatter.dateCreated} image={post.frontmatter.image} tag={originalTag} />)}
