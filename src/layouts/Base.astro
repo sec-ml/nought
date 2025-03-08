@@ -1,27 +1,25 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-const { pageTitle } = Astro.props;
+import Metadata from '../components/Metadata.astro';
+const { pageTitle, pageDescription, pageURL, meta_type, meta_image } = Astro.props;
+import { CONFIG } from "../config/config.js";
 import "../styles/global.css";
 import "../config/custom.css";
 ---
 <html lang="en">
 	<head>
-		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="preload" href="/fonts/otto.woff2" as="font" type="font/woff2">
 		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<Metadata meta_type={meta_type} meta_title={pageTitle} meta_description={pageDescription} meta_url={pageURL} meta_image={meta_image} meta_sitename={CONFIG.TITLE} />
 	</head>
 	<body class="relative bg-gray-100 min-h-screen flex flex-col">
 		<Header />
 		<main id="mainContent" class="flex-grow md:ml-64 p-6">
-        <h1 class="text-4xl font-otto">{pageTitle}</h1>
         <div class=""><slot /></div>
 		</main>
 		<Footer />
-		
 	</body>
  <script>
 	const sidebar = document.getElementById('sidebar');

@@ -22,9 +22,17 @@ if (frontmatter.image) {
     var POST_IMAGE = '<img src="' + IMGPATH + '" alt="' + frontmatter.title + '" class="--ml-6 mr-6 w-full h-96 object-cover object-center mb-8">';
 } else {
     var POST_IMAGE = '';
+    var IMGPATH = '';
 }
+if (frontmatter.description) {
+    var DESCRIPTION = frontmatter.description;
+} else {
+    var DESCRIPTION = frontmatter.title;
+}
+const pageTitle = frontmatter.title+" | "+CONFIG.TITLE;
+const pageURL = CONFIG.URL+frontmatter.url;
 ---
-<BaseLayout>
+<BaseLayout pageTitle={pageTitle} pageDescription={DESCRIPTION} pageURL={pageURL} meta_type="article" meta_image={IMGPATH}>
   <Fragment set:html={POST_IMAGE} />
   <div id="meta_content" class="max-w-[65ch]">
     <h1 class="text-4xl font-bold max-w-[65ch]">{frontmatter.title}</h1>
