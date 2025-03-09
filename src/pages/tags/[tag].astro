@@ -1,20 +1,30 @@
 ---
-import { Masonry } from 'astro-masonry';
-import BaseLayout from '../../layouts/Base.astro';
-import BlogPost from '../../components/BlogPost.astro';
+import { Masonry } from "astro-masonry";
+import BaseLayout from "../../layouts/Base.astro";
+import BlogPost from "../../components/BlogPost.astro";
 import { CONFIG } from "../../config/config.js";
 
 export async function getStaticPaths() {
-  const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
-  allPosts.sort((a: any, b: any) => Date.parse(b.frontmatter.dateCreated) - Date.parse(a.frontmatter.dateCreated));
+  const allPosts = Object.values(
+    import.meta.glob("../posts/*.md", { eager: true })
+  );
+  allPosts.sort(
+    (a: any, b: any) =>
+      Date.parse(b.frontmatter.dateCreated) -
+      Date.parse(a.frontmatter.dateCreated)
+  );
 
-  const uniqueTags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+  const uniqueTags = [
+    ...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat()),
+  ];
 
   return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter((post: any) => post.frontmatter.tags.includes(tag));
+    const filteredPosts = allPosts.filter((post: any) =>
+      post.frontmatter.tags.includes(tag)
+    );
     const postQty = filteredPosts.length;
     return {
-      params: { tag: tag.replace(/\s+/g, '-') },
+      params: { tag: tag.replace(/\s+/g, "-") },
       props: { posts: filteredPosts, originalTag: tag, count: postQty },
     };
   });
@@ -28,14 +38,35 @@ if (count == 1) {
   var break_two = 2;
 }
 
-const pageTitle = originalTag+" | "+CONFIG.TITLE;
-const DESCRIPTION = "Posts tagged with '"+originalTag+"'";
-const pageURL = CONFIG.URL+"/tags/"+originalTag.replace(/\s+/g, '-');
+const page_title = originalTag + " | " + CONFIG.TITLE;
+const page_description = "Posts tagged with '" + originalTag + "'";
+const page_url = CONFIG.URL + "/tags/" + originalTag.replace(/\s+/g, "-");
 ---
-<BaseLayout pageTitle={pageTitle} pageDescription={DESCRIPTION} pageURL={pageURL}>
-  
-  <Masonry breakpointCols={{default: break_two, 1224: 1}}, class=" gap-6">
-    <div class="boxed border-2 mb-6 border-grey-900 p-4"><h1 class="text-4xl font-bold">{ count } post{count == 1 ? '' : 's'} tagged with <i>{originalTag}</i></h1></div>
-    {posts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} tags={post.frontmatter.tags} post={post} author={post.frontmatter.author} created={post.frontmatter.dateCreated} image={post.frontmatter.image} tag={originalTag} />)}
+
+<BaseLayout
+  page_title={page_title}
+  page_description={page_description}
+  page_url={page_url}
+>
+  <Masonry breakpointCols={{ default: break_two, 1224: 1 }} , class="gap-6">
+    <div class="boxed border-2 mb-6 border-grey-900 p-4">
+      <h1 class="text-4xl font-bold">
+        {count} post{count == 1 ? "" : "s"} tagged with <i>{originalTag}</i>
+      </h1>
+    </div>
+    {
+      posts.map((post: any) => (
+        <BlogPost
+          url={post.url}
+          title={post.frontmatter.title}
+          tags={post.frontmatter.tags}
+          post={post}
+          author={post.frontmatter.author}
+          created={post.frontmatter.dateCreated}
+          image={post.frontmatter.image}
+          tag={originalTag}
+        />
+      ))
+    }
   </Masonry>
 </BaseLayout>

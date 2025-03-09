@@ -1,51 +1,74 @@
 ---
-import BaseLayout from './Base.astro';
-import TagSingle from '../components/TagSingle.astro';
+import BaseLayout from "./Base.astro";
+import TagSingle from "../components/TagSingle.astro";
 const { frontmatter } = Astro.props;
 import { CONFIG } from "../config/config.js";
 
-if (CONFIG.BLOG_POST_SHOW_AUTHOR == false && CONFIG.BLOG_POST_SHOW_DATE == false) {
-    var POSTED_BY_ON = '';
+if (
+  CONFIG.BLOG_POST_SHOW_AUTHOR == false &&
+  CONFIG.BLOG_POST_SHOW_DATE == false
+) {
+  var posted_by_on = "";
 } else {
-    var POSTED_BY_ON = '<p class="byline mb-2">Posted';
-    if (CONFIG.BLOG_POST_SHOW_AUTHOR == true) {POSTED_BY_ON += ' by ' + frontmatter.author;}
-    if (CONFIG.BLOG_POST_SHOW_DATE == true) {POSTED_BY_ON += ' on ' + frontmatter.dateCreated.toString().slice(0,10);}
-    POSTED_BY_ON += '</p>';
+  var posted_by_on = '<p class="byline mb-2">Posted';
+  if (CONFIG.BLOG_POST_SHOW_AUTHOR == true) {
+    posted_by_on += " by " + frontmatter.author;
+  }
+  if (CONFIG.BLOG_POST_SHOW_DATE == true) {
+    posted_by_on += " on " + frontmatter.dateCreated.toString().slice(0, 10);
+  }
+  posted_by_on += "</p>";
 }
 
 if (frontmatter.image) {
-    if (frontmatter.image.includes('http')) {
-        var IMGPATH:string = frontmatter.image;
-    } else {
-        var IMGPATH:string = '/images/' + frontmatter.image;
-    }
-    var POST_IMAGE = '<img src="' + IMGPATH + '" alt="' + frontmatter.title + '" class="--ml-6 mr-6 w-full h-96 object-cover object-center mb-8">';
+  if (frontmatter.image.includes("http")) {
+    var img_path: string = frontmatter.image;
+  } else {
+    var img_path: string = "/images/" + frontmatter.image;
+  }
+  var post_image =
+    '<img src="' +
+    img_path +
+    '" alt="' +
+    frontmatter.title +
+    '" class="--ml-6 mr-6 w-full h-96 object-cover object-center mb-8">';
 } else {
-    var POST_IMAGE = '';
-    var IMGPATH = '';
+  var post_image = "";
+  var img_path = "";
 }
+
+// If no description is provided, use the title as the description
 if (frontmatter.description) {
-    var DESCRIPTION = frontmatter.description;
+  var page_description = frontmatter.description;
 } else {
-    var DESCRIPTION = frontmatter.title;
+  var page_description = frontmatter.title;
 }
-const pageTitle = frontmatter.title+" | "+CONFIG.TITLE;
-const pageURL = CONFIG.URL+frontmatter.url;
+const page_title = frontmatter.title + " | " + CONFIG.TITLE;
+const page_url = CONFIG.URL + frontmatter.url;
 ---
-<BaseLayout pageTitle={pageTitle} pageDescription={DESCRIPTION} pageURL={pageURL} meta_type="article" meta_image={IMGPATH}>
-  <Fragment set:html={POST_IMAGE} />
+
+<BaseLayout
+  page_title={page_title}
+  page_description={page_description}
+  page_url={page_url}
+  meta_type="article"
+  meta_image={img_path}
+>
+  <Fragment set:html={post_image} />
   <div id="meta_content" class="max-w-[65ch]">
     <h1 class="text-4xl font-bold max-w-[65ch]">{frontmatter.title}</h1>
-    <Fragment set:html={POSTED_BY_ON} />
+    <Fragment set:html={posted_by_on} />
     <div class="tags mb-8">
-      {frontmatter.tags.map((tag: string) => (
-        <TagSingle
-          label={tag}
-          url={`/tags/${tag.replace(/\s+/g, '-')}`}
-          count={0}
-          display_count={false}
-        />
-      ))}
+      {
+        frontmatter.tags.map((tag: string) => (
+          <TagSingle
+            label={tag}
+            url={`/tags/${tag.replace(/\s+/g, "-")}`}
+            count={0}
+            display_count={false}
+          />
+        ))
+      }
     </div>
   </div>
   <article class="prose mt-2 prose-headings:-my-2 prose-h2:mb-2">

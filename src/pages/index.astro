@@ -14,10 +14,10 @@ if (count == 1) {
   var break_two = 2;
 }
 
-const pageTitle = CONFIG.TITLE+" - "+CONFIG.DESCRIPTION;
-const pageURL = CONFIG.URL;
+const page_title = CONFIG.TITLE+" - "+CONFIG.DESCRIPTION;
+const page_url = CONFIG.URL;
 ---
-<BaseLayout pageTitle={pageTitle} pageDescription={CONFIG.DESCRIPTION} pageURL={pageURL}>
+<BaseLayout page_title={page_title} page_description={CONFIG.DESCRIPTION} page_url={page_url}>
   <Masonry breakpointCols={{default: break_two, 1224: 1}}, class="flex gap-6">
     {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} tags={post.frontmatter.tags} post={post} image={post.frontmatter.image} tag=null author={post.frontmatter.author} created={post.frontmatter.dateCreated} />)}
   </Masonry>
