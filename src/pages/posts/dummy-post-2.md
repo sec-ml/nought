@@ -2,7 +2,7 @@
 layout: ../../layouts/PostLayout.astro
 title: Another Dummy Post
 author: ml
-dateCreated: 2025-02-17
+dateCreated: 2025-02-21
 dateModified: 
 draft: true
 image:
