@@ -38,15 +38,15 @@ if (count == 1) {
   var break_two = 2;
 }
 
-const pageTitle = originalTag + " | " + CONFIG.TITLE;
-const DESCRIPTION = "Posts tagged with '" + originalTag + "'";
-const pageURL = CONFIG.URL + "/tags/" + originalTag.replace(/\s+/g, "-");
+const page_title = originalTag + " | " + CONFIG.TITLE;
+const page_description = "Posts tagged with '" + originalTag + "'";
+const page_url = CONFIG.URL + "/tags/" + originalTag.replace(/\s+/g, "-");
 ---
 
 <BaseLayout
-  pageTitle={pageTitle}
-  pageDescription={DESCRIPTION}
-  pageURL={pageURL}
+  page_title={page_title}
+  page_description={page_description}
+  page_url={page_url}
 >
   <Masonry breakpointCols={{ default: break_two, 1224: 1 }} , class="gap-6">
     <div class="boxed border-2 mb-6 border-grey-900 p-4">
