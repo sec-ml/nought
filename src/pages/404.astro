@@ -1,9 +1,15 @@
 ---
-import BaseLayout from '../layouts/Base.astro';
+import BaseLayout from "../layouts/Base.astro";
 const pageTitle = "404 - Page Not Found";
 ---
-<BaseLayout pageTitle={pageTitle} pageDescription="Oh dear. We can't find the page you're looking for.">
 
+<BaseLayout
+  pageTitle={pageTitle}
+  pageDescription="Oh dear. We can't find the page you're looking for."
+>
   <h1 class="text-4xl font-bold max-w-[65ch] mb-4">404 - Page Not Found</h1>
-  <p class="byline mb-2 max-w-[65ch]">This is <i><strong>super</strong></i> embarrassing, but we've misplaced whatever great post was supposed to be here.</p>
+  <p class="byline mb-2 max-w-[65ch]">
+    This is <i><strong>super</strong></i> embarrassing, but we've misplaced whatever
+    great post was supposed to be here.
+  </p>
 </BaseLayout>

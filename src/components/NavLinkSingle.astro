@@ -6,9 +6,12 @@ interface Props {
 
 const { label, url } = Astro.props;
 ---
+
 <div class="flex">
   <a href={url.toString()} class="md:w-auto w-full">
-    <button class="boxed cursor-auto rounded-btn shadow-[2px_2px_0px_0px] hover:shadow-[0px_0px_0px_0px] shadow-primary hover:shadow-accent transition-shadow font-bold w-full md:w-auto shadow-solid-primary px-2 pb-1 pt-1 mt-2 border-1">
+    <button
+      class="boxed cursor-auto rounded-btn shadow-[2px_2px_0px_0px] hover:shadow-[0px_0px_0px_0px] shadow-primary hover:shadow-accent transition-shadow font-bold w-full md:w-auto shadow-solid-primary px-2 pb-1 pt-1 mt-2 border-1"
+    >
       {label}
     </button>
   </a>

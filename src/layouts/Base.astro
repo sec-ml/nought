@@ -1,89 +1,97 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import Metadata from '../components/Metadata.astro';
-const { pageTitle, pageDescription, pageURL, meta_type, meta_image } = Astro.props;
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Metadata from "../components/Metadata.astro";
+const { pageTitle, pageDescription, pageURL, meta_type, meta_image } =
+  Astro.props;
 import { CONFIG } from "../config/config.js";
 import "../styles/global.css";
 import "../config/custom.css";
 ---
+
 <html lang="en">
-	<head>
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="preload" href="/fonts/otto.woff2" as="font" type="font/woff2">
-		<meta name="viewport" content="width=device-width" />
-		<Metadata meta_type={meta_type} meta_title={pageTitle} meta_description={pageDescription} meta_url={pageURL} meta_image={meta_image} meta_sitename={CONFIG.TITLE} />
-	</head>
-	<body class="relative bg-gray-100 min-h-screen flex flex-col">
-		<Header />
-		<main id="mainContent" class="flex-grow md:ml-64 p-6">
-        <div class="max-w-7xl"><slot /></div>
-		</main>
-		<Footer />
-	</body>
- <script>
-	const sidebar = document.getElementById('sidebar');
-	const hamburger = document.getElementById('hamburger');
-	const logoMain = document.getElementById('logoMain');
-	const logo = document.getElementById('logo');
+  <head>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/otto.woff2" as="font" type="font/woff2" />
+    <meta name="viewport" content="width=device-width" />
+    <Metadata
+      meta_type={meta_type}
+      meta_title={pageTitle}
+      meta_description={pageDescription}
+      meta_url={pageURL}
+      meta_image={meta_image}
+      meta_sitename={CONFIG.TITLE}
+    />
+  </head>
+  <body class="relative bg-gray-100 min-h-screen flex flex-col">
+    <Header />
+    <main id="mainContent" class="flex-grow md:ml-64 p-6">
+      <div class="max-w-7xl"><slot /></div>
+    </main>
+    <Footer />
+  </body><script>
+    const sidebar = document.getElementById("sidebar");
+    const hamburger = document.getElementById("hamburger");
+    const logoMain = document.getElementById("logoMain");
+    const logo = document.getElementById("logo");
 
-	// Toggle the sidebar's visibility and update hamburger position.
-	function toggleSidebar() {
-	  sidebar.classList.toggle('-translate-x-full');
-	  if (sidebar.classList.contains('-translate-x-full')) {
-		// Sidebar is closed
-		logoMain.classList.remove('opacity-0');
-		logoMain.classList.add('opacity-100');
-		logo.classList.remove('opacity-100');
-		hamburger.classList.add('absolute');
-		hamburger.classList.remove('fixed');
-		hamburger.classList.remove('border-white');
-		hamburger.classList.add('border-black');
-		hamburger.classList.remove('shadow-white');
-		hamburger.classList.add('shadow-black');
-		hamburger.classList.remove('text-white');
-		hamburger.classList.add('text-black');
+    // Toggle the sidebar's visibility and update hamburger position.
+    function toggleSidebar() {
+      sidebar.classList.toggle("-translate-x-full");
+      if (sidebar.classList.contains("-translate-x-full")) {
+        // Sidebar is closed
+        logoMain.classList.remove("opacity-0");
+        logoMain.classList.add("opacity-100");
+        logo.classList.remove("opacity-100");
+        hamburger.classList.add("absolute");
+        hamburger.classList.remove("fixed");
+        hamburger.classList.remove("border-white");
+        hamburger.classList.add("border-black");
+        hamburger.classList.remove("shadow-white");
+        hamburger.classList.add("shadow-black");
+        hamburger.classList.remove("text-white");
+        hamburger.classList.add("text-black");
+      } else {
+        // Sidebar is open
+        logoMain.classList.add("opacity-0");
+        logo.classList.remove("opacity-0");
+        logoMain.classList.remove("opacity-100");
+        logo.classList.add("opacity-100");
+        hamburger.classList.add("fixed");
+        hamburger.classList.remove("absolute");
+        hamburger.classList.remove("border-black");
+        hamburger.classList.add("border-white");
+        hamburger.classList.remove("shadow-black");
+        hamburger.classList.add("shadow-white");
+        hamburger.classList.remove("text-black");
+        hamburger.classList.add("text-white");
+      }
+    }
 
-		 
-	  } else {
-		// Sidebar is open
-		logoMain.classList.add('opacity-0');
-		logo.classList.remove('opacity-0');
-		logoMain.classList.remove('opacity-100');
-		logo.classList.add('opacity-100');
-		hamburger.classList.add('fixed');
-		hamburger.classList.remove('absolute');
-		hamburger.classList.remove('border-black');
-		hamburger.classList.add('border-white');
-		hamburger.classList.remove('shadow-black');
-		hamburger.classList.add('shadow-white');
-		hamburger.classList.remove('text-black');
-		hamburger.classList.add('text-white');
-		
-	  }
-	}
+    // Toggle sidebar when clicking the hamburger.
+    hamburger.addEventListener("click", (e) => {
+      toggleSidebar();
+      // Prevent click from bubbling up to the document.
+      e.stopPropagation();
+    });
 
-	// Toggle sidebar when clicking the hamburger.
-	hamburger.addEventListener('click', (e) => {
-	  toggleSidebar();
-	  // Prevent click from bubbling up to the document.
-	  e.stopPropagation();
-	});
+    // Prevent clicks within the sidebar from bubbling up.
+    sidebar.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
 
-	// Prevent clicks within the sidebar from bubbling up.
-	sidebar.addEventListener('click', (e) => {
-	  e.stopPropagation();
-	});
-
-	// When clicking anywhere in the document on mobile, close the sidebar.
-	document.addEventListener('click', (e) => {
-	  if (window.innerWidth < 768) {
-		if (!sidebar.classList.contains('-translate-x-full')) {
-		  if (!e.target.closest('#sidebar') && !e.target.closest('#hamburger')) {
-			toggleSidebar();
-		  }
-		}
-	  }
-	});
+    // When clicking anywhere in the document on mobile, close the sidebar.
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth < 768) {
+        if (!sidebar.classList.contains("-translate-x-full")) {
+          if (
+            !e.target.closest("#sidebar") &&
+            !e.target.closest("#hamburger")
+          ) {
+            toggleSidebar();
+          }
+        }
+      }
+    });
   </script>
 </html>
