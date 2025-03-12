@@ -4,6 +4,7 @@ export const CONFIG = {
     TITLE: 'Nought',
     LOGO_TEXT: 'nought.', // IF DIFFERENT FROM TITLE
     DESCRIPTION: 'An Astro 5 starter with Tailwind CSS',
+    DEFAULT_AUTHOR: 'ml',
     POSTS_DIR: 'src/dummy_posts', // RELATIVE TO PROJECT DIRECTORY    
 
     // DESCRIPTION_SIDEBAR defaults to DESCRIPTION if not set. Set to false for no sidebar description. Can contain HTML.
