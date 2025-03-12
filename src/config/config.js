@@ -4,6 +4,7 @@ export const CONFIG = {
     TITLE: 'Nought',
     LOGO_TEXT: 'nought.', // IF DIFFERENT FROM TITLE
     DESCRIPTION: 'An Astro 5 starter with Tailwind CSS',
+    POSTS_DIR: 'src/dummy_posts', // RELATIVE TO PROJECT DIRECTORY    
 
     // DESCRIPTION_SIDEBAR defaults to DESCRIPTION if not set. Set to false for no sidebar description. Can contain HTML.
     // DESCRIPTION_SIDEBAR: false,//Can contain HTML, e.g. '<h2>An Astro 5 starter with Tailwind CSS. <a href="https://github.com/sec-ml/nought">More info</a>.</h2>',
@@ -22,7 +23,7 @@ export const CONFIG = {
 
     NAV_LINKS: [
         { "label": "Home", "url": "/", "suppress": false },
-        { "label": "Styling Examples", "url": "/posts/styling", "suppress": false },
+        { "label": "Styling Examples", "url": "/styling-examples", "suppress": false },
         { "label": "Theme Repo", "url": "https://github.com/sec-ml/nought", "suppress": false }
       ],
 
