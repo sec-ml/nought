@@ -1,11 +1,14 @@
 ---
+import { getCollection } from "astro:content";
 import { Masonry } from 'astro-masonry';
 import BaseLayout from '../layouts/Base.astro';
 import BlogPost from '../components/BlogPost.astro';
 import { CONFIG } from "../config/config.js";
-const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
 
-allPosts.sort((a:any, b:any) => Date.parse(b.frontmatter.dateCreated) - Date.parse(a.frontmatter.dateCreated));
+const allPosts = await getCollection("blog");
+
+allPosts.sort((a:any, b:any) => Date.parse(b.data.dateCreated) - Date.parse(a.data.dateCreated));
+
 const count = allPosts.length;
 
 if (count == 1) {
@@ -19,6 +22,6 @@ const page_url = CONFIG.URL;
 ---
 <BaseLayout page_title={page_title} page_description={CONFIG.DESCRIPTION} page_url={page_url}>
   <Masonry breakpointCols={{default: break_two, 1224: 1}}, class="flex gap-6">
-    {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} tags={post.frontmatter.tags} post={post} image={post.frontmatter.image} tag=null author={post.frontmatter.author} created={post.frontmatter.dateCreated} />)}
+    {allPosts.map((post: any) => <BlogPost url={"/" + post.data.slug} title={post.data.title} tags={post.data.tags} post={post} image={post.data.image} tag=null author={post.data.author} created={post.data.dateCreated} />)}
   </Masonry>
 </BaseLayout>
