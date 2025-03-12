@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: Lorem Postum
 author: ml
 dateCreated: 2025-02-20
