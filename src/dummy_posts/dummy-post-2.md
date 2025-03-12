@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: Another Dummy Post
 author: ml
 dateCreated: 2025-02-21

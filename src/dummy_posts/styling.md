@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: Styling Examples
 author: ml
 dateCreated: 2025-02-28
