@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/PostLayout.astro
 title: More Nonsense Content
 author: ml
 dateCreated: 2025-02-18
