@@ -1,26 +1,24 @@
 ---
+import { getCollection } from "astro:content";
 import { Masonry } from "astro-masonry";
 import BaseLayout from "../../layouts/Base.astro";
 import BlogPost from "../../components/BlogPost.astro";
 import { CONFIG } from "../../config/config.js";
 
 export async function getStaticPaths() {
-  const allPosts = Object.values(
-    import.meta.glob("../posts/*.md", { eager: true })
-  );
+  const allPosts = await getCollection("blog");
   allPosts.sort(
     (a: any, b: any) =>
-      Date.parse(b.frontmatter.dateCreated) -
-      Date.parse(a.frontmatter.dateCreated)
+      Date.parse(b.data.dateCreated) - Date.parse(a.data.dateCreated)
   );
 
   const uniqueTags = [
-    ...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat()),
+    ...new Set(allPosts.map((post: any) => post.data.tags).flat()),
   ];
 
   return uniqueTags.map((tag) => {
     const filteredPosts = allPosts.filter((post: any) =>
-      post.frontmatter.tags.includes(tag)
+      post.data.tags.includes(tag)
     );
     const postQty = filteredPosts.length;
     return {
@@ -57,13 +55,13 @@ const page_url = CONFIG.URL + "/tags/" + originalTag.replace(/\s+/g, "-");
     {
       posts.map((post: any) => (
         <BlogPost
-          url={post.url}
-          title={post.frontmatter.title}
-          tags={post.frontmatter.tags}
+          url={"/" + post.data.slug}
+          title={post.data.title}
+          tags={post.data.tags}
           post={post}
-          author={post.frontmatter.author}
-          created={post.frontmatter.dateCreated}
-          image={post.frontmatter.image}
+          author={post.data.author}
+          created={post.data.dateCreated}
+          image={post.data.image}
           tag={originalTag}
         />
       ))
