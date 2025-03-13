@@ -3,7 +3,7 @@ title: Dummy Post 6
 author: ml
 dateCreated: 2025-02-17
 dateModified:
-draft: true
+draft: false
 image: https://images.unsplash.com/photo-1740568439301-1c1736a8ec69?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
 slug: dummy-post-6
 tags:

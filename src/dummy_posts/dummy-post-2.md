@@ -3,7 +3,7 @@ title: Another Dummy Post
 author: ml
 dateCreated: 2025-02-21
 dateModified:
-draft: true
+draft: false
 image:
 slug: dummy-post-2
 tags:

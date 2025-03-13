@@ -6,7 +6,9 @@ import BlogPost from "../../components/BlogPost.astro";
 import { CONFIG } from "../../config/config.js";
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection("blog");
+  const allPosts = (await getCollection("blog")).filter((post) =>
+    import.meta.env.PROD ? post.data.draft !== true : true
+  );
   allPosts.sort(
     (a: any, b: any) =>
       Date.parse(b.data.dateCreated) - Date.parse(a.data.dateCreated)
