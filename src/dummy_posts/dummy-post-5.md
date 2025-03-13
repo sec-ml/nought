@@ -3,7 +3,7 @@ title: Lorem Postum
 author: ml
 dateCreated: 2025-02-20
 dateModified:
-draft: true
+draft: false
 image: https://images.unsplash.com/photo-1738253145888-e8f1e20ab05b?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
 slug: dummy-post-5
 tags:
