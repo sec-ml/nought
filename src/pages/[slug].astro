@@ -3,7 +3,9 @@ import { getCollection, render } from "astro:content";
 import PostLayout from "../layouts/PostLayout.astro";
 
 export async function getStaticPaths() {
-  let posts = await getCollection("blog");
+  let posts = (await getCollection("blog")).filter((post) =>
+    import.meta.env.PROD ? post.data.draft !== true : true
+  );
 
   return posts.map((post) => {
     return {

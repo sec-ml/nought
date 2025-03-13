@@ -5,7 +5,9 @@ import BaseLayout from '../layouts/Base.astro';
 import BlogPost from '../components/BlogPost.astro';
 import { CONFIG } from "../config/config.js";
 
-const allPosts = await getCollection("blog");
+const allPosts = (await getCollection("blog"))
+.filter((post) => import.meta.env.PROD ? post.data.draft !== true : true);
+// https://johndalesandro.com/blog/astro-manage-draft-and-published-post-statuses-by-adding-a-content-collection-schema-property/
 
 allPosts.sort((a:any, b:any) => Date.parse(b.data.dateCreated) - Date.parse(a.data.dateCreated));
 
