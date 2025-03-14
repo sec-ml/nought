@@ -1,9 +1,14 @@
 ---
+import PaginateNav from '../components/PaginateNav.astro';
 import { getCollection } from "astro:content";
 import { Masonry } from 'astro-masonry';
 import BaseLayout from '../layouts/Base.astro';
 import BlogPost from '../components/BlogPost.astro';
 import { CONFIG } from "../config/config.js";
+import { paginate } from "../utils/paginate.js";
+
+let posts_per_page =
+    CONFIG.PAGINATION_ITEMS_PER_PAGE ? CONFIG.PAGINATION_ITEMS_PER_PAGE : 1000;
 
 const allPosts = (await getCollection("blog"))
 .filter((post) => import.meta.env.PROD ? post.data.draft !== true : true);
@@ -12,6 +17,9 @@ const allPosts = (await getCollection("blog"))
 allPosts.sort((a:any, b:any) => Date.parse(b.data.dateCreated) - Date.parse(a.data.dateCreated));
 
 const count = allPosts.length;
+const current_page = 1;
+const total_pages = Math.ceil(count / posts_per_page);
+const paginated_posts = paginate(allPosts, posts_per_page, current_page);
 
 const break_two = count == 1 ? 1 : 2;
 
@@ -20,6 +28,11 @@ const page_url = CONFIG.URL;
 ---
 <BaseLayout page_title={page_title} page_description={CONFIG.DESCRIPTION} page_url={page_url}>
   <Masonry breakpointCols={{default: break_two, 1224: 1}}, class="flex gap-6">
-    {allPosts.map((post: any) => <BlogPost url={"/" + post.data.slug} title={post.data.title} tags={post.data.tags} post={post} image={post.data.image} tag=null author={post.data.author} created={post.data.dateCreated} />)}
+    {paginated_posts.map((post: any) => <BlogPost url={"/" + post.data.slug} title={post.data.title} tags={post.data.tags} post={post} image={post.data.image} tag=null author={post.data.author} created={post.data.dateCreated} />)}
   </Masonry>
+  
+    {total_pages > 1 && (
+    <PaginateNav current_page={current_page} total_pages={total_pages} />
+    )}
+  
 </BaseLayout>
