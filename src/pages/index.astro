@@ -13,11 +13,7 @@ allPosts.sort((a:any, b:any) => Date.parse(b.data.dateCreated) - Date.parse(a.da
 
 const count = allPosts.length;
 
-if (count == 1) {
-  var break_two = 1;
-} else {
-  var break_two = 2;
-}
+const break_two = count == 1 ? 1 : 2;
 
 const page_title = CONFIG.TITLE+" - "+CONFIG.DESCRIPTION;
 const page_url = CONFIG.URL;
