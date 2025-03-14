@@ -1,0 +1,59 @@
+---
+import { CONFIG } from "../config/config.js";
+
+interface Props {
+  current_page: number;
+  total_pages: number;
+}
+
+const { current_page, total_pages } = Astro.props;
+
+let next_page: string;
+if (current_page < total_pages) {
+  next_page = String(current_page + 1);
+} else {
+  next_page = "";
+}
+
+// Page 2 is the one page where previous page is not current_page - 1. It's the root
+let prev_page: string;
+if (current_page == 2) {
+  prev_page = "/";
+} else if (current_page > 2) {
+  prev_page = String(current_page - 1);
+} else {
+  prev_page = "";
+}
+
+let container_class: string;
+if (prev_page && next_page) {
+  container_class = "flex justify-between";
+} else if (prev_page) {
+  container_class = "flex justify-start";
+} else if (next_page) {
+  container_class = "flex justify-end";
+} else {
+  container_class = "";
+}
+---
+
+<div class={`${container_class} boxed border-2 mb-6 border-grey-900`}>
+  {
+    !!prev_page && (
+      <div>
+        <a href={prev_page} class="flex px-4 py-2 text-xl newer-posts">
+          {CONFIG.PAGINATION_NEWER_POSTS_LABEL}
+        </a>
+      </div>
+    )
+  }
+  {
+    !!next_page && (
+      <div>
+        <a href={next_page} class="flex px-4 py-2 text-xl older-posts">
+          {CONFIG.PAGINATION_OLDER_POSTS_LABEL}
+        </a>
+      </div>
+    )
+  }
+</div>
