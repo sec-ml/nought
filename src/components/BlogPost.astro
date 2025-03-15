@@ -1,7 +1,9 @@
 ---
+import { configLoader } from "../utils/configLoader";
+const CONFIG = await configLoader();
+
 const { title, url, tags, post, image, tag, author, created, excerpt } =
   Astro.props;
-import { CONFIG } from "../config/config.js";
 
 import PostExcerpt from "@igor.dvlpr/astro-post-excerpt";
 if (image) {

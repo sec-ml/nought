@@ -1,6 +1,8 @@
+import { configLoader } from "./utils/configLoader";
+const CONFIG = await configLoader();
+
 import { z, defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { CONFIG } from './config/config.js';
 
 var author = 
     CONFIG.DEFAULT_AUTHOR ? CONFIG.DEFAULT_AUTHOR : '';
