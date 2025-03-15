@@ -21,6 +21,7 @@ const blog = defineCollection({
     slug: z.string(),
     tags: z.array(z.string()),
     redirects: z.array(z.string()).optional().nullable(),
+    excerpt: z.string().optional().nullable(),
   }),
 });
 

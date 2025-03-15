@@ -1,5 +1,6 @@
 ---
-const { title, url, tags, post, image, tag, author, created } = Astro.props;
+const { title, url, tags, post, image, tag, author, created, excerpt } =
+  Astro.props;
 import { CONFIG } from "../config/config.js";
 
 import PostExcerpt from "@igor.dvlpr/astro-post-excerpt";
@@ -44,7 +45,10 @@ if (CONFIG.POST_LISTING_SHOW_AUTHOR || CONFIG.POST_LISTING_SHOW_DATE) {
     <a class="" href={url}><h1 class="text-3xl mb-3">{title}</h1></a>
     <Fragment set:html={POSTED_BY_ON} />
     <p class="post-excerpt">
-      <PostExcerpt post={post} words={40} addEllipsis={true} />
+      {
+        // Check for excerpt. If null or not set, fallback to PostExcerpt.
+        excerpt || <PostExcerpt post={post} words={40} addEllipsis={true} />
+      }
     </p>
     <div class="mt-4">
       {
