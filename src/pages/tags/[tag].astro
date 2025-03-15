@@ -64,6 +64,7 @@ const page_url = CONFIG.URL + "/tags/" + originalTag.replace(/\s+/g, "-");
           author={post.data.author}
           created={post.data.dateCreated}
           image={post.data.image}
+          excerpt={post.data.excerpt}
           tag={originalTag}
         />
       ))
