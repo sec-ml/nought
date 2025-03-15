@@ -11,6 +11,7 @@ tags:
   - Draft Post
   - Dummy Content
 redirects:
+excerpt: This post is a draft, so will only show up when running in dev mode. It's been left here as an example.
 ---
 
 # Draft Mode Post
