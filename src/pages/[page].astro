@@ -1,6 +1,6 @@
 ---
 import { configLoader } from '../utils/configLoader';
-const CONFIG = await configLoader();
+// const CONFIG definition moved to getStaticPaths(), then passed to each static page as prop
 
 import PaginateNav from "../components/PaginateNav.astro";
 import { getCollection } from "astro:content";
@@ -10,6 +10,7 @@ import BlogPost from '../components/BlogPost.astro';
 import { paginate } from "../utils/paginate.js";
 
 export async function getStaticPaths() {
+  const CONFIG = await configLoader();
   const allPosts = (await getCollection("blog"))
     .filter((post) => import.meta.env.PROD ? post.data.draft !== true : true);
     
@@ -22,12 +23,12 @@ export async function getStaticPaths() {
   // becomes the page number in the URL).
   return Array.from({ length: total_pages - 1 }, (_, i) => ({
     params: { page: (i + 2).toString() },
-    props: { posts_per_page, total_pages, allPosts },
+    props: { CONFIG, posts_per_page, total_pages, allPosts },
   }));
 }
 
 const { page } = Astro.params;
-const { posts_per_page, total_pages, allPosts } = Astro.props;
+const { CONFIG, posts_per_page, total_pages, allPosts } = Astro.props;
 
 allPosts.sort((a:any, b:any) => Date.parse(b.data.dateCreated) - Date.parse(a.data.dateCreated));
 
