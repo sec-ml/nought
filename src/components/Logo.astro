@@ -1,5 +1,6 @@
 ---
-import { CONFIG } from "../config/config.js";
+import { configLoader } from "../utils/configLoader";
+const CONFIG = await configLoader();
 
 const LOGO_TEXT = CONFIG.LOGO_TEXT ?? CONFIG.TITLE;
 ---

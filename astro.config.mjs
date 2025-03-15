@@ -1,10 +1,10 @@
 // @ts-check
+import { configLoader } from "./src/utils/configLoader";
+const CONFIG = await configLoader();
+
 import { defineConfig } from 'astro/config';
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
-
-import { CONFIG } from "./src/config/config.js";
-
 import robotsTxt from "astro-robots-txt";
 
 // https://astro.build/config

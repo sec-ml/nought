@@ -1,5 +1,7 @@
 ---
-import { CONFIG } from "../config/config.js";
+import { configLoader } from "../utils/configLoader";
+const CONFIG = await configLoader();
+
 const {
   meta_type,
   meta_title,
