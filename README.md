@@ -8,6 +8,12 @@ cd nought
 npm install
 ```
 
+The example config (`config.example.js`) will load if `config.js` is not found. Copy the config to get started.
+
+```sh
+cp src/config/config.example.js src/config/config.js
+```
+
 ## 🧞 Commands
 
 All commands are run from the root of the project, from a terminal:
