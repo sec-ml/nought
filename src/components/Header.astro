@@ -1,8 +1,10 @@
 ---
+import { configLoader } from "../utils/configLoader";
+const CONFIG = await configLoader();
+
 import Navigation from "./Nav.astro";
 import Logo from "./Logo.astro";
 
-import { CONFIG } from "../config/config.js";
 let DESCRIPTION_SIDEBAR = "";
 DESCRIPTION_SIDEBAR = CONFIG.DESCRIPTION_SIDEBAR ?? CONFIG.DESCRIPTION;
 if (typeof CONFIG.DESCRIPTION_SIDEBAR === "undefined") {

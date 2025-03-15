@@ -1,5 +1,6 @@
 ---
-import { CONFIG } from "../config/config.js";
+import { configLoader } from "../utils/configLoader";
+const CONFIG = await configLoader();
 
 interface Props {
   current_page: number;

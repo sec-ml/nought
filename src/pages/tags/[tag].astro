@@ -1,9 +1,11 @@
 ---
+import { configLoader } from "../../utils/configLoader";
+const CONFIG = await configLoader();
+
 import { getCollection } from "astro:content";
 import { Masonry } from "astro-masonry";
 import BaseLayout from "../../layouts/Base.astro";
 import BlogPost from "../../components/BlogPost.astro";
-import { CONFIG } from "../../config/config.js";
 
 export async function getStaticPaths() {
   const allPosts = (await getCollection("blog")).filter((post) =>
