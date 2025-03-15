@@ -1,10 +1,12 @@
 ---
+import { configLoader } from '../utils/configLoader';
+const CONFIG = await configLoader();
+
 import PaginateNav from '../components/PaginateNav.astro';
 import { getCollection } from "astro:content";
 import { Masonry } from 'astro-masonry';
 import BaseLayout from '../layouts/Base.astro';
 import BlogPost from '../components/BlogPost.astro';
-import { CONFIG } from "../config/config.js";
 import { paginate } from "../utils/paginate.js";
 
 let posts_per_page =

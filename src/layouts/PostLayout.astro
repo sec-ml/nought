@@ -1,8 +1,10 @@
 ---
+import { configLoader } from "../utils/configLoader";
+const CONFIG = await configLoader();
+
 import BaseLayout from "./Base.astro";
 import TagSingle from "../components/TagSingle.astro";
 const { data } = Astro.props;
-import { CONFIG } from "../config/config.js";
 
 if (
   CONFIG.BLOG_POST_SHOW_AUTHOR == false &&

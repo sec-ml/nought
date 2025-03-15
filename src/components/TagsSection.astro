@@ -1,6 +1,8 @@
 ---
+import { configLoader } from "../utils/configLoader";
+const CONFIG = await configLoader();
+
 import { getCollection } from "astro:content";
-import { CONFIG } from "../config/config.js";
 import TagSingle from "./TagSingle.astro";
 
 const SIDEBAR_TAGS_MIN_POST_QTY = CONFIG.SIDEBAR_TAGS_MIN_POST_QTY ?? 1;

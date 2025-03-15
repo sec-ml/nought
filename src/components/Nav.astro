@@ -1,6 +1,8 @@
 ---
+import { configLoader } from "../utils/configLoader";
+const CONFIG = await configLoader();
+
 import TagsSection from "./TagsSection.astro";
-import { CONFIG } from "../config/config.js";
 import NavLinkSingle from "./NavLinkSingle.astro";
 ---
 

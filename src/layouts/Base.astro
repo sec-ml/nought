@@ -1,10 +1,12 @@
 ---
+import { configLoader } from "../utils/configLoader";
+const CONFIG = await configLoader();
+
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Metadata from "../components/Metadata.astro";
 const { page_title, page_description, page_url, meta_type, meta_image } =
   Astro.props;
-import { CONFIG } from "../config/config.js";
 import "../styles/global.css";
 import "../config/custom.css";
 ---
