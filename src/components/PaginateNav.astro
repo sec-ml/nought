@@ -43,7 +43,7 @@ if (prev_page && next_page) {
     !!prev_page && (
       <div>
         <a href={prev_page} class="flex px-4 py-2 text-xl newer-posts">
-          {CONFIG.PAGINATION_NEWER_POSTS_LABEL}
+          <Fragment set:html={CONFIG.PAGINATION_NEWER_POSTS_LABEL} />
         </a>
       </div>
     )
@@ -52,7 +52,7 @@ if (prev_page && next_page) {
     !!next_page && (
       <div>
         <a href={next_page} class="flex px-4 py-2 text-xl older-posts">
-          {CONFIG.PAGINATION_OLDER_POSTS_LABEL}
+          <Fragment set:html={CONFIG.PAGINATION_OLDER_POSTS_LABEL} />
         </a>
       </div>
     )
