@@ -2,10 +2,10 @@
 import { configLoader } from "../utils/configLoader";
 const CONFIG = await configLoader();
 
-const YEAR = new Date().getFullYear();
+const year = new Date().getFullYear();
 const COPYRIGHT =
   CONFIG.COPYRIGHT ??
-  "© " + YEAR + " - " + CONFIG.TITLE + ". All rights reserved";
+  "© " + year + " - " + CONFIG.TITLE + ". All rights reserved";
 ---
 
 <footer class="bg-gray-200 text-center p-4 md:ml-64">

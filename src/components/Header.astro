@@ -5,13 +5,13 @@ const CONFIG = await configLoader();
 import Navigation from "./Nav.astro";
 import Logo from "./Logo.astro";
 
-let DESCRIPTION_SIDEBAR = "";
-DESCRIPTION_SIDEBAR = CONFIG.DESCRIPTION_SIDEBAR ?? CONFIG.DESCRIPTION;
+let sidebar_description_html_string = "";
+sidebar_description_html_string = CONFIG.DESCRIPTION_SIDEBAR ?? CONFIG.DESCRIPTION;
 if (typeof CONFIG.DESCRIPTION_SIDEBAR === "undefined") {
-  DESCRIPTION_SIDEBAR = "";
+  sidebar_description_html_string = "";
 } else {
-  DESCRIPTION_SIDEBAR =
-    '<div class="mt-2 p-3">' + DESCRIPTION_SIDEBAR + "</div>";
+  sidebar_description_html_string =
+    '<div class="mt-2 p-3">' + sidebar_description_html_string + "</div>";
 }
 ---
 
@@ -29,7 +29,7 @@ if (typeof CONFIG.DESCRIPTION_SIDEBAR === "undefined") {
     <Logo />
   </div>
 
-  <Fragment set:html={DESCRIPTION_SIDEBAR} />
+  <Fragment set:html={sidebar_description_html_string} />
 
   <Navigation />
 </nav>

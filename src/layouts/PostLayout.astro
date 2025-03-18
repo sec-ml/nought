@@ -6,44 +6,47 @@ import BaseLayout from "./Base.astro";
 import TagSingle from "../components/TagSingle.astro";
 const { data } = Astro.props;
 
+let byline_html_string: string;
 if (
   CONFIG.BLOG_POST_SHOW_AUTHOR == false &&
   CONFIG.BLOG_POST_SHOW_DATE == false
 ) {
-  var posted_by_on = "";
+  byline_html_string = "";
 } else {
-  var posted_by_on = '<p class="byline mb-2">Posted';
+  byline_html_string = '<p class="byline mb-2">Posted';
   if (CONFIG.BLOG_POST_SHOW_AUTHOR == true) {
-    posted_by_on += " by " + data.author;
+    byline_html_string += " by " + data.author;
   }
   if (CONFIG.BLOG_POST_SHOW_DATE == true) {
-    posted_by_on += " on " + data.dateCreated.toString().slice(0, 10);
+    byline_html_string += " on " + data.dateCreated.toString().slice(0, 10);
   }
-  posted_by_on += "</p>";
+  byline_html_string += "</p>";
 }
 
+let image_path: string;
 if (data.image) {
   if (data.image.includes("http")) {
-    var img_path: string = data.image;
+    image_path = data.image;
   } else {
-    var img_path: string = "/images/" + data.image;
+    image_path = "/images/" + data.image;
   }
   var post_image =
     '<img src="' +
-    img_path +
+    image_path +
     '" alt="' +
     data.title +
     '" class="--ml-6 mr-6 w-full h-96 object-cover object-center mb-8">';
 } else {
   var post_image = "";
-  var img_path = "";
+  image_path = "";
 }
 
 // If no description is provided, use the title as the description
+let page_description: string;
 if (data.description) {
-  var page_description = data.description;
+  page_description = data.description;
 } else {
-  var page_description = data.title;
+  page_description = data.title;
 }
 const page_title = data.title + " | " + CONFIG.TITLE;
 const page_url = CONFIG.URL + data.url;
@@ -54,12 +57,12 @@ const page_url = CONFIG.URL + data.url;
   page_description={page_description}
   page_url={page_url}
   meta_type="article"
-  meta_image={img_path}
+  meta_image={image_path}
 >
   <Fragment set:html={post_image} />
   <div id="meta_data" class="max-w-[65ch]">
     <h1 class="text-4xl font-bold max-w-[65ch]">{data.title}</h1>
-    <Fragment set:html={posted_by_on} />
+    <Fragment set:html={byline_html_string} />
     <div class="tags mb-8">
       {
         data.tags.map((tag: string) => (
