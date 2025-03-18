@@ -12,18 +12,18 @@ import { paginate } from "../utils/paginate.js";
 let posts_per_page =
     CONFIG.PAGINATION_ITEMS_PER_PAGE ? CONFIG.PAGINATION_ITEMS_PER_PAGE : 1000;
 
-const allPosts = (await getCollection("blog"))
+const blog_posts = (await getCollection("blog"))
 .filter((post) => import.meta.env.PROD ? post.data.draft !== true : true);
 // https://johndalesandro.com/blog/astro-manage-draft-and-published-post-statuses-by-adding-a-content-collection-schema-property/
 
-allPosts.sort((a:any, b:any) => Date.parse(b.data.dateCreated) - Date.parse(a.data.dateCreated));
+blog_posts.sort((a:any, b:any) => Date.parse(b.data.dateCreated) - Date.parse(a.data.dateCreated));
 
-const count = allPosts.length;
+const blog_posts_count = blog_posts.length;
 const current_page = 1;
-const total_pages = Math.ceil(count / posts_per_page);
-const paginated_posts = paginate(allPosts, posts_per_page, current_page);
+const total_pages = Math.ceil(blog_posts_count / posts_per_page);
+const paginated_posts = paginate(blog_posts, posts_per_page, current_page);
 
-const break_two = count == 1 ? 1 : 2;
+const break_two = blog_posts_count == 1 ? 1 : 2;
 
 const page_title = CONFIG.TITLE+" - "+CONFIG.DESCRIPTION;
 const page_url = CONFIG.URL;

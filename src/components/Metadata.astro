@@ -11,23 +11,26 @@ const {
   meta_sitename,
 } = Astro.props;
 
-var META_TYPE: string = meta_type ? meta_type : "website";
+const metadata_type: string = meta_type ? meta_type : "website";
 
+let OG_IMAGE: string;
+let TWIT_IMAGE: string;
 if (meta_image) {
-  var OG_IMAGE: string =
+  OG_IMAGE =
     '<meta property="og:image" content="' + meta_image + '" />';
-  var TWIT_IMAGE: string =
+  TWIT_IMAGE =
     '<meta name="twitter:card" content="summary_large_image" /> \
     <meta name="twitter:image" content="' +
     meta_image +
     '" />';
 } else {
-  var OG_IMAGE: string = "";
-  var TWIT_IMAGE: string = '<meta name="twitter:card" content="summary" /> ';
+  OG_IMAGE = "";
+  TWIT_IMAGE = '<meta name="twitter:card" content="summary" /> ';
 }
 
+let TWIT_META_BLOCK: string;
 if (CONFIG.SUPPORT_TWITTER_META) {
-  var TWIT_META_BLOCK: string =
+  TWIT_META_BLOCK =
     '<!-- Twitter Meta Tags --> \
 <meta name="twitter:title" content="' +
     meta_title +
@@ -38,7 +41,7 @@ if (CONFIG.SUPPORT_TWITTER_META) {
 ' +
     TWIT_IMAGE;
 } else {
-  var TWIT_META_BLOCK: string = "";
+  TWIT_META_BLOCK = "";
 }
 ---
 
@@ -51,7 +54,7 @@ if (CONFIG.SUPPORT_TWITTER_META) {
 <meta name="description" content={meta_description} />
 <title>{meta_title}</title>
 <!-- Open Graph -->
-<meta property="og:type" content={META_TYPE} />
+<meta property="og:type" content={metadata_type} />
 <meta property="og:title" content={meta_title} />
 <meta property="og:description" content={meta_description} />
 <Fragment set:html={OG_IMAGE} />
