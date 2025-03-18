@@ -5,29 +5,31 @@ const CONFIG = await configLoader();
 import { getCollection } from "astro:content";
 import TagSingle from "./TagSingle.astro";
 
+// when defining constants like this, should I use uppercase or lowercase?
 const SIDEBAR_TAGS_MIN_POST_QTY = CONFIG.SIDEBAR_TAGS_MIN_POST_QTY ?? 1;
 const SIDEBAR_TAGS_SUPPRESS = CONFIG.SIDEBAR_TAGS_SUPPRESS ?? [];
 const SIDEBAR_TAGS_SHOW_COUNT = CONFIG.SIDEBAR_TAGS_SHOW_COUNT ?? false;
 
-const allPosts = (await getCollection("blog")).filter((post) =>
+const blog_posts = (await getCollection("blog")).filter((post) =>
   import.meta.env.PROD ? post.data.draft !== true : true
 );
-let tagMeta: { [key: string]: { count: number } } = {};
 
-allPosts.forEach((post) => {
+let tag_meta: { [key: string]: { count: number } } = {};
+
+blog_posts.forEach((post) => {
   post.data.tags.forEach((tag: string) => {
-    if (tagMeta[tag]) {
-      tagMeta[tag].count++;
+    if (tag_meta[tag]) {
+      tag_meta[tag].count++;
     } else {
-      tagMeta[tag] = { count: 1 };
+      tag_meta[tag] = { count: 1 };
     }
   });
 });
 
 let tags = [];
-for (let tag in tagMeta) {
+for (let tag in tag_meta) {
   if (
-    tagMeta[tag].count >= SIDEBAR_TAGS_MIN_POST_QTY &&
+    tag_meta[tag].count >= SIDEBAR_TAGS_MIN_POST_QTY &&
     !SIDEBAR_TAGS_SUPPRESS.includes(tag)
   ) {
     tags.push(tag);
@@ -79,7 +81,7 @@ for (let tag in tagMeta) {
         <TagSingle
           label={tag}
           url={`/tags/${tag.replace(/\s+/g, "-")}`}
-          count={tagMeta[tag].count}
+          count={tag_meta[tag].count}
           display_count={SIDEBAR_TAGS_SHOW_COUNT}
         />
       ))

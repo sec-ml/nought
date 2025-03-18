@@ -9,9 +9,9 @@ import NavLinkSingle from "./NavLinkSingle.astro";
 <div class="m-3">
   <ul>
     {
-      CONFIG.NAV_LINKS.map((navlink) => {
-        const { label, url } = navlink;
-        if (!navlink.suppress) {
+      CONFIG.NAV_LINKS.map((nav_link: { suppress?: any; label: any; url: any; }) => {
+        const { label, url } = nav_link;
+        if (!nav_link.suppress) {
           return <NavLinkSingle url={url} label={label} />;
         }
       })
