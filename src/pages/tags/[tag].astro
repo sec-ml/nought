@@ -8,31 +8,31 @@ import BaseLayout from "../../layouts/Base.astro";
 import BlogPost from "../../components/BlogPost.astro";
 
 export async function getStaticPaths() {
-  const allPosts = (await getCollection("blog")).filter((post) =>
+  const blog_posts = (await getCollection("blog")).filter((post) =>
     import.meta.env.PROD ? post.data.draft !== true : true
   );
-  allPosts.sort(
+  blog_posts.sort(
     (a: any, b: any) =>
       Date.parse(b.data.dateCreated) - Date.parse(a.data.dateCreated)
   );
 
-  const uniqueTags = [
-    ...new Set(allPosts.map((post: any) => post.data.tags).flat()),
+  const unique_tags = [
+    ...new Set(blog_posts.map((post: any) => post.data.tags).flat()),
   ];
 
-  return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter((post: any) =>
+  return unique_tags.map((tag) => {
+    const filtered_blog_posts = blog_posts.filter((post: any) =>
       post.data.tags.includes(tag)
     );
-    const postQty = filteredPosts.length;
+    const postQty = filtered_blog_posts.length;
     return {
       params: { tag: tag.replace(/\s+/g, "-") },
-      props: { posts: filteredPosts, originalTag: tag, count: postQty },
+      props: { posts: filtered_blog_posts, original_tag: tag, count: postQty },
     };
   });
 }
 
-const { posts, originalTag, count } = Astro.props;
+const { posts, original_tag, count } = Astro.props;
 
 if (count == 1) {
   var break_two = 1;
@@ -40,9 +40,9 @@ if (count == 1) {
   var break_two = 2;
 }
 
-const page_title = originalTag + " | " + CONFIG.TITLE;
-const page_description = "Posts tagged with '" + originalTag + "'";
-const page_url = CONFIG.URL + "/tags/" + originalTag.replace(/\s+/g, "-");
+const page_title = original_tag + " | " + CONFIG.TITLE;
+const page_description = "Posts tagged with '" + original_tag + "'";
+const page_url = CONFIG.URL + "/tags/" + original_tag.replace(/\s+/g, "-");
 ---
 
 <BaseLayout
@@ -53,7 +53,7 @@ const page_url = CONFIG.URL + "/tags/" + originalTag.replace(/\s+/g, "-");
   <Masonry breakpointCols={{ default: break_two, 1224: 1 }} , class="gap-6">
     <div class="boxed border-2 mb-6 border-grey-900 p-4">
       <h1 class="text-4xl font-bold">
-        {count} post{count == 1 ? "" : "s"} tagged with <i>{originalTag}</i>
+        {count} post{count == 1 ? "" : "s"} tagged with <i>{original_tag}</i>
       </h1>
     </div>
     {
@@ -67,7 +67,8 @@ const page_url = CONFIG.URL + "/tags/" + originalTag.replace(/\s+/g, "-");
           created={post.data.dateCreated}
           image={post.data.image}
           excerpt={post.data.excerpt}
-          tag={originalTag}
+          // selected_tag, for lack of a better name, is the tag page that the user is currently viewing
+          selected_tag={original_tag}
         />
       ))
     }
