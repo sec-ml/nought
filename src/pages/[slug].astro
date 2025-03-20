@@ -2,10 +2,10 @@
 import { getCollection, render } from "astro:content";
 import PostLayout from "../layouts/PostLayout.astro";
 
+import { filterBlogPosts } from '../utils/filterBlogPosts';
+
 export async function getStaticPaths() {
-  let blog_posts = (await getCollection("blog")).filter((post) =>
-    import.meta.env.PROD ? post.data.draft !== true : true
-  );
+  const blog_posts = filterBlogPosts(await getCollection("blog"));
 
   return blog_posts.map((post) => {
     return {

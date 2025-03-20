@@ -2,6 +2,8 @@
 import { configLoader } from '../utils/configLoader';
 // const CONFIG definition moved to getStaticPaths(), then passed to each static page as prop
 
+import { filterBlogPosts } from '../utils/filterBlogPosts';
+
 import PaginateNav from "../components/PaginateNav.astro";
 import { getCollection } from "astro:content";
 import { Masonry } from 'astro-masonry';
@@ -11,8 +13,7 @@ import { paginate } from "../utils/paginate.js";
 
 export async function getStaticPaths() {
   const CONFIG = await configLoader();
-  const blog_posts = (await getCollection("blog"))
-    .filter((post) => import.meta.env.PROD ? post.data.draft !== true : true);
+  const blog_posts = filterBlogPosts(await getCollection("blog"));
     
   const posts_per_page =
     CONFIG.PAGINATION_ITEMS_PER_PAGE ? CONFIG.PAGINATION_ITEMS_PER_PAGE : 100000;
