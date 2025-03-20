@@ -2,6 +2,8 @@
 import { configLoader } from "../utils/configLoader";
 const CONFIG = await configLoader();
 
+import { filterBlogPosts } from '../utils/filterBlogPosts';
+
 import { getCollection } from "astro:content";
 import TagSingle from "./TagSingle.astro";
 
@@ -10,9 +12,7 @@ const SIDEBAR_TAGS_MIN_POST_QTY = CONFIG.SIDEBAR_TAGS_MIN_POST_QTY ?? 1;
 const SIDEBAR_TAGS_SUPPRESS = CONFIG.SIDEBAR_TAGS_SUPPRESS ?? [];
 const SIDEBAR_TAGS_SHOW_COUNT = CONFIG.SIDEBAR_TAGS_SHOW_COUNT ?? false;
 
-const blog_posts = (await getCollection("blog")).filter((post) =>
-  import.meta.env.PROD ? post.data.draft !== true : true
-);
+const blog_posts = filterBlogPosts(await getCollection("blog"));
 
 let tag_meta: { [key: string]: { count: number } } = {};
 
