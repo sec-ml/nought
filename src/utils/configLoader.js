@@ -1,9 +1,9 @@
+const configModules = import.meta.glob('../config/config*.js', { eager: true });
+
 export async function configLoader() {
-  try {
-    const config = await import('../config/config.js');
-    return config.CONFIG;
-  } catch (error) {
-    const exampleConfig = await import('../config/config.example.js');
-    return exampleConfig.CONFIG;
+  if ('../config/config.js' in configModules) {
+    return configModules['../config/config.js'].CONFIG;
+  } else {
+    return configModules['../config/config.example.js'].CONFIG;
   }
 }
