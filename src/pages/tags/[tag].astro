@@ -2,15 +2,16 @@
 import { configLoader } from "../../utils/configLoader";
 const CONFIG = await configLoader();
 
+import { filterBlogPosts } from '../../utils/filterBlogPosts';
+
 import { getCollection } from "astro:content";
 import { Masonry } from "astro-masonry";
 import BaseLayout from "../../layouts/Base.astro";
 import BlogPost from "../../components/BlogPost.astro";
 
 export async function getStaticPaths() {
-  const blog_posts = (await getCollection("blog")).filter((post) =>
-    import.meta.env.PROD ? post.data.draft !== true : true
-  );
+  const blog_posts = filterBlogPosts(await getCollection("blog"));
+  
   blog_posts.sort(
     (a: any, b: any) =>
       Date.parse(b.data.dateCreated) - Date.parse(a.data.dateCreated)

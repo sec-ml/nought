@@ -2,6 +2,8 @@
 import { configLoader } from '../utils/configLoader';
 const CONFIG = await configLoader();
 
+import { filterBlogPosts } from '../utils/filterBlogPosts';
+
 import PaginateNav from '../components/PaginateNav.astro';
 import { getCollection } from "astro:content";
 import { Masonry } from 'astro-masonry';
@@ -12,9 +14,7 @@ import { paginate } from "../utils/paginate.js";
 let posts_per_page =
     CONFIG.PAGINATION_ITEMS_PER_PAGE ? CONFIG.PAGINATION_ITEMS_PER_PAGE : 1000;
 
-const blog_posts = (await getCollection("blog"))
-.filter((post) => import.meta.env.PROD ? post.data.draft !== true : true);
-// https://johndalesandro.com/blog/astro-manage-draft-and-published-post-statuses-by-adding-a-content-collection-schema-property/
+const blog_posts = filterBlogPosts(await getCollection("blog"));
 
 blog_posts.sort((a:any, b:any) => Date.parse(b.data.dateCreated) - Date.parse(a.data.dateCreated));
 
