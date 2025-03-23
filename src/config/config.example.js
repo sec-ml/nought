@@ -11,7 +11,7 @@ export const CONFIG = {
     // DESCRIPTION_SIDEBAR: false,//Can contain HTML, e.g. '<h2>An Astro 5 starter with Tailwind CSS. <a href="https://github.com/sec-ml/nought">More info</a>.</h2>',
     DESCRIPTION_SIDEBAR: '<h2>An Astro 5 starter with Tailwind CSS. <a href="https://github.com/sec-ml/nought" style="text-decoration:underline;"><strong>More info</strong></a>.</h2>',
     
-    URL: 'https://example.com',
+    URL: 'https://nought.vercel.app', // URL OF SITE FOR METADATA, SITEMAP, ETC.
 
     // DEFAULT IF NOT SET: '© YEAR TITLE. All rights reserved. CAN CONTAIN HTML'
     COPYRIGHT: '© '+YEAR+' - Nought. All rights reserved. <a href="https://github.com/sec-ml/nought" style="text-decoration:underline;"><strong>More info</strong></a>',
