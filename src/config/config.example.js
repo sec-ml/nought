@@ -55,7 +55,7 @@ export const CONFIG = {
 
     // Making changes in astro.config.mjs will break config option, but might be required for more specific use cases.
     // See https://www.npmjs.com/package/astro-robots-txt#usage for more info.
-    ROBOTS_OVERRIDE: "User-agent: *\nDisallow: /\nSitemap: https://nought.vercel.app/sitemap-index.xml" // OVERRIDE FOR ROBOTS.TXT. DEFAULTS TO 'User-agent: *'
+    ROBOTS_OVERRIDE: "User-agent: *\nDisallow: /\nSitemap: https://nought.vercel.app/sitemap-index.xml"
 };
 
 
