@@ -13,5 +13,12 @@ export default defineConfig({
       plugins: [tailwindcss()],
     },
     site: CONFIG.URL,
-    integrations: [sitemap(), robotsTxt()],
+    integrations: [
+      sitemap(), 
+      robotsTxt({
+        transform(content) {
+          return `${CONFIG.ROBOTS_OVERRIDE || content}`;        
+        },
+      }),
+    ],
   });
