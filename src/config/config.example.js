@@ -45,4 +45,17 @@ export const CONFIG = {
 
     SCHEDULED_POSTS: true, // true/1 or false/0. POSTS WITH FUTURE dateCreated WILL BE HIDDEN UNTIL PUBLISH DATE
     SCHEDULED_POSTS_SEE_IN_DEV: true, // true/1 or false/0. SHOW SCHEDULED POSTS IN DEV MODE
+      
+    // ROBOTS.TXT //
+    // Set to blank string/remove to use default.
+    // Default is:
+    //// User-agent: *
+    //// Allow: /
+    //// Sitemap: CONFIG.URL (as set above)
+
+    // Making changes in astro.config.mjs will break config option, but might be required for more specific use cases.
+    // See https://www.npmjs.com/package/astro-robots-txt#usage for more info.
+    ROBOTS_OVERRIDE: "User-agent: *\nDisallow: /\nSitemap: https://nought.vercel.app/sitemap-index.xml"
 };
+
+
