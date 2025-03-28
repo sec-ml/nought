@@ -40,7 +40,9 @@ const page_url = CONFIG.URL + data.url;
 // hmmm.. this ^^^ gets the original image, not the optimised one. Need to figure out how to get the optimised image.
 
 // aha! use the getImage function to get the optimised image:
-const optimised_image = data.image ? await getImage({ src: data.image }) : null;
+const optimised_image = data.image
+  ? await getImage({ src: data.image, inferSize: true })
+  : null;
 ---
 
 <BaseLayout
