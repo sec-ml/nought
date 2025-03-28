@@ -4,7 +4,7 @@ author: ml
 dateCreated: 2025-02-17
 dateModified:
 draft: false
-image: ./images/moritz-mentges-2RLRbRkWtpc-unsplash.jpg
+image: images/moritz-mentges-2RLRbRkWtpc-unsplash.jpg
 imageAlt: conceptual image of some blue and purple neon-type lights. From https://unsplash.com/photos/blue-and-purple-led-lights-2RLRbRkWtpc
 slug: dummy-post-6
 tags:

@@ -4,7 +4,7 @@ author: ml
 dateCreated: 2025-02-22
 dateModified:
 draft: false
-image: ./images/sandro-katalina-k1bO_VTiZSs-unsplash.jpg
+image: images/sandro-katalina-k1bO_VTiZSs-unsplash.jpg
 imageAlt: purple and black pyramid wallpaper. From https://unsplash.com/photos/purple-and-black-pyramid-wallpaper-k1bO_VTiZSs
 slug: dummy-post-7
 tags:

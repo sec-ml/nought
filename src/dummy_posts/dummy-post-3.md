@@ -4,7 +4,7 @@ author: ml
 dateCreated: 2025-02-18
 dateModified:
 draft: false
-image: ./images/hal-gatewood-tZc3vjPCk-Q-unsplash.jpg
+image: images/hal-gatewood-tZc3vjPCk-Q-unsplash.jpg
 imageAlt: Some example UI mockup sketches. Rough outline, and watercolour fill. From https://unsplash.com/photos/assorted-color-abstract-painting-tZc3vjPCk-Q
 slug: dummy-post-3
 tags:

@@ -4,7 +4,7 @@ author: ml
 dateCreated: 2025-02-28
 dateModified:
 draft: false
-image: ./images/florian-olivo-4hbJ-eymZ1o-unsplash.jpg
+image: images/florian-olivo-4hbJ-eymZ1o-unsplash.jpg
 imageAlt: Photo of some example HTML code on a screen. From https://unsplash.com/photos/lines-of-html-codes-4hbJ-eymZ1o
 slug: styling-examples
 tags:
