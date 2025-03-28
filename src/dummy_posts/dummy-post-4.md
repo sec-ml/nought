@@ -4,7 +4,7 @@ author: ml
 dateCreated: 2025-02-19
 dateModified:
 draft: false
-image: ./images/christoph-theisinger-aTD1exk7Uh8-unsplash.jpg
+image: images/christoph-theisinger-aTD1exk7Uh8-unsplash.jpg
 imageAlt: Tripod set up on a small strip in the middle of the road to capture the people movement! - Inokashira Dori, Shibuya-ku, Tōkyō-to, Japan. From https://unsplash.com/photos/worms-eyeview-photography-of-a-city-aTD1exk7Uh8
 slug: dummy-post-4
 tags:

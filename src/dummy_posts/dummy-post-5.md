@@ -4,7 +4,7 @@ author: ml
 dateCreated: 2025-02-20
 dateModified:
 draft: false
-image: ./images/everaldo-coelho-2tigIl6Tt7E-unsplash.jpg
+image: images/everaldo-coelho-2tigIl6Tt7E-unsplash.jpg
 imageAlt: A panoramic image of the Miami skyline. From https://unsplash.com/photos/landscape-photo-of-buildings-2tigIl6Tt7E
 slug: dummy-post-5
 tags:
