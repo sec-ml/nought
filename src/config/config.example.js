@@ -55,7 +55,11 @@ export const CONFIG = {
 
     // Making changes in astro.config.mjs will break config option, but might be required for more specific use cases.
     // See https://www.npmjs.com/package/astro-robots-txt#usage for more info.
-    ROBOTS_OVERRIDE: "User-agent: *\nDisallow: /\nSitemap: https://nought.vercel.app/sitemap-index.xml"
+    ROBOTS_OVERRIDE: "User-agent: *\nDisallow: /\nSitemap: https://nought.vercel.app/sitemap-index.xml",
+
+    // IMAGE SETTINGS //
+    // LIST OF DOMAINS FOR ASTRO IMAGE OPTIMIZATION
+    IMAGE_REMOTE_DOMAINS: [], // NOTE: [''] essentially wildcards all remote images. Use empty array, or comment out to disable.
 };
 
 
