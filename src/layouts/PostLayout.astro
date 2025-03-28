@@ -33,7 +33,7 @@ if (data.description) {
   page_description = data.title;
 }
 const page_title = data.title + " | " + CONFIG.TITLE;
-const page_url = CONFIG.URL + data.url;
+const page_url = CONFIG.URL + "/" + data.slug;
 
 // changing from direct image src to Astro image object. Need to generate the image path for OG/Twit meta tags.
 // const page_image_src = data.image ? data.image.src : null;
