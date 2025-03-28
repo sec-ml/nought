@@ -67,6 +67,7 @@ const page_url = CONFIG.URL + "/tags/" + original_tag.replace(/\s+/g, "-");
           author={post.data.author}
           created={post.data.dateCreated}
           image={post.data.image}
+          image_alt={post.data.imageAlt}
           excerpt={post.data.excerpt}
           // selected_tag, for lack of a better name, is the tag page that the user is currently viewing
           selected_tag={original_tag}
