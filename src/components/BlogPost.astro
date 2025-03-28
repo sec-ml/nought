@@ -38,9 +38,9 @@ if (CONFIG.POST_LISTING_SHOW_AUTHOR || CONFIG.POST_LISTING_SHOW_DATE) {
   {
     image ? (
       image_alt ? (
-        <Image src={image} alt={image_alt} />
+        <Image src={image} inferSize={true} alt={image_alt} />
       ) : (
-        <Image src={image} alt={title} />
+        <Image src={image} inferSize={true} alt={title} />
       )
     ) : null
   }
