@@ -38,9 +38,13 @@ if (CONFIG.POST_LISTING_SHOW_AUTHOR || CONFIG.POST_LISTING_SHOW_DATE) {
   {
     image ? (
       image_alt ? (
-        <Image src={image} inferSize={true} alt={image_alt} />
+        <a href={url}>
+          <Image src={image} inferSize={true} alt={image_alt} />
+        </a>
       ) : (
-        <Image src={image} inferSize={true} alt={title} />
+        <a href={url}>
+          <Image src={image} inferSize={true} alt={title} />
+        </a>
       )
     ) : null
   }
