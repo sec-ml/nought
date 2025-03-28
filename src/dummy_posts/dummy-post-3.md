@@ -4,7 +4,8 @@ author: ml
 dateCreated: 2025-02-18
 dateModified:
 draft: false
-image: https://images.unsplash.com/photo-1680422307304-86c8a8e6a108?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+image: ./images/hal-gatewood-tZc3vjPCk-Q-unsplash.jpg
+imageAlt: Some example UI mockup sketches. Rough outline, and watercolour fill. From https://unsplash.com/photos/assorted-color-abstract-painting-tZc3vjPCk-Q
 slug: dummy-post-3
 tags:
   - Markdown

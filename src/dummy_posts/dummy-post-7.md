@@ -4,7 +4,8 @@ author: ml
 dateCreated: 2025-02-22
 dateModified:
 draft: false
-image: https://images.unsplash.com/photo-1736001850620-b86baea107f8?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+image: ./images/sandro-katalina-k1bO_VTiZSs-unsplash.jpg
+imageAlt: purple and black pyramid wallpaper. From https://unsplash.com/photos/purple-and-black-pyramid-wallpaper-k1bO_VTiZSs
 slug: dummy-post-7
 tags:
   - Markdown

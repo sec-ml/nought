@@ -5,6 +5,7 @@ dateCreated: 2025-02-21
 dateModified:
 draft: false
 image:
+imageAlt: What happens if we leave imageAlt set, but have no image?
 slug: dummy-post-2
 tags:
   - Markdown
