@@ -9,6 +9,10 @@ import robotsTxt from "astro-robots-txt";
 
 // https://astro.build/config
 export default defineConfig({
+    image: {
+      // check that CONFIG.IMAGE_REMOTE_DOMAINS is an array, else set empty array
+      domains: CONFIG.IMAGE_REMOTE_DOMAINS instanceof Array ? CONFIG.IMAGE_REMOTE_DOMAINS : [],
+    },
     vite: {
       plugins: [tailwindcss()],
     },
