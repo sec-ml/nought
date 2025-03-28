@@ -2,6 +2,8 @@
 import { configLoader } from "../utils/configLoader";
 const CONFIG = await configLoader();
 
+import { Image, getImage } from "astro:assets";
+
 import BaseLayout from "./Base.astro";
 import TagSingle from "../components/TagSingle.astro";
 const { data } = Astro.props;
@@ -23,24 +25,6 @@ if (
   byline_html_string += "</p>";
 }
 
-let image_path: string;
-if (data.image) {
-  if (data.image.includes("http")) {
-    image_path = data.image;
-  } else {
-    image_path = "/images/" + data.image;
-  }
-  var post_image =
-    '<img src="' +
-    image_path +
-    '" alt="' +
-    data.title +
-    '" class="--ml-6 mr-6 w-full h-96 object-cover object-center mb-8">';
-} else {
-  var post_image = "";
-  image_path = "";
-}
-
 // If no description is provided, use the title as the description
 let page_description: string;
 if (data.description) {
@@ -50,6 +34,13 @@ if (data.description) {
 }
 const page_title = data.title + " | " + CONFIG.TITLE;
 const page_url = CONFIG.URL + data.url;
+
+// changing from direct image src to Astro image object. Need to generate the image path for OG/Twit meta tags.
+// const page_image_src = data.image ? data.image.src : null;
+// hmmm.. this ^^^ gets the original image, not the optimised one. Need to figure out how to get the optimised image.
+
+// aha! use the getImage function to get the optimised image:
+const optimised_image = data.image ? await getImage({ src: data.image }) : null;
 ---
 
 <BaseLayout
@@ -57,9 +48,17 @@ const page_url = CONFIG.URL + data.url;
   page_description={page_description}
   page_url={page_url}
   meta_type="article"
-  meta_image={image_path}
+  meta_image={optimised_image ? optimised_image.src : null}
 >
-  <Fragment set:html={post_image} />
+  {
+    data.image ? (
+      data.imageAlt ? (
+        <Image src={data.image} alt={data.imageAlt} />
+      ) : (
+        <Image src={data.image} alt={data.title} />
+      )
+    ) : null
+  }
   <div id="meta_data" class="max-w-[65ch]">
     <h1 class="text-4xl font-bold max-w-[65ch]">{data.title}</h1>
     <Fragment set:html={byline_html_string} />
