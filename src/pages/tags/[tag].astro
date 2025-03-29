@@ -18,12 +18,17 @@ export async function getStaticPaths() {
   );
 
   const unique_tags = [
-    ...new Set(blog_posts.map((post: any) => post.data.tags).flat()),
+    ...new Set(
+      blog_posts
+        .map((post: any) => (Array.isArray(post.data.tags) ? post.data.tags : []))
+        .flat()
+    ),
   ];
 
   return unique_tags.map((tag) => {
-    const filtered_blog_posts = blog_posts.filter((post: any) =>
-      post.data.tags.includes(tag)
+    const filtered_blog_posts = blog_posts.filter(
+      (post: any) =>
+        Array.isArray(post.data.tags) && post.data.tags.includes(tag)
     );
     const postQty = filtered_blog_posts.length;
     return {
