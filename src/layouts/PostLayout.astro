@@ -64,18 +64,24 @@ const optimised_image = data.image
   <div id="meta_data" class="max-w-[65ch]">
     <h1 class="text-4xl font-bold max-w-[65ch]">{data.title}</h1>
     <Fragment set:html={byline_html_string} />
-    <div class="tags mb-8">
-      {
-        data.tags.map((tag: string) => (
-          <TagSingle
-            label={tag}
-            url={`/tags/${tag.replace(/\s+/g, "-")}`}
-            count={0}
-            display_count={false}
-          />
-        ))
-      }
-    </div>
+    {
+      // Only render the tags div if tag option exists, and it's an array
+      Array.isArray(data.tags) && data.tags.length > 0 ? (
+        <div class="tags mb-8">
+          {data.tags.map((tag: string) => (
+            <TagSingle
+              label={tag}
+              url={`/tags/${tag.replace(/\s+/g, "-")}`}
+              count={0}
+              display_count={false}
+            />
+          ))}
+        </div>
+      ) : (
+        // If no tags exist, add empty div to maintain spacing
+        <div class="no-tags mb-8" />
+      )
+    }
   </div>
   <article class="prose mt-2 prose-headings:-my-2 prose-h2:mb-2">
     <slot />
