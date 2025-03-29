@@ -2,7 +2,7 @@
 import { configLoader } from "../utils/configLoader";
 const CONFIG = await configLoader();
 
-import { filterBlogPosts } from '../utils/filterBlogPosts';
+import { filterBlogPosts } from "../utils/filterBlogPosts";
 
 import { getCollection } from "astro:content";
 import TagSingle from "./TagSingle.astro";
@@ -17,13 +17,16 @@ const blog_posts = filterBlogPosts(await getCollection("blog"));
 let tag_meta: { [key: string]: { count: number } } = {};
 
 blog_posts.forEach((post) => {
-  post.data.tags.forEach((tag: string) => {
-    if (tag_meta[tag]) {
-      tag_meta[tag].count++;
-    } else {
-      tag_meta[tag] = { count: 1 };
-    }
-  });
+  // Check if post.data.tags exists and is an array
+  if (Array.isArray(post.data.tags) && post.data.tags.length > 0) {
+    post.data.tags.forEach((tag: string) => {
+      if (tag_meta[tag]) {
+        tag_meta[tag].count++;
+      } else {
+        tag_meta[tag] = { count: 1 };
+      }
+    });
+  }
 });
 
 let tags = [];
