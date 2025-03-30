@@ -53,37 +53,56 @@ const optimised_image = data.image
   meta_image={optimised_image ? optimised_image.src : null}
 >
   {
+    // If image exists, render it. If no alt text is provided, use the title as the alt text.
+    // If no image exists, don't render anything.
+    // TODO: Config option to set a fallback image.
     data.image ? (
-      data.imageAlt ? (
-        <Image src={data.image} inferSize={true} alt={data.imageAlt} />
-      ) : (
-        <Image src={data.image} inferSize={true} alt={data.title} />
-      )
+      <div id="header_image" class="pt-5 md:pt-0 h-[400px] overflow-hidden">
+        {
+          // Tried adding a config option to set the image height: class={`pt-5 md:pt-0 h-[${CONFIG.POST_IMAGE_HEIGHT}px] overflow-hidden`}
+          // This does get set, and the class is correct in resulting HTML, but Tailwind doesn't generate the CSS for it. For future...
+        }
+        <Image
+          src={data.image}
+          class="w-full h-full object-cover object-center"
+          inferSize={true}
+          alt={data.imageAlt || data.title}
+        />
+      </div>
     ) : null
   }
-  <div id="meta_data" class="max-w-[65ch]">
-    <h1 class="text-4xl font-bold max-w-[65ch]">{data.title}</h1>
-    <Fragment set:html={byline_html_string} />
-    {
-      // Only render the tags div if tag option exists, and it's an array
-      Array.isArray(data.tags) && data.tags.length > 0 ? (
-        <div class="tags mb-8">
-          {data.tags.map((tag: string) => (
-            <TagSingle
-              label={tag}
-              url={`/tags/${tag.replace(/\s+/g, "-")}`}
-              count={0}
-              display_count={false}
-            />
-          ))}
-        </div>
-      ) : (
-        // If no tags exist, add empty div to maintain spacing
-        <div class="no-tags mb-8" />
-      )
-    }
+
+  <div class="align-middle flex flex-col items-center justify-center">
+    <article
+      class="prose grid grid-cols-1 mt-0 prose-headings:-my-0 prose-h2:mb-2 prose-h2:mt-4 prose-p:mb-1 max-w-2xl p-6"
+    >
+      {
+        // weird bug where code block was breaking responsiveness. From https://github.com/tailwindlabs/tailwindcss-typography/issues/96#issuecomment-1047554910 - adding grid grid-cols-1 fixed, although some of the prose heading margins got broken.
+      }
+      <div id="meta_data" class="">
+        <h1 class="text-4xl font-bold">{data.title}</h1>
+        <Fragment set:html={byline_html_string} />
+        {
+          // Only render the tags div if tag option exists, and it's an array
+          Array.isArray(data.tags) && data.tags.length > 0 ? (
+            <div class="tags mb-0">
+              {data.tags.map((tag: string) => (
+                <TagSingle
+                  label={tag}
+                  url={`/tags/${tag.replace(/\s+/g, "-")}`}
+                  count={0}
+                  display_count={false}
+                />
+              ))}
+            </div>
+          ) : (
+            // If no tags exist, add empty div to maintain spacing
+            <div class="no-tags mb-0" />
+          )
+        }
+        <hr class="mt-6 mb-4" />
+      </div>
+      <slot />
+    </article>
   </div>
-  <article class="prose mt-2 prose-headings:-my-2 prose-h2:mb-2">
-    <slot />
-  </article>
 </BaseLayout>
