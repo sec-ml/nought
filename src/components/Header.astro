@@ -6,7 +6,8 @@ import Navigation from "./Nav.astro";
 import Logo from "./Logo.astro";
 
 let sidebar_description_html_string = "";
-sidebar_description_html_string = CONFIG.DESCRIPTION_SIDEBAR ?? CONFIG.DESCRIPTION;
+sidebar_description_html_string =
+  CONFIG.DESCRIPTION_SIDEBAR ?? CONFIG.DESCRIPTION;
 if (typeof CONFIG.DESCRIPTION_SIDEBAR === "undefined") {
   sidebar_description_html_string = "";
 } else {

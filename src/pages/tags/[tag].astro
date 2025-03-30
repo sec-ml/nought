@@ -56,6 +56,7 @@ const page_url = CONFIG.URL + "/tags/" + original_tag.replace(/\s+/g, "-");
   page_description={page_description}
   page_url={page_url}
 >
+<div class="p-6 max-w-7xl">
   <Masonry breakpointCols={{ default: break_two, 1224: 1 }} , class="gap-6">
     <div class="boxed border-2 mb-6 border-grey-900 p-4">
       <h1 class="text-4xl font-bold">
@@ -80,4 +81,5 @@ const page_url = CONFIG.URL + "/tags/" + original_tag.replace(/\s+/g, "-");
       ))
     }
   </Masonry>
+  </div>
 </BaseLayout>
