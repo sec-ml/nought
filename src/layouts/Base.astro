@@ -26,8 +26,14 @@ import "../config/custom.css";
   </head>
   <body class="relative bg-gray-100 min-h-screen flex flex-col">
     <Header />
-    <main id="mainContent" class="flex-grow md:ml-64 p-6">
-      <div class="max-w-7xl"><slot /></div>
+    <main id="mainContent" class="min-h-screen md:ml-64 nop-6 justify-center">
+      {
+        // Removing flex ^ helped with post image full-width setting, but IIRC,
+        // flex was added at the same time as min-h-screen to fix the footer
+        // being at the bottom of the page when there was not enough content.
+        // min-h-screen seems to work without flex. ¯\_(ツ)_/¯
+      }
+      <slot />
     </main>
     <Footer />
   </body><script>
