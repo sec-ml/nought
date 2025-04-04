@@ -1,2 +1,11 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+@theme static {
+    --color-sidebar-dark: var(--color-slate-800);
+    --color-sidebar-light: var(--color-slate-100);
+    --color-sidebar-shadow: var(--color-slate-300);
+    --color-secondary: var(--color-red-500);
+
+    --color-main-shadow: var(--color-slate-700);
+}

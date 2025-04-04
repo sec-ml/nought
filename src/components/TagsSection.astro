@@ -75,8 +75,9 @@ for (let tag in tag_meta) {
   }
 </style>
 <div class="mt-4">
-  <div class="strike text-center">
-    <span class="boxed rounded-btn border-2 border-secondary px-1">Tags</span>
+  <div class="strike text-center rounded-sm">
+    <span class="boxed rounded-sm border-2 border-sidebar-light px-1">Tags</span
+    >
   </div>
   <div>
     {
@@ -86,6 +87,7 @@ for (let tag in tag_meta) {
           url={`/tags/${tag.replace(/\s+/g, "-")}`}
           count={tag_meta[tag].count}
           display_count={SIDEBAR_TAGS_SHOW_COUNT}
+          sidebar={true}
         />
       ))
     }
