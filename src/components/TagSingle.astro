@@ -4,14 +4,33 @@ interface Props {
   url: String;
   count: Number;
   display_count: Boolean;
+  sidebar: Boolean;
 }
 
-const { label, url, count, display_count } = Astro.props;
+const { label, url, count, display_count, sidebar } = Astro.props;
+
+let tag_classes: string;
+if (sidebar) {
+  tag_classes = "bg-sidebar-dark text-sidebar-light shadow-sidebar-shadow";
+} else {
+  tag_classes = "bg-sidebar-light text-sidebar-dark shadow-main-shadow";
+}
 ---
 
 <a href={url.toString()} class="md:w-auto w-full no-underline">
   <button
-    class="boxed cursor-auto mr-1 rounded-btn transition-shadow shadow-[2px_2px_0px_0px] w-auto px-1 py-0 mt-1 border-1"
+    class={`${tag_classes} boxed
+    cursor-auto
+    rounded-sm
+    mr-1
+    transition-shadow
+    shadow-[3px_3px_0px_0px]
+    hover:shadow-[0px_0px_0px_0px]
+    w-auto
+    px-1
+    py-0
+    mt-2
+    border-1`}
   >
     #{label}{
       () => {
