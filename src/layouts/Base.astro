@@ -9,9 +9,12 @@ const { page_title, page_description, page_url, meta_type, meta_image } =
   Astro.props;
 import "../styles/global.css";
 import "../config/custom.css";
+
+const theme = CONFIG.THEME ?? "nord";
 ---
 
 <html lang="en">
+<html lang="en" data-theme={theme}>
   <head>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
