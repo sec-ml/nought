@@ -1,0 +1,122 @@
+---
+const themes = [
+  "light-nought",
+  "dark-nought",
+  "light",
+  "dark",
+  "cupcake",
+  "bumblebee",
+  "emerald",
+  "corporate",
+  "synthwave",
+  "retro",
+  "cyberpunk",
+  "valentine",
+  "halloween",
+  "garden",
+  "forest",
+  "aqua",
+  "lofi",
+  "pastel",
+  "fantasy",
+  "wireframe",
+  "black",
+  "luxury",
+  "dracula",
+  "cmyk",
+  "autumn",
+  "business",
+  "acid",
+  "lemonade",
+  "night",
+  "coffee",
+  "winter",
+  "dim",
+  "nord",
+  "sunset",
+  "caramellatte",
+  "abyss",
+  "silk",
+].sort(); // Alphabetically sort the themes
+---
+
+<style>
+  /* https://jsfiddle.net/cv8w2ph9/ */
+  .strike {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  .strike > span {
+    position: relative;
+    display: inline-block;
+  }
+
+  .strike > span:before,
+  .strike > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 3px;
+    background: var(--color-base-content);
+  }
+
+  .strike > span:before {
+    right: 100%;
+    margin-right: 0px;
+  }
+
+  .strike > span:after {
+    left: 100%;
+    margin-left: 0px;
+  }
+</style>
+
+<div class="mt-4">
+  <div class="text-base-content strike text-center rounded-field">
+    <span class="rounded-field border-0 px-1">Theme Switcher</span>
+  </div>
+  <p class="text-base-content">
+    Demo site theme switcher. Disabled by default if config option not set.
+  </p>
+  <div class="dropdown mb-12 mt-3">
+    <div
+      tabindex="0"
+      role="button"
+      class="btn m-0 bg-base-content text-base-100 border-0"
+    >
+      Theme
+      <svg
+        width="12px"
+        height="12px"
+        class="inline-block h-2 w-2 fill-current opacity-60"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 2048 2048"
+      >
+        <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"
+        ></path>
+      </svg>
+    </div>
+    <ul
+      tabindex="0"
+      class="dropdown-content bg-base-100 text-base-content rounded-field z-1 w-52 mt-1 p-0"
+    >
+      {
+        themes.map((theme) => (
+          <li>
+            <input
+              type="radio"
+              name="theme-dropdown"
+              class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+              aria-label={theme.charAt(0).toUpperCase() + theme.slice(1)}
+              value={theme}
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
