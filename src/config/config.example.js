@@ -6,6 +6,7 @@ export const CONFIG = {
     DESCRIPTION: 'An Astro 5 starter with Tailwind CSS',
     DEFAULT_AUTHOR: 'ml',
     POSTS_DIR: 'src/dummy_posts', // RELATIVE TO PROJECT DIRECTORY    
+    THEME: "winter", // DAISYUI THEME NAME. SEE THEME SWITCHER FOR OPTIONS
 
     // DESCRIPTION_SIDEBAR defaults to DESCRIPTION if not set. Set to false for no sidebar description. Can contain HTML.
     // DESCRIPTION_SIDEBAR: false,//Can contain HTML, e.g. '<h2>An Astro 5 starter with Tailwind CSS. <a href="https://github.com/sec-ml/nought">More info</a>.</h2>',
