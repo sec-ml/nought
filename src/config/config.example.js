@@ -63,3 +63,5 @@ export const CONFIG = {
 };
 
 
+    // DEMO SITE SPECIFIC OPTIONS //
+    DISABLE_THEME_SWITCHER: false, // true/1 or false/0. DISABLE THEME SWITCHER. Defaults to true if not set.
