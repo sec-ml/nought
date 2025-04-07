@@ -38,6 +38,6 @@ if (sidebar) {
 <a id={logo_id} href="/" class={`${a_classes} `}
   ><button
     class={`cursor-auto text-center shadow-[4px_4px_0px_0px] hover:shadow-[0px_0px_0px_0px] px-2 py-1 border-2 rounded-field text-2xl font-bold bg-base-100 text-base-content border-base-content shadow-base-content transition-shadow duration-300 ease-in-out ${logo_all_override} ${logo_classes}`}
-    >{logo_text}</button
+    ><Fragment set:html={logo_text} /></button
   >
 </a>
