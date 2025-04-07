@@ -58,9 +58,9 @@ const page_url = CONFIG.URL + "/tags/" + original_tag.replace(/\s+/g, "-");
 >
 <div class="p-6 max-w-7xl">
   <Masonry breakpointCols={{ default: break_two, 1224: 1 }} , class="gap-6">
-    <div class="boxed border-2 mb-6 border-grey-900 p-4">
+    <div class="border-2 mb-6 bg-base-300 text-base-content border-base-content p-4 rounded-field">
       <h1 class="text-4xl font-bold">
-        {count} post{count == 1 ? "" : "s"} tagged with <i>{original_tag}</i>
+        {count} post{count == 1 ? "" : "s"} tagged with <i><span class="underline decoration-accent">{original_tag}</span></i>
       </h1>
     </div>
     {

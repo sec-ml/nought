@@ -9,9 +9,11 @@ const { page_title, page_description, page_url, meta_type, meta_image } =
   Astro.props;
 import "../styles/global.css";
 import "../config/custom.css";
+
+const theme = CONFIG.THEME ?? "nord";
 ---
 
-<html lang="en">
+<html lang="en" data-theme={theme}>
   <head>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
@@ -24,9 +26,12 @@ import "../config/custom.css";
       meta_sitename={CONFIG.TITLE}
     />
   </head>
-  <body class="relative bg-gray-100 min-h-screen flex flex-col">
+  <body class="relative min-h-screen flex flex-col">
     <Header />
-    <main id="mainContent" class="min-h-screen md:ml-64 nop-6 justify-center">
+    <main
+      id="mainContent"
+      class="bg-base-200 min-h-screen md:ml-64 mt-5 md:mt-0 justify-center"
+    >
       {
         // Removing flex ^ helped with post image full-width setting, but IIRC,
         // flex was added at the same time as min-h-screen to fix the footer
@@ -40,57 +45,47 @@ import "../config/custom.css";
     const sidebar = document.getElementById("sidebar");
     const hamburger = document.getElementById("hamburger");
     const logoMain = document.getElementById("logoMain");
-    const logo = document.getElementById("logo");
+    const logo = document.getElementById("logoSidebar");
 
     // Toggle the sidebar's visibility and update hamburger position.
+    // TODO: Plan to change Logo layout in future iteration - verify what is still required.
     function toggleSidebar() {
-      sidebar.classList.toggle("-translate-x-full");
-      if (sidebar.classList.contains("-translate-x-full")) {
+      sidebar?.classList.toggle("-translate-x-full");
+      if (sidebar?.classList.contains("-translate-x-full")) {
         // Sidebar is closed
-        logoMain.classList.remove("opacity-0");
-        logoMain.classList.add("opacity-100");
-        logo.classList.remove("opacity-100");
-        hamburger.classList.add("absolute");
-        hamburger.classList.remove("fixed");
-        hamburger.classList.remove("border-white");
-        hamburger.classList.add("border-black");
-        hamburger.classList.remove("shadow-white");
-        hamburger.classList.add("shadow-black");
-        hamburger.classList.remove("text-white");
-        hamburger.classList.add("text-black");
+        logoMain?.classList.remove("opacity-0");
+        logoMain?.classList.add("opacity-100");
+        logo?.classList.remove("opacity-100");
+        hamburger?.classList.add("absolute");
+        hamburger?.classList.remove("fixed");
       } else {
         // Sidebar is open
-        logoMain.classList.add("opacity-0");
-        logo.classList.remove("opacity-0");
-        logoMain.classList.remove("opacity-100");
-        logo.classList.add("opacity-100");
-        hamburger.classList.add("fixed");
-        hamburger.classList.remove("absolute");
-        hamburger.classList.remove("border-black");
-        hamburger.classList.add("border-white");
-        hamburger.classList.remove("shadow-black");
-        hamburger.classList.add("shadow-white");
-        hamburger.classList.remove("text-black");
-        hamburger.classList.add("text-white");
+        logoMain?.classList.remove("opacity-100");
+        logoMain?.classList.add("opacity-0");
+        logo?.classList.remove("opacity-0");
+        logo?.classList.add("opacity-100");
+        hamburger?.classList.add("fixed");
+        hamburger?.classList.remove("absolute");
       }
     }
 
     // Toggle sidebar when clicking the hamburger.
-    hamburger.addEventListener("click", (e) => {
+    hamburger?.addEventListener("click", (e) => {
       toggleSidebar();
       // Prevent click from bubbling up to the document.
       e.stopPropagation();
     });
 
     // Prevent clicks within the sidebar from bubbling up.
-    sidebar.addEventListener("click", (e) => {
+    sidebar?.addEventListener("click", (e) => {
       e.stopPropagation();
     });
 
     // When clicking anywhere in the document on mobile, close the sidebar.
     document.addEventListener("click", (e) => {
       if (window.innerWidth < 768) {
-        if (!sidebar.classList.contains("-translate-x-full")) {
+        if (!sidebar?.classList.contains("-translate-x-full")) {
+          // TODO: .closest - This doesn't seem to work correctly. Test without.
           if (
             !e.target.closest("#sidebar") &&
             !e.target.closest("#hamburger")
