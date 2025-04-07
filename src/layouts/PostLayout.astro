@@ -57,7 +57,7 @@ const optimised_image = data.image
     // If no image exists, don't render anything.
     // TODO: Config option to set a fallback image.
     data.image ? (
-      <div id="header_image" class="pt-5 md:pt-0 h-[400px] overflow-hidden">
+      <div id="header_image" class="h-[400px] overflow-hidden">
         {
           // Tried adding a config option to set the image height: class={`pt-5 md:pt-0 h-[${CONFIG.POST_IMAGE_HEIGHT}px] overflow-hidden`}
           // This does get set, and the class is correct in resulting HTML, but Tailwind doesn't generate the CSS for it. For future...
