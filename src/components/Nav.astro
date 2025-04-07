@@ -4,17 +4,22 @@ const CONFIG = await configLoader();
 
 import TagsSection from "./TagsSection.astro";
 import NavLinkSingle from "./NavLinkSingle.astro";
+import ThemeSwitcher from "./ThemeSwitcher.astro";
+
+let disable_theme_switcher: boolean = CONFIG.DISABLE_THEME_SWITCHER ?? true;
 ---
 
 <div class="m-3">
   <ul>
     {
-      CONFIG.NAV_LINKS.map((nav_link: { suppress?: any; label: any; url: any; }) => {
-        const { label, url } = nav_link;
-        if (!nav_link.suppress) {
-          return <NavLinkSingle url={url} label={label} />;
+      CONFIG.NAV_LINKS.map(
+        (nav_link: { suppress?: any; label: any; url: any }) => {
+          const { label, url } = nav_link;
+          if (!nav_link.suppress) {
+            return <NavLinkSingle url={url} label={label} />;
+          }
         }
-      })
+      )
     }
   </ul>
   {
@@ -24,4 +29,5 @@ import NavLinkSingle from "./NavLinkSingle.astro";
       }
     }
   }
+  {disable_theme_switcher ? null : <ThemeSwitcher />}
 </div>

@@ -1,16 +1,23 @@
 ---
+import { configLoader } from "../utils/configLoader";
+const CONFIG = await configLoader();
+
 interface Props {
   label: String;
   url: String;
 }
 
 const { label, url } = Astro.props;
+
+const nav_links_override = CONFIG.NAV_LINKS_OVERRIDE
+  ? CONFIG.NAV_LINKS_OVERRIDE
+  : "";
 ---
 
 <div class="flex">
-  <a href={url.toString()} class="md:w-auto w-full">
+  <a href={url.toString()} class="md:w-full w-full">
     <button
-      class="boxed cursor-auto rounded-btn shadow-[2px_2px_0px_0px] hover:shadow-[0px_0px_0px_0px] shadow-primary hover:shadow-accent transition-shadow font-bold w-full md:w-auto shadow-solid-primary px-2 pb-1 pt-1 mt-2 border-1"
+      class={`bg-base-100 text-base-content border-base-content shadow-base-content font-bold cursor-auto rounded-field shadow-[3px_3px_0px_0px] hover:shadow-[0px_0px_0px_0px] transition-shadow duration-300 ease-in-out w-full px-2 pb-1 pt-1 mt-2 border-1 ${nav_links_override}`}
     >
       {label}
     </button>

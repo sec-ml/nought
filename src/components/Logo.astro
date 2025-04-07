@@ -3,10 +3,41 @@ import { configLoader } from "../utils/configLoader";
 const CONFIG = await configLoader();
 
 const logo_text = CONFIG.LOGO_TEXT ?? CONFIG.TITLE;
+
+interface Props {
+  sidebar: Boolean;
+}
+
+const { sidebar } = Astro.props;
+
+const logo_post_override = CONFIG.LOGO_POST_OVERRIDE
+  ? CONFIG.LOGO_POST_OVERRIDE
+  : "";
+const logo_sidebar_override = CONFIG.LOGO_SIDEBAR_OVERRIDE
+  ? CONFIG.LOGO_SIDEBAR_OVERRIDE
+  : "";
+const logo_all_override = CONFIG.LOGO_ALL_OVERRIDE
+  ? CONFIG.LOGO_ALL_OVERRIDE
+  : "";
+
+let logo_classes: string;
+let a_classes: string;
+let logo_id: string;
+if (sidebar) {
+  logo_classes = " " + logo_sidebar_override;
+  a_classes = " ";
+  logo_id = "logoSidebar";
+} else {
+  logo_classes = " " + logo_post_override;
+  a_classes =
+    "transition-opacity duration-1000 text-center left-0 w-64 inline md:hidden pt-5 md:pt-0";
+  logo_id = "logoMain";
+}
 ---
 
-<a
-  href="/"
-  class="boxed shadow-[3px_3px_0px_0px] px-2 py-1 border-2 text-2xl font-bold"
-  >{logo_text}</a
->
+<a id={logo_id} href="/" class={`${a_classes} `}
+  ><button
+    class={`cursor-auto text-center shadow-[4px_4px_0px_0px] hover:shadow-[0px_0px_0px_0px] px-2 py-1 border-2 rounded-field text-2xl font-bold bg-base-100 text-base-content border-base-content shadow-base-content transition-shadow duration-300 ease-in-out ${logo_all_override} ${logo_classes}`}
+    ><Fragment set:html={logo_text} /></button
+  >
+</a>

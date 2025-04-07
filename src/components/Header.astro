@@ -12,22 +12,24 @@ if (typeof CONFIG.DESCRIPTION_SIDEBAR === "undefined") {
   sidebar_description_html_string = "";
 } else {
   sidebar_description_html_string =
-    '<div class="mt-2 p-3">' + sidebar_description_html_string + "</div>";
+    '<div class="text-base-content mt-2 p-3">' +
+    sidebar_description_html_string +
+    "</div>";
 }
 ---
 
 <button
   id="hamburger"
-  class="md:hidden absolute left-6 top-4 z-50 boxed shadow-[3px_3px_0px_0px] px-2 pb-1 border-2 text-2xl font-bold"
+  class="cursor-pointer rounded-field md:hidden absolute left-6 top-5 z-51 shadow-[4px_4px_0px_0px] hover:shadow-[0px_0px_0px_0px] px-2 pb-[6px] pt-[2px] border-2 text-2xl font-bold bg-base-100 text-base-content border-base-content shadow-base-content transition-shadow duration-300 ease-in-out"
 >
   &#9776;
 </button>
 <nav
   id="sidebar"
-  class="sbbg fixed top-0 left-0 w-64 h-full text-white pt-5 overflow-y-auto transform transition-transform duration-300 ease-in-out -translate-x-full md:translate-x-0"
+  class="z-50 bg-base-300 fixed top-0 left-0 w-64 h-full text-white pt-5 overflow-y-auto transform transition-transform duration-300 ease-in-out -translate-x-full md:translate-x-0"
 >
-  <div id="logo" class="text-center transition-opacity duration-1000">
-    <Logo />
+  <div class="flex flex-row justify-center items-center">
+    <Logo sidebar={true} />
   </div>
 
   <Fragment set:html={sidebar_description_html_string} />
@@ -35,9 +37,4 @@ if (typeof CONFIG.DESCRIPTION_SIDEBAR === "undefined") {
   <Navigation />
 </nav>
 
-<div
-  id="logoMain"
-  class="text-center left-0 w-64 inline md:hidden pt-5 md:pt-0"
->
-  <Logo />
-</div>
+<Logo sidebar={false} />

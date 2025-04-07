@@ -1,17 +1,56 @@
 ---
+import { configLoader } from "../utils/configLoader";
+const CONFIG = await configLoader();
+
 interface Props {
   label: String;
   url: String;
   count: Number;
   display_count: Boolean;
+  sidebar: Boolean;
 }
 
-const { label, url, count, display_count } = Astro.props;
+const { label, url, count, display_count, sidebar } = Astro.props;
+
+const tags_all_override = CONFIG.TAGS_ALL_OVERRIDE
+  ? CONFIG.TAGS_ALL_OVERRIDE
+  : "";
+
+const tags_sidebar_override = CONFIG.TAGS_SIDEBAR_OVERRIDE
+  ? CONFIG.TAGS_SIDEBAR_OVERRIDE
+  : "";
+
+const tags_post_override = CONFIG.TAGS_POST_OVERRIDE
+  ? CONFIG.TAGS_POST_OVERRIDE
+  : "";
+
+let tag_classes: string;
+if (sidebar) {
+  tag_classes =
+    "bg-base-100 text-base-content border-base-content shadow-primary " +
+    tags_sidebar_override;
+} else {
+  tag_classes =
+    "bg-base-300 text-base-content border-base-content shadow-primary " +
+    tags_post_override;
+}
 ---
 
 <a href={url.toString()} class="md:w-auto w-full no-underline">
   <button
-    class="boxed cursor-auto mr-1 rounded-btn transition-shadow shadow-[2px_2px_0px_0px] w-auto px-1 py-0 mt-1 border-1"
+    class={`cursor-auto
+    rounded-field
+    mr-1
+    transition-shadow duration-300 ease-in-out
+    shadow-[3px_3px_0px_0px]
+    hover:shadow-[0px_0px_0px_0px]
+    w-auto
+    px-1
+    py-0
+    mt-2
+    border-1
+    ${tag_classes}
+    ${tags_all_override}`}
   >
     #{label}{
       () => {
