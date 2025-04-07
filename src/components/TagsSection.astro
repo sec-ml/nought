@@ -61,7 +61,7 @@ for (let tag in tag_meta) {
     top: 50%;
     width: 9999px;
     height: 3px;
-    background: white;
+    background: var(--color-base-content);
   }
 
   .strike > span:before {
@@ -75,9 +75,8 @@ for (let tag in tag_meta) {
   }
 </style>
 <div class="mt-4">
-  <div class="strike text-center rounded-sm">
-    <span class="boxed rounded-sm border-2 border-sidebar-light px-1">Tags</span
-    >
+  <div class="text-base-content strike text-center">
+    <span class="border-0 px-1">Tags</span>
   </div>
   <div>
     {
