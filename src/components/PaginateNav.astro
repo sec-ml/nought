@@ -38,7 +38,9 @@ if (prev_page && next_page) {
 }
 ---
 
-<div class={`${container_class} boxed border-2 border-grey-900`}>
+<div
+  class={`${container_class} rounded-field bg-base-300 text-base-content border-base-content shadow-accent shadow-[3px_3px_0px_0px] hover:shadow-[0px_0px_0px_0px] transition-shadow duration-300 ease-in-out border-2`}
+>
   {
     !!prev_page && (
       <div>
