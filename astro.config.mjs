@@ -7,6 +7,8 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import robotsTxt from "astro-robots-txt";
 
+import mdx from "@astrojs/mdx";
+
 // https://astro.build/config
 export default defineConfig({
     image: {
@@ -17,12 +19,9 @@ export default defineConfig({
       plugins: [tailwindcss()],
     },
     site: CONFIG.URL,
-    integrations: [
-      sitemap(), 
-      robotsTxt({
-        transform(content) {
-          return `${CONFIG.ROBOTS_OVERRIDE || content}`;        
-        },
-      }),
-    ],
+    integrations: [sitemap(), robotsTxt({
+      transform(content) {
+        return `${CONFIG.ROBOTS_OVERRIDE || content}`;        
+      },
+    }), mdx()],
   });
