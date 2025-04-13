@@ -2,7 +2,7 @@
 import { getCollection, render } from "astro:content";
 import PostLayout from "../layouts/PostLayout.astro";
 
-import { filterBlogPosts } from '../utils/filterBlogPosts';
+import { filterBlogPosts } from "../utils/filterBlogPosts";
 
 export async function getStaticPaths() {
   const blog_posts = filterBlogPosts(await getCollection("blog"));
