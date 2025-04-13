@@ -11,7 +11,7 @@ var posts_path =
     CONFIG.POSTS_DIR ? CONFIG.POSTS_DIR : 'src/posts';
 
 const blog = defineCollection({
-  loader: glob({ pattern: "*.md", base: posts_path }),
+  loader: glob({ pattern: "*.{md,mdx}", base: posts_path }),
   schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string().optional().nullable(),
