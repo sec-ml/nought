@@ -1,0 +1,35 @@
+---
+title: Custom Components
+author: ml
+dateCreated: 2025-04-13
+dateModified:
+draft: false
+slug: custom-components
+tags:
+  - MDX
+  - Custom Components
+redirects:
+excerpt: This post will demonstrate built-in custom components for use within MDX files.
+---
+
+## Blockquote with citation 
+
+> This is a normal markdown blockquote.
+
+```markdown
+> This is a normal markdown blockquote.
+```
+
+### Custom Cite Component
+
+<Cite>Cite component with no label or url set</Cite>
+<Cite label="nought.">Cite component with only label set</Cite>
+<Cite url="https://nought.vercel.app/custom-components">Cite component with only URL set (the cite attribute is set in HTML... you won't actually see it here).</Cite>
+<Cite label="nought." url="https://nought.vercel.app/custom-components">Cite component with label and url set.</Cite>
+
+```markdown
+<Cite>Cite component with no label or url set</Cite>
+<Cite label="nought.">Cite component with only label set</Cite>
+<Cite url="https://nought.vercel.app/custom-components">Cite component with only URL set (the cite attribute is set in HTML... you won't actually see it here).</Cite>
+<Cite label="nought." url="https://nought.vercel.app/custom-components">Cite component with label and url set.</Cite>
+```
