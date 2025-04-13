@@ -1,0 +1,15 @@
+---
+const { label, url } = Astro.props;
+---
+
+<blockquote cite={url ? url : undefined}>
+  <slot />
+  {
+    label ? (
+        <br />
+        <br />
+        <span>&nbsp;&mdash;&nbsp;</span>
+        <cite>{url ? <a href={url}>{label}</a> : label}</cite>
+    ) : null
+  }
+</blockquote>
