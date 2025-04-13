@@ -17,8 +17,10 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+import { components } from "../utils/mdxComponentAutoLoader";
 ---
 
 <PostLayout data={post.data}>
-  <Content />
+  <Content components={components} />
 </PostLayout>
