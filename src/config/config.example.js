@@ -8,7 +8,7 @@ export const CONFIG = {
   POSTS_DIR: "src/dummy_posts", // RELATIVE TO PROJECT DIRECTORY
 
   // DAISYUI THEME SETTINGS //
-  LIGHT_THEME: "bumblebee", // DAISYUI LIGHT THEME NAME. SEE THEME SWITCHER FOR OPTIONS
+  LIGHT_THEME: "winter", // DAISYUI LIGHT THEME NAME. SEE THEME SWITCHER FOR OPTIONS
   DARK_THEME: "aqua", // DAISYUI DARK THEME NAME. SEE THEME SWITCHER FOR OPTIONS
   THEME_SWITCH_MODE: "all", // 'light', 'dark', 'auto' (uses system preference), 'all' (loads all DaisyUI themes, for demo theme-switcher).
 
