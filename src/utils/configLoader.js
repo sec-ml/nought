@@ -1,7 +1,11 @@
 // src/utils/configLoader.js
 export async function configLoader() {
   // Check if running in Node.js environment
-  if (typeof process !== "undefined" && process.versions?.node) {
+  if (
+    typeof process !== "undefined" &&
+    process.versions?.node &&
+    typeof import.meta.env === "undefined" // Add check to prevent Astro build from running this section
+  ) {
     const path = await import("path");
     const { pathToFileURL } = await import("url");
 
