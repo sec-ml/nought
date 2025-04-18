@@ -3,6 +3,9 @@ dist/
 # generated types
 .astro/
 
+# Generated global.css
+src/styles/global.css
+
 # dependencies
 node_modules/
 
