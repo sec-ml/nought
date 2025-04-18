@@ -9,6 +9,8 @@ import robotsTxt from "astro-robots-txt";
 
 import mdx from "@astrojs/mdx";
 
+import expressiveCode from "astro-expressive-code";
+import ecConfig from "./ec.config.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -23,6 +25,9 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   site: CONFIG.URL,
+  markdown: {
+    syntaxHighlight: false, // disable Astro's default highlighting
+  },
   integrations: [
     sitemap(),
     robotsTxt({
@@ -30,6 +35,7 @@ export default defineConfig({
         return `${CONFIG.ROBOTS_OVERRIDE || content}`;
       },
     }),
+    expressiveCode(ecConfig),
     mdx(),
   ],
 });
