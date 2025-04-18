@@ -7,7 +7,6 @@ export const CONFIG = {
     DEFAULT_AUTHOR: "ml",
     POSTS_DIR: "src/dummy_posts", // RELATIVE TO PROJECT DIRECTORY
 
-    THEME: "winter", // DAISYUI THEME NAME. SEE THEME SWITCHER FOR OPTIONS
 
     // DESCRIPTION_SIDEBAR defaults to DESCRIPTION if not set. Set to false for no sidebar description. Can contain HTML.
     // DESCRIPTION_SIDEBAR: false,//Can contain HTML, e.g. '<h2>An Astro 5 starter with Tailwind CSS. <a href="https://github.com/sec-ml/nought">More info</a>.</h2>',
@@ -86,4 +85,10 @@ export const CONFIG = {
 
     // DEMO SITE SPECIFIC OPTIONS //
     DISABLE_THEME_SWITCHER: false, // true/1 or false/0. DISABLE THEME SWITCHER. Defaults to true if not set.
+
+  // DAISYUI THEME SETTINGS //
+  DARK_THEME: "dim", // DAISYUI DARK THEME NAME. SEE THEME SWITCHER FOR OPTIONS
+  LIGHT_THEME: "garden", // DAISYUI LIGHT THEME NAME. SEE THEME SWITCHER FOR OPTIONS
+  THEME_SWITCH_MODE: "auto", // 'light', 'dark', 'auto' (uses system preference), 'all' (loads all DaisyUI themes, for demo theme-switcher).
+
 };
