@@ -91,4 +91,35 @@ export const CONFIG = {
   LIGHT_THEME: "garden", // DAISYUI LIGHT THEME NAME. SEE THEME SWITCHER FOR OPTIONS
   THEME_SWITCH_MODE: "auto", // 'light', 'dark', 'auto' (uses system preference), 'all' (loads all DaisyUI themes, for demo theme-switcher).
 
+  // EXPRESSIVE-CODE THEME SETTINGS //
+  LIGHT_CODE_THEME: "github-light-high-contrast", // EXPRESSIVE-CODE LIGHT THEME NAME
+  DARK_CODE_THEME: "material-theme", // EXPRESSIVE-CODE DARK THEME NAME
+  OVERRIDE_CODE_STYLING: true, // true or false. OVERRIDE EXPRESSIVE-CODE STYLING WITH DAISYUI STYLING
+
+  // EXPRESSIVE-CODE PLUGINS //
+  EC_WRAP_DEFAULT_ON: true, // true or false. WRAP DEFAULT ON - CAN BE ENABLED/DISABLED WITH ```js wrap=true/false
+  EC_PRESERVE_INDENT_DEFAULT_ON: true, // true or false. PRESERVE INDENT DEFAULT ON - CAN BE ENABLED/DISABLED WITH ```js preserveIndent=true/false
+  EC_LINE_NUMBERS_DEFAULT_ON: false, // true or false. LINE NUMBERS DEFAULT ON - CAN BE ENABLED/DISABLED WITH ```js showLineNumbers=true/false
+  EC_COLLAPSE_STYLE: "github", // 'github', 'collapsible-start', 'collapsible-end', 'collapsible-auto'. DEFAULTS TO GITHUB IF NOT SET. See https://expressive-code.com/plugins/collapsible-sections/
+  EC_OVERRIDES_BY_LANGUAGE: {
+    js: { showLineNumbers: true },
+  },
+  // OVERRIDES FOR EXPRESSIVE-CODE DEFAULTS/STYLING BY LANGUAGE. PASSED DIRECTLY INTO EXPRESSIVE-CODE CONFIG.
+  // E.g.:
+  // {
+  //   "bash,sh,zsh": { wrap: false, showLineNumbers: true, preserveIndent: true },
+  // },
+  EC_STYLE_OVERRIDES: {
+    frames: { frameBoxShadowCssValue: "0.0rem 0.0rem 0.0rem" },
+  },
+  // STYLING OVERRIDES FOR EXPRESSIVE-CODE. PASSED DIRECTLY INTO EXPRESSIVE-CODE CONFIG. See sections, e.g. https://expressive-code.com/key-features/frames/ for options.
+  // E.g.:
+  // {
+  //   codeFontSize: "0.9rem",
+  //   frames: {
+  //     frameBoxShadowCssValue: "0.3rem 0.3rem 0.0rem",
+  //     shadowColor: "var(--color-accent)",
+  //   },
+  // },
+
 };
