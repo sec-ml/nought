@@ -10,7 +10,14 @@ const { page_title, page_description, page_url, meta_type, meta_image } =
 import "../styles/global.css";
 import "../config/custom.css";
 
-const theme = CONFIG.THEME ?? "nord";
+// Data theme should only be set if we've loaded all DaisyUI themes,
+// as it's the only way to specify the initial theme. Probably only
+// useful for the demo site theme switcher. Otherwise, theme is pulled
+// from config file into global.css by generateGlobalCSS.mjs (runs on dev/build).
+const theme =
+  CONFIG.THEME_SWITCH_MODE === "all" && CONFIG.LIGHT_THEME
+    ? CONFIG.LIGHT_THEME
+    : null;
 ---
 
 <html lang="en" data-theme={theme}>
