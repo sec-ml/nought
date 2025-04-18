@@ -8,14 +8,14 @@ export const CONFIG = {
   POSTS_DIR: "src/dummy_posts", // RELATIVE TO PROJECT DIRECTORY
 
   // DAISYUI THEME SETTINGS //
-  DARK_THEME: "dim", // DAISYUI DARK THEME NAME. SEE THEME SWITCHER FOR OPTIONS
-  LIGHT_THEME: "garden", // DAISYUI LIGHT THEME NAME. SEE THEME SWITCHER FOR OPTIONS
-  THEME_SWITCH_MODE: "auto", // 'light', 'dark', 'auto' (uses system preference), 'all' (loads all DaisyUI themes, for demo theme-switcher).
+  LIGHT_THEME: "bumblebee", // DAISYUI LIGHT THEME NAME. SEE THEME SWITCHER FOR OPTIONS
+  DARK_THEME: "aqua", // DAISYUI DARK THEME NAME. SEE THEME SWITCHER FOR OPTIONS
+  THEME_SWITCH_MODE: "all", // 'light', 'dark', 'auto' (uses system preference), 'all' (loads all DaisyUI themes, for demo theme-switcher).
 
   // EXPRESSIVE-CODE THEME SETTINGS //
-  LIGHT_CODE_THEME: "github-light-high-contrast", // EXPRESSIVE-CODE LIGHT THEME NAME
-  DARK_CODE_THEME: "material-theme", // EXPRESSIVE-CODE DARK THEME NAME
-  OVERRIDE_CODE_STYLING: true, // true or false. OVERRIDE EXPRESSIVE-CODE STYLING WITH DAISYUI STYLING
+  LIGHT_CODE_THEME: "nord", // EXPRESSIVE-CODE LIGHT THEME NAME
+  DARK_CODE_THEME: "nord", // EXPRESSIVE-CODE DARK THEME NAME
+  OVERRIDE_CODE_STYLING: false, // true or false. OVERRIDE EXPRESSIVE-CODE STYLING WITH DAISYUI STYLING
 
   // EXPRESSIVE-CODE PLUGINS //
   EC_WRAP_DEFAULT_ON: true, // true or false. WRAP DEFAULT ON - CAN BE ENABLED/DISABLED WITH ```js wrap=true/false
