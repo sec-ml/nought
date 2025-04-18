@@ -1,0 +1,148 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@plugin "daisyui" {
+    {{DAISY_BLOCK}}
+}
+
+@plugin "daisyui/theme" {
+    name: "dark-nought";
+    default: false;
+    /* set as default */
+    prefersdark: {{DARK_NOUGHT_PREFERSDARK}};
+    /* set as default dark mode (prefers-color-scheme:dark) */
+    color-scheme: dark;
+    /* color of browser-provided UI */
+
+    --color-base-100: #1b4843;
+    --color-base-200: #163d39;
+    --color-base-300: #11332f;
+    --color-base-content: #cfd8d6;
+    --color-primary: #81f582;
+    --color-primary-content: #061506;
+    --color-secondary: #8681f1;
+    --color-secondary-content: #060614;
+    --color-accent: #fcb09a;
+    --color-accent-content: #160b09;
+    --color-neutral: #262931;
+    --color-neutral-content: #cfd0d2;
+    --color-info: #2563EB;
+    --color-info-content: #d2e2ff;
+    --color-success: #16A34A;
+    --color-success-content: #000a02;
+    --color-warning: #D97706;
+    --color-warning-content: #110500;
+    --color-error: #DC2626;
+    --color-error-content: #ffd9d4;
+    --radius-selector: 0.25rem;
+    --radius-field: 0.25rem;
+    --radius-box: 0.25rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 2px;
+    --depth: 0;
+    --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+    name: "light-nought";
+    default: false;
+    /* set as default */
+    prefersdark: false;
+    /* set as default dark mode (prefers-color-scheme:dark) */
+    color-scheme: light;
+    /* color of browser-provided UI */
+
+    --color-base-100: oklch(92% 0.013 255.508);
+    --color-base-200: oklch(86% 0.022 252.894);
+    --color-base-300: oklch(70% 0.04 256.788);
+    --color-base-content: oklch(37% 0.044 257.287);
+    --color-primary: #81f582;
+    --color-primary-content: #061506;
+    --color-secondary: #8681f1;
+    --color-secondary-content: #060614;
+    --color-accent: #fcb09a;
+    --color-accent-content: #160b09;
+    --color-neutral: #262931;
+    --color-neutral-content: #cfd0d2;
+    --color-info: oklch(68% 0.169 237.323);
+    --color-info-content: oklch(29% 0.066 243.157);
+    --color-success: oklch(69% 0.17 162.48);
+    --color-success-content: oklch(26% 0.051 172.552);
+    --color-warning: oklch(79% 0.184 86.047);
+    --color-warning-content: oklch(28% 0.066 53.813);
+    --color-error: oklch(64% 0.246 16.439);
+    --color-error-content: oklch(27% 0.105 12.094);
+    --radius-selector: 0.25rem;
+    --radius-field: 0.25rem;
+    --radius-box: 0.25rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 2px;
+    --depth: 0;
+    --noise: 0;
+}
+
+/* Expressive Code Block Spacing */
+div.expressive-code {
+    margin-top: 1.0rem;
++ div.expressive-code {
+    margin-top: 1.75rem;
+}}
+
+/*START-MARKER-DAISY: Custom styling to using DaisyUI elements
+for Expressive Code Blocks*/
+div.expressive-code figure pre {
+    background-color: var(--color-base-100) !important;
+}
+
+div.expressive-code figure.frame {
+    border-radius: var(--radius-field) !important;
+    box-shadow: var(--color-base-content) 4px 4px 0px 0px;
+    transition: box-shadow 0.2s ease-in-out;
+    border: 1px solid var(--color-base-content) !important;
+    /* shadow-[4px_4px_0px_0px] hover: shadow-[0px_0px_0px_0px] */
+    overflow: hidden;
+}
+
+/* where is the extra border coming from? */
+div.expressive-code figure.frame:hover {
+    box-shadow: var(--color-base-content) 0px 0px 0px 0px;
+    /* shadow-[0px_0px_0px_0px] */
+    transition: box-shadow 0.2s ease-in-out;
+    /* border: none !important; */
+}
+
+div.expressive-code figure.frame pre {
+    /* border-radius: var(--radius-field) !important; */
+    border-radius: unset !important;
+    /* ^^ radius within radius leaves little gaps. Remove radius from inner element and just ensure the overflow is hidden */
+    border: none !important;
+}
+/* 
+@media (prefers-color-scheme: dark) {
+
+    div.expressive-code figure pre {
+            background-color: var(--color-base-100) !important;
+        }
+        .expressive-code .frame.has-title:not(.is-terminal) .header {
+            background: var(--color-base-100) !important;
+        }
+} */
+
+.expressive-code .frame .header {border-radius: unset!important;}
+.expressive-code .frame.has-title:not(.is-terminal) .title::after { border-top: 0px solid var(--color-base-content) !important; border-right: 1px solid var(--color-base-content) !important; border-bottom: 0px solid var(--color-base-content) !important; }
+.expressive-code .frame.has-title:not(.is-terminal) .title {border:unset!important;border-radius: unset!important;background-color: var(--color-base-100)!important;}
+.expressive-code .frame.has-title:not(.is-terminal) .header {background: var(--color-base-200)!important;} /* was base-300. too dark? */
+.expressive-code .frame.has-title:not(.is-terminal) .header::before {border: 0px var(--color-base-300) solid!important;}
+
+
+
+.expressive-code .frame.is-terminal .header {background:var(--color-base-200)!important; /* was base-300. too dark? */
+border: unset !important;
+color:var(--color-base-content)!important;}
+.expressive-code .frame.is-terminal .header::after {border-bottom:unset!important;}
+.expressive-code .frame.is-terminal .header::before {background-color:var(--color-base-content)!important;
+    opacity:0.3!important;}
+
+/*END-MARKER-DAISY*/
