@@ -8,6 +8,11 @@ import BaseLayout from "./Base.astro";
 import TagSingle from "../components/TagSingle.astro";
 const { data } = Astro.props;
 
+// Normalise tags to lowercase
+const normalised_tags = Array.isArray(data.tags)
+  ? data.tags.map((tag: string) => tag.toLowerCase())
+  : [];
+
 let byline_html_string: string;
 if (
   CONFIG.BLOG_POST_SHOW_AUTHOR == false &&
@@ -84,9 +89,9 @@ const optimised_image = data.image
         <Fragment set:html={byline_html_string} />
         {
           // Only render the tags div if tag option exists, and it's an array
-          Array.isArray(data.tags) && data.tags.length > 0 ? (
+          Array.isArray(normalised_tags) && normalised_tags.length > 0 ? (
             <div class="tags mb-0">
-              {data.tags.map((tag: string) => (
+              {normalised_tags.map((tag: string) => (
                 <TagSingle
                   label={tag}
                   url={`/tags/${tag.replace(/\s+/g, "-")}`}

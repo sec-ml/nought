@@ -20,10 +20,11 @@ blog_posts.forEach((post) => {
   // Check if post.data.tags exists and is an array
   if (Array.isArray(post.data.tags) && post.data.tags.length > 0) {
     post.data.tags.forEach((tag: string) => {
-      if (tag_meta[tag]) {
-        tag_meta[tag].count++;
+      const normalised_tag = tag.toLowerCase();
+      if (tag_meta[normalised_tag]) {
+        tag_meta[normalised_tag].count++;
       } else {
-        tag_meta[tag] = { count: 1 };
+        tag_meta[normalised_tag] = { count: 1 };
       }
     });
   }
