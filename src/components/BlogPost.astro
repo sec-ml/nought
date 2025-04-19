@@ -19,6 +19,11 @@ const {
 
 import PostExcerpt from "@igor.dvlpr/astro-post-excerpt";
 
+// Normalise tags to lowercase
+const normalised_tags = Array.isArray(tags)
+  ? tags.map((tag: string) => tag.toLowerCase())
+  : [];
+
 let byline_html_string: string;
 if (CONFIG.POST_LISTING_SHOW_AUTHOR || CONFIG.POST_LISTING_SHOW_DATE) {
   byline_html_string = '<p class="byline mb-2">Posted';
@@ -82,12 +87,12 @@ if (CONFIG.POST_LISTING_SHOW_AUTHOR || CONFIG.POST_LISTING_SHOW_DATE) {
     </p>
     {
       // Only render the tags div if tag option exists, and is an array
-      Array.isArray(tags) && tags.length > 0 ? (
+      Array.isArray(normalised_tags) && normalised_tags.length > 0 ? (
         // include tag check logic outside of div, to collapse spacing if not required
         <div class="mt-4">
-          {tags.map((tag: string) => {
+          {normalised_tags.map((tag: string) => {
             const separator: string =
-              tags.indexOf(tag) < tags.length - 1
+              normalised_tags.indexOf(tag) < normalised_tags.length - 1
                 ? ' <span class="text-base-content">|</span> '
                 : "";
             const selected_tag_styling: string =
