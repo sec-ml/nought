@@ -17,18 +17,20 @@ export async function getStaticPaths() {
       Date.parse(b.data.dateCreated) - Date.parse(a.data.dateCreated)
   );
 
+  // Create set of tags (to de-dupe the list). Convert each to lowercase inline.
   const unique_tags = [
     ...new Set(
       blog_posts
-        .map((post: any) => (Array.isArray(post.data.tags) ? post.data.tags : []))
+        .map((post: any) => (Array.isArray(post.data.tags) ? post.data.tags.map((tag: string) => tag.toLowerCase()) : []))
         .flat()
     ),
   ];
 
+  // Find which posts are tagged with this tag
   return unique_tags.map((tag) => {
     const filtered_blog_posts = blog_posts.filter(
       (post: any) =>
-        Array.isArray(post.data.tags) && post.data.tags.includes(tag)
+        Array.isArray(post.data.tags) && post.data.tags.map((t: string) => t.toLowerCase()).includes(tag) // check each post's tags (but toLowerCase for comparison)
     );
     const postQty = filtered_blog_posts.length;
     return {
