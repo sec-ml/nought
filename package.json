@@ -1,7 +1,7 @@
 {
   "name": "nought",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "scripts": {
     "predev": "node src/scripts/generateGlobalCSS.mjs",
     "prebuild": "node src/scripts/generateGlobalCSS.mjs",

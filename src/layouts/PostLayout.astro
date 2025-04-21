@@ -4,9 +4,22 @@ const CONFIG = await configLoader();
 
 import { Image, getImage } from "astro:assets";
 
+import TableOfContents from "../components/TableOfContents.astro";
 import BaseLayout from "./Base.astro";
 import TagSingle from "../components/TagSingle.astro";
-const { data } = Astro.props;
+const { data, headings } = Astro.props;
+
+const toc_desktop_style_overrides = CONFIG.TOC_DESKTOP_STYLE_OVERRIDES || "";
+const toc_mobile_style_overrides = CONFIG.TOC_MOBILE_STYLE_OVERRIDES || "";
+const toc_enable = CONFIG.TOC_ENABLE;
+const toc_min_depth = CONFIG.TOC_MIN_DEPTH || 2;
+const toc_max_depth = CONFIG.TOC_MAX_DEPTH || 3;
+const toc_min_heading_qty = CONFIG.TOC_MIN_HEADING_QTY || 3;
+
+const toc_headings = headings?.filter(
+  (headings: any) =>
+    headings.depth >= toc_min_depth && headings.depth <= toc_max_depth
+);
 
 // Normalise tags to lowercase
 const normalised_tags = Array.isArray(data.tags)
@@ -77,38 +90,67 @@ const optimised_image = data.image
     ) : null
   }
 
-  <div class="align-middle flex flex-col items-center justify-center">
-    <article
-      class="prose grid grid-cols-1 mt-0 prose-headings:-my-0 prose-headings:mb-2 prose-headings:mt-4 prose-h2:mb-2 prose-h2:mt-4 prose-p:mb-1 max-w-2xl p-6"
-    >
-      {
-        // weird bug where code block was breaking responsiveness. From https://github.com/tailwindlabs/tailwindcss-typography/issues/96#issuecomment-1047554910 - adding grid grid-cols-1 fixed, although some of the prose heading margins got broken.
-      }
-      <div id="meta_data" class="">
-        <h1 class="text-4xl font-bold">{data.title}</h1>
-        <Fragment set:html={byline_html_string} />
-        {
-          // Only render the tags div if tag option exists, and it's an array
-          Array.isArray(normalised_tags) && normalised_tags.length > 0 ? (
-            <div class="tags mb-0">
-              {normalised_tags.map((tag: string) => (
-                <TagSingle
-                  label={tag}
-                  url={`/tags/${tag.replace(/\s+/g, "-")}`}
-                  count={0}
-                  display_count={false}
-                  sidebar={false}
+  <div class="flex flex-row justify-center gap-8">
+    <div class="max-w-2xl w-full">
+      <div class="align-middle flex flex-col items-center justify-center">
+        <article
+          class="prose grid grid-cols-1 mt-0 prose-headings:-my-0 prose-headings:mb-2 prose-headings:mt-4 prose-h2:mb-2 prose-h2:mt-4 prose-p:mb-1 p-6"
+        >
+          {
+            // weird bug where code block was breaking responsiveness. From https://github.com/tailwindlabs/tailwindcss-typography/issues/96#issuecomment-1047554910 - adding grid grid-cols-1 fixed, although some of the prose heading margins got broken.
+          }
+          <div id="meta_data" class="">
+            <h1 class="text-4xl font-bold">{data.title}</h1>
+            <Fragment set:html={byline_html_string} />
+            {
+              // Only render the tags div if tag option exists, and it's an array
+              Array.isArray(normalised_tags) && normalised_tags.length > 0 ? (
+                <div class="tags mb-0">
+                  {normalised_tags.map((tag: string) => (
+                    <TagSingle
+                      label={tag}
+                      url={`/tags/${tag.replace(/\s+/g, "-")}`}
+                      count={0}
+                      display_count={false}
+                      sidebar={false}
+                    />
+                  ))}
+                </div>
+              ) : (
+                // If no tags exist, add empty div to maintain spacing
+                <div class="no-tags mb-0" />
+              )
+            }
+            <hr class="mt-6 mb-4" />
+          </div>
+          {
+            // Table of Contents - Mobile (top of article)
+            toc_enable && toc_headings?.length >= toc_min_heading_qty ? (
+              <div class="block lg:hidden">
+                <TableOfContents
+                  headings={headings}
+                  min_depth={toc_min_depth}
+                  max_depth={toc_max_depth}
+                  variant="mobile"
                 />
-              ))}
-            </div>
-          ) : (
-            // If no tags exist, add empty div to maintain spacing
-            <div class="no-tags mb-0" />
-          )
-        }
-        <hr class="mt-6 mb-4" />
+              </div>
+            ) : null
+          }
+          <slot />
+        </article>
       </div>
-      <slot />
-    </article>
+    </div>
+
+    {
+      // Table of Contents - Desktop (aside)
+      toc_enable && toc_headings?.length >= toc_min_heading_qty ? (
+        <TableOfContents
+          headings={headings}
+          min_depth={toc_min_depth}
+          max_depth={toc_max_depth}
+          variant="desktop"
+        />
+      ) : null
+    }
   </div>
 </BaseLayout>
