@@ -1,0 +1,205 @@
+---
+import { configLoader } from "../utils/configLoader";
+const CONFIG = await configLoader();
+
+const toc_mobile_style_overrides = CONFIG.TOC_MOBILE_STYLE_OVERRIDES || "";
+const toc_desktop_style_overrides = CONFIG.TOC_DESKTOP_STYLE_OVERRIDES || "";
+
+// define structure of each heading object, then use heading type to define headings prop
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+  min_depth?: number;
+  max_depth?: number;
+  variant?: "desktop" | "mobile";
+}
+
+// min_depth and max_depth are optional with defaults, but calling file
+// (PostLayout) also sets defaults. Maybe change in future...
+const { headings, min_depth = 2, max_depth = 3, variant = "desktop" } = Astro.props;
+
+// Filter headings to desired depths
+const filtered = headings.filter(
+  (heading) => heading.depth >= min_depth && heading.depth <= max_depth
+);
+---
+<style>
+  .active {
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 3px;
+    color: var(--tw-prose-headings);
+  }
+</style>
+
+{variant === "mobile" ? (
+  <details class={`bg-base-300 overflow-y-auto shadow-[4px_4px_0px_0px] hover:shadow-[0px_0px_0px_0px] px-2 py-1 border-2 rounded-field bg-base-100 text-base-content border-base-content shadow-base-content transition-shadow duration-300 ease-in-out ${toc_mobile_style_overrides}`}>
+    <summary class="cursor-pointer text-center ">Table of Contents</summary>
+    <ul>
+      {filtered.map((heading) => (
+        <li style={`margin-left: ${(heading.depth - min_depth) * 1.25}rem`}>
+          <a
+            href={`#${heading.slug}`}
+            data-toc-link
+            data-id={heading.slug}
+            class="block -my-1 px-2"
+          >
+            {heading.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </details>
+) : (
+  <aside
+    data-toc-desktop
+    data-min-depth={min_depth}
+    data-max-depth={max_depth}
+    class="hidden lg:block w-64 shrink-0 mt-[200px]"
+  >
+    <div class={`sticky top-10 max-h-[calc(100vh-5rem)] bg-base-300 overflow-y-auto shadow-[4px_4px_0px_0px] hover:shadow-[0px_0px_0px_0px] px-2 py-1 border-2 rounded-field bg-base-100 text-base-content border-base-content shadow-base-content transition-shadow duration-300 ease-in-out ${toc_desktop_style_overrides}`}>
+      {
+        filtered.length > 0 && (
+          <nav class="toc">
+            <div class="toc-title text-center mb-2">
+              <h2 class="text-md font-bold">Table of Contents</h2>
+            </div>
+            <ul>
+              {filtered.map((heading) => (
+                <li
+                  class={`toc-item toc-depth-${heading.depth}`}
+                  style={`margin-left: ${(heading.depth - min_depth) * 1.25}rem`}
+                >
+                  <a
+                    href={`#${heading.slug}`}
+                    data-toc-link
+                    data-id={heading.slug}
+                    class="block py-1 px-2 transition-colors"
+                  >
+                    {heading.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )
+      }
+    </div>
+  </aside>
+)}
+
+{variant === "desktop" && (
+  <script is:inline>
+  window.addEventListener("DOMContentLoaded", () => {
+    // Find the desktop toc (aside) container
+    const desktop_toc = document.querySelector("[data-toc-desktop]");
+    if (!desktop_toc) return;
+
+    // Read heading depth limits from data attributes
+    const min_depth = parseInt(desktop_toc.dataset.minDepth, 10);
+    const max_depth = parseInt(desktop_toc.dataset.maxDepth, 10);
+
+    const observerOptions = {
+      // Start tracking a heading when it's 40% down from the top of the viewport
+      // Seems a bit arbitrary.. working ok now, but might need to tweak
+      rootMargin: "0px 0px -60% 0px",
+      threshold: 0
+    };
+
+    let suppress_next_observer = false;
+
+    // Query all h2–h6 elements, then filter by depth
+    const headings = Array.from(
+      document.querySelectorAll("article h2[id], article h3[id], article h4[id], article h5[id], article h6[id]")
+    ).filter((h) => {
+      const depth = parseInt(h.tagName[1]);
+      return depth >= min_depth && depth <= max_depth;
+    });
+
+    // get list of all toc (anchor) links
+    const toc_links = desktop_toc.querySelectorAll("[data-toc-link]");
+
+    // Toggle `.active` class on matching TOC link
+    const setActive = (id) => {
+      toc_links.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("data-id") === id);
+      });
+    };
+
+// Some links weren't being activated on click (probably due to observer/proximity to another heading).
+// Add this to force set .active on click
+toc_links.forEach((link) => {
+  link.addEventListener("click", (e) => {
+    const id = link.getAttribute("data-id");
+    if (id) {
+      // Flag to skip the next observer call. In event that headings are close together, and last
+      // heading on a page was clicked, that heading would briefly be activated, before jumping back
+      // to the heading's link that is calculated as the one to be displayed. Add functionality to
+      // partly solve that - if a manual click, next observer call should be ignored. If the user
+      // scrolls even slightly, the observer will take over again, so this doesn't 100% fix the issue. 
+      // const observer... contains a check for suppression.
+      suppress_next_observer = true;
+      setActive(id);
+
+      // Had an issue where the active link jumped back to another one after clicking a new one.
+      // Temporarily disconnect observer to avoid instant override
+      observer.disconnect();
+
+      // Then reconnect after 300ms (once scroll completes, or whatever was causing the issue).
+      // Worth testing again without this following other changes, although it's not layout-blocking
+      // as it runs after the page has loaded.
+      setTimeout(() => {
+        headings.forEach((heading) => observer.observe(heading));
+      }, 300);
+    }
+  });
+});
+
+
+
+    // Set up IntersectionObserver to track visible headings
+    const observer = new IntersectionObserver((entries) => {
+      // If the observer was triggered by a click, skip this cycle but
+      // set suppres flag back to false.
+        if (suppress_next_observer) {
+    suppress_next_observer = false;
+    return; // Skip this cycle
+  }
+
+      for (const entry of entries) {
+        if (entry.isIntersecting && entry.target.id) {
+          setActive(entry.target.id);
+          break;
+        }
+      }
+    }, observerOptions);
+
+    // Observe each heading in the article
+    headings.forEach((heading) => {
+      observer.observe(heading);
+    });
+
+    // fix setting active link on page load if there's a hash in the URL
+    const updateFromHash = () => {
+      const id = location.hash.replace("#", "");
+      if (id) {
+        setActive(id);
+      }
+    };
+
+    // Run once on page load if there's a hash
+    updateFromHash();
+
+    // catch any other changes to currently active heading in URL
+    // no longer required? Test without before removing.
+    // window.addEventListener("hashchange", updateFromHash);
+  });
+</script>
+
+)}
