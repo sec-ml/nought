@@ -1,0 +1,25 @@
+---
+interface Props {
+  light?: "true" | "false";
+}
+const { light = "true" } = Astro.props;
+const transform_class = light == "true" ? "diagram-td" : "diagram-tl";
+// add prop to enable/disable container bg/styling
+---
+<style>
+    @media (prefers-color-scheme: light) {
+        .diagram-tl {
+            filter: invert(1) hue-rotate(180deg);
+        }
+    }
+    @media (prefers-color-scheme: dark) {
+        .diagram-td {
+            filter: invert(1) hue-rotate(180deg);
+        }
+    }
+</style>
+<div class="diagram-container bg-base-300 rounded-field p-4">
+    <div class={`${transform_class}`}>
+        <slot />
+    </div>
+</div>
