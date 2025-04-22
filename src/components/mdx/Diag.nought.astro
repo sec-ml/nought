@@ -1,10 +1,14 @@
 ---
 interface Props {
-  light?: "true" | "false";
+  light?: string;
+  bg?: string;
 }
-const { light = "true" } = Astro.props;
+const { light = "true", bg = "false" } = Astro.props;
 const transform_class = light == "true" ? "diagram-td" : "diagram-tl";
-// add prop to enable/disable container bg/styling
+
+const bg_colour_class = (bg != "false" && bg != "true") ?
+  bg :
+  "bg-base-300";
 ---
 <style>
     @media (prefers-color-scheme: light) {
@@ -18,8 +22,14 @@ const transform_class = light == "true" ? "diagram-td" : "diagram-tl";
         }
     }
 </style>
-<div class="diagram-container bg-base-300 rounded-field p-4">
+{bg != "false" ? (
+    <div class={`diagram-container ${bg_colour_class} rounded-field p-4`}>
+        <div class={`spec ${transform_class}`}>
+            <slot />
+        </div>
+    </div>
+) : (
     <div class={`${transform_class}`}>
         <slot />
     </div>
-</div>
+)}
