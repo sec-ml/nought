@@ -12,20 +12,44 @@ redirects:
 excerpt: This post will demonstrate built-in custom components for use within MDX files.
 ---
 
-## Blockquote with citation 
+## Callouts
+
+These callouts are fairly stock from [DaisyUI](https://daisyui.com/components/alert/), and use the standard theme warning, success, error, info colours:
+
+<Info>Here's a bit of info for you!</Info>
+<Warning>But be careful how you use it...</Warning>
+<Error>This is what it'll look like when it goes wrong.</Error>
+<Success>But the chance of success is often worth the risk!</Success>
+<Alert>You just have to make sure you're always alert to the possibility.</Alert>
+
+#### Usage:
+
+```mdx
+<Info>Here's a bit of info for you!</Info>
+<Warning>But be careful how you use it...</Warning>
+<Error>This is what it'll look like when it goes wrong.</Error>
+<Success>But the chance of success is often worth the risk!</Success>
+<Alert>You just have to make sure you're always alert to the possibility.</Alert>
+```
+
+## Blockquote with citation
+
+A wrapper for markdown blockquotes, which allows you to set a citation (label and URL). For reference, this is a normal markdown blockquote:
 
 > This is a normal markdown blockquote.
-
 ```markdown
 > This is a normal markdown blockquote.
 ```
-
-### Custom Cite Component
+... and this is the `<Cite>` component:
 
 <Cite>Cite component with no label or url set</Cite>
 <Cite label="nought.">Cite component with only label set</Cite>
 <Cite url="https://nought.vercel.app/custom-components">Cite component with only URL set (the cite attribute is set in HTML... you won't actually see it here).</Cite>
 <Cite label="nought." url="https://nought.vercel.app/custom-components">Cite component with label and url set.</Cite>
+
+#### Usage:
+
+```mdx
 
 ```markdown
 <Cite>Cite component with no label or url set</Cite>
