@@ -1,9 +1,16 @@
 ---
-const { label, url } = Astro.props;
+const { label, url, big } = Astro.props;
+let bigquote: string;
+if (big) {
+  bigquote = "text-[1.7rem]";
+} else {
+  bigquote = "";
+}
+
 ---
 
 <blockquote cite={url ? url : undefined}>
-  <slot />
+  <span class={`${bigquote} quote`}><slot /></span>
   {
     label ? (
         <br />
