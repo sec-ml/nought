@@ -55,5 +55,33 @@ A wrapper for markdown blockquotes, which allows you to set a citation (label an
 <Cite label="nought.">Cite component with only label set</Cite>
 <Cite url="https://nought.vercel.app/custom-components">Cite component with only URL set (the cite attribute is set in HTML... you won't actually see it here).</Cite>
 <Cite label="nought." url="https://nought.vercel.app/custom-components">Cite component with label and url set.</Cite>
-<Cite label="nought." url="https://nought.vercel.app/custom-components" big>How about a more prominent quote?</Cite>
 ```
+
+## Diagrams
+
+Custom component for displaying diagrams (or drawings, sketches, images). 
+<Diag light='true'>![example excalidraw diagram](images/example.excalidraw.png)</Diag>
+
+`light='true'` sets the diagram's lightness/darkness:
+
+```mdx
+<Diag light='true'>![example excalidraw diagram](images/example.excalidraw.png)</Diag>
+```
+This is how it is displayed on a dark theme:
+![example diagram on dark theme](images/diag-dark_display.png)
+And this is how it is displayed on a light theme:
+![example diagram on light theme](images/diag-light_display.png)
+
+With `bg='no'`:
+```mdx
+<Diag light='true' bg='no'>![example excalidraw diagram](images/example.excalidraw.png)</Diag>
+```
+<Diag light='true' bg='no'>![example excalidraw diagram](images/example.excalidraw.png)</Diag>
+
+Or override background colour:
+```mdx
+<Diag light='true' bg='#e9ef33'>![example excalidraw diagram](images/example.excalidraw.png)</Diag>
+<Diag light='true' bg='bg-secondary'>![example excalidraw diagram](images/example.excalidraw.png)</Diag>
+```
+<Diag light='true' bg='#e9ef33'>![example excalidraw diagram](images/example.excalidraw.png)</Diag>
+<Diag light='true' bg='bg-secondary'>![example excalidraw diagram](images/example.excalidraw.png)</Diag>

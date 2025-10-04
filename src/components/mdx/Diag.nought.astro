@@ -1,0 +1,80 @@
+---
+import { configLoader } from "../../utils/configLoader";
+const CONFIG = await configLoader();
+
+interface Props {
+  light?: "true" | "false";
+  bg?: string; // "no" | hex | semantic ("bg-base-200")
+}
+
+const { light = "true", bg } = Astro.props;
+const mode = CONFIG?.THEME_SWITCH_MODE ?? "auto"; // use 'auto' as default if not set
+
+// determine class based on theme mode and light prop
+let transform_class = "";
+if (mode === "auto" || mode === "all") {
+  transform_class = light === "true" ? "diagram-td" : "diagram-tl";
+} else if (mode === "light") {
+  transform_class = light === "true" ? "" : "diagram-tl";
+} else if (mode === "dark") {
+  transform_class = light === "true" ? "diagram-td" : "";
+}
+
+// build container classes and optional inline style when hex is used
+let base_container = "has-bg diagram-container rounded-field";
+// defaults
+let container_bg = "bg-base-300 p-4";
+let container_style = "";
+
+// handle background prop: no/false disables bg, hex sets inline style, bg-* uses Tailwind class
+if (typeof bg === "string") {
+  const v = bg.trim();
+
+  if (/^(no|false)$/i.test(v)) {
+    base_container = "diagram-container rounded-field";
+    container_bg = ""; // no bg, no padding
+  } else if (/^#?(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(v)) {
+    // hex colour, with or without '#'
+    const hex = v.startsWith("#") ? v : `#${v}`;
+    container_bg = "p-4";
+    container_style = `background-color: ${hex};`;
+  } else if (v.toLowerCase().startsWith("bg-")) {
+    // (╯°□°）╯︵ ┻━┻ this catches me out every time. We can't programmatically build a tailwind class name. Need the whole 'bg-semantic' name.
+    container_bg = `${v} p-4`;
+  } else {
+    // ignore everything else, keep default
+  }
+}
+
+const container_classes = `${base_container} ${container_bg}`.trim();
+---
+{mode === "auto" || mode === "all" ? (
+  <style>
+    @media (prefers-color-scheme: light) {
+      .diagram-tl { filter: invert(1) hue-rotate(180deg); }
+    }
+    @media (prefers-color-scheme: dark) {
+      .diagram-td { filter: invert(1) hue-rotate(180deg); }
+    }
+    .diagram-container.has-bg {margin-top: 1em; margin-bottom: 1em;}
+    .diagram-container.has-bg img { margin-top: 0; margin-bottom: 0; }
+  </style>
+) : mode === "light" ? (
+  <style>
+    .diagram-tl { filter: invert(1) hue-rotate(180deg); }
+    .diagram-container.has-bg {margin-top: 1em; margin-bottom: 1em;}
+    .diagram-container.has-bg img { margin-top: 0; margin-bottom: 0; }
+  </style>
+) : (
+  <style>
+    .diagram-td { filter: invert(1) hue-rotate(180deg); }
+    .diagram-container.has-bg {margin-top: 1em; margin-bottom: 1em;}
+    .diagram-container.has-bg img { margin-top: 0; margin-bottom: 0; }
+  </style>
+)}
+
+<div class={container_classes} style={container_style}>
+  <div class={`${transform_class}`}>
+    <slot />
+  </div>
+</div>
