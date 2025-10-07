@@ -1,0 +1,51 @@
+---
+const slot_content_raw = await Astro.slots.render('default');
+const slot_content = slot_content_raw.replace(/\s+/g, " "); // collapse multiple spaces to one
+
+// split into separate keys, keeping separators (space, +, comma)
+const keys = [];
+const regex = /([^\s+,]+)|([+])|([,])|(\s)/g;
+let match;
+while ((match = regex.exec(slot_content))) {
+  if (match[1]) keys.push({ type: "key", value: match[1] });
+  if (match[2]) keys.push({ type: "plus", value: "+" });
+  if (match[3]) keys.push({ type: "comma", value: "," });
+  if (match[4]) keys.push({ type: "space", value: " " });
+}
+
+// symbol replacements
+const keyMap: { [key: string]: string } = {
+  "ctrl-sym": "⌃",
+  "control-sym": "⌃",
+  "command-sym": "⌘",
+  "cmd-sym": "⌘",
+  "option-sym": "⌥",
+  "alt-sym": "⌥",
+  "shift-sym": "⇧",
+  "backspace-sym": "⌫",
+  "return-sym": "⏎",
+  "enter-sym": "⏎",
+  "tab-sym": "↹",
+  "left-sym": "←",
+  "up-sym": "↑",
+  "right-sym": "→",
+  "down-sym": "↓"
+};
+---
+<span>
+  {keys.map((key, idx) => {
+    if (key.type === "key") {
+      const display = keyMap[key.value.toLowerCase()] ?? key.value;
+      return <kbd class="kbd">{display}</kbd>;
+    }
+    if (key.type === "plus") {
+      return <span class="kbd-separator"> + </span>;
+    }
+    if (key.type === "comma") {
+      return <span class="kbd-separator">, </span>;
+    }
+    if (key.type === "space") {
+      return <span class="kbd-separator">&nbsp;</span>;
+    }
+  })}
+</span>
