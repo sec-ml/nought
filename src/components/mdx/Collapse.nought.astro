@@ -1,0 +1,16 @@
+---
+interface Props {
+  title?: string;
+  collapse_classes?: string;
+  title_classes?: string;
+  content_classes?: string;
+}
+
+const { title = "", collapse_classes = "", title_classes = "", content_classes = "" } = Astro.props;
+---
+<div tabindex="0" class={`my-4 collapse collapse-arrow rounded-field transition-shadow duration-300 ease-in-out shadow-[3px_3px_0px_0px] hover:shadow-[0px_0px_0px_0px] w-auto border-1 bg-base-300 text-base-content border-base-content shadow-primary ${collapse_classes}`}>
+  <div class={`collapse-title font-semibold ${title_classes}`}>{title}</div>
+  <div class={`collapse-content text-sm ${content_classes}`}>
+    <slot />
+  </div>
+</div>
