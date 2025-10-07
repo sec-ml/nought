@@ -85,3 +85,27 @@ Or override background colour:
 ```
 <Diag light='true' bg='#e9ef33'>![example excalidraw diagram](images/example.excalidraw.png)</Diag>
 <Diag light='true' bg='bg-secondary'>![example excalidraw diagram](images/example.excalidraw.png)</Diag>
+
+## Collapsible sections
+
+````mdx
+<Collapse title="Default Styling">This is a collapsible section with default styling.</Collapse>
+
+<Collapse title="Custom Styling 1" collapse_classes="!bg-base-300" title_classes="text-xl text-primary" content_classes="text-primary">
+This is the content of section 1.
+```mdx
+here is some code inside the collapsible section.
+```
+</Collapse>
+
+<Collapse title="Custom Styling 2" collapse_classes="!bg-base-100 shadow-secondary" title_classes="text-xl text-secondary" content_classes="text-secondary">This is the content of section 2.</Collapse>
+````
+
+<Collapse title="Default Styling">This is a collapsible section with default styling.</Collapse>
+<Collapse title="Custom Styling 1" collapse_classes="!bg-base-300" title_classes="text-xl text-primary" content_classes="text-primary">
+This is the content of section 1.
+```mdx
+here is some code inside the collapsible section.
+```
+</Collapse>
+<Collapse title="Custom Styling 2" collapse_classes="!bg-base-100 shadow-secondary" title_classes="text-xl text-secondary" content_classes="text-secondary">This is the content of section 2.</Collapse>
