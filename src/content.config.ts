@@ -28,6 +28,18 @@ const blog = defineCollection({
   }),
 });
 
+var tag_pages_path =
+    CONFIG.TAG_PAGES_DIR ? CONFIG.TAG_PAGES_DIR : 'src/tag-pages';
+
+const tagPages = defineCollection({
+  loader: glob({ pattern: "*.{md,mdx}", base: tag_pages_path }),
+  schema: z.object({
+    tag: z.string(), // tag slug as in URL, e.g. "markdown" or "expressive-code"
+    title: z.string().optional(),
+  }),
+});
+
 export const collections = {
   blog: blog,
+  tagPages: tagPages,
 };

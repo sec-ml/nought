@@ -6,6 +6,7 @@ export const CONFIG = {
   DESCRIPTION: "An Astro 5 starter with Tailwind CSS",
   DEFAULT_AUTHOR: "ml",
   POSTS_DIR: "src/dummy_posts", // RELATIVE TO PROJECT DIRECTORY
+  TAG_PAGES_DIR: "src/dummy_tag-pages", // RELATIVE TO PROJECT DIRECTORY. For custom content on tag page, i.e. /tags/<tag-name>
 
   // DAISYUI THEME SETTINGS //
   LIGHT_THEME: "winter", // DAISYUI LIGHT THEME NAME. SEE THEME SWITCHER FOR OPTIONS
