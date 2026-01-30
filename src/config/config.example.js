@@ -11,6 +11,8 @@ export const CONFIG = {
   LIGHT_THEME: "winter", // DAISYUI LIGHT THEME NAME. SEE THEME SWITCHER FOR OPTIONS
   DARK_THEME: "aqua", // DAISYUI DARK THEME NAME. SEE THEME SWITCHER FOR OPTIONS
   THEME_SWITCH_MODE: "all", // 'light', 'dark', 'auto' (uses system preference), 'all' (loads all DaisyUI themes, for demo theme-switcher).
+  STROKE_STYLE_LIGHT: true, // true = border + shadow, false = minimal (shadow only for most elements).
+  STROKE_STYLE_DARK: true, // true = border + shadow, false = minimal (shadow only for most elements).
 
   // EXPRESSIVE-CODE THEME SETTINGS //
   LIGHT_CODE_THEME: "nord", // EXPRESSIVE-CODE LIGHT THEME NAME
