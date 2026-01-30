@@ -18,6 +18,17 @@ const theme =
   CONFIG.THEME_SWITCH_MODE === "all" && CONFIG.LIGHT_THEME
     ? CONFIG.LIGHT_THEME
     : null;
+
+const stroke_light = CONFIG.STROKE_STYLE_LIGHT ?? true;
+const stroke_dark = CONFIG.STROKE_STYLE_DARK ?? true;
+const theme_mode = CONFIG.THEME_SWITCH_MODE ?? "light";
+
+const stroke_classes =
+  theme_mode === "auto" || theme_mode === "all"
+    ? `stroke-context stroke-light-${stroke_light} stroke-dark-${stroke_dark}`
+    : theme_mode === "light"
+      ? `stroke-style-${stroke_light}`
+      : `stroke-style-${stroke_dark}`;
 ---
 
 <html lang="en" data-theme={theme}>
@@ -33,7 +44,7 @@ const theme =
       meta_sitename={CONFIG.TITLE}
     />
   </head>
-  <body class="relative min-h-screen flex flex-col">
+  <body class={`relative min-h-screen flex flex-col ${stroke_classes}`}>
     <Header />
     <main
       id="mainContent"

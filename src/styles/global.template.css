@@ -146,3 +146,23 @@ color:var(--color-base-content)!important;}
     opacity:0.3!important;}
 
 /*END-MARKER-DAISY*/
+
+/* Stroke style: false = minimal (drop shadow only, no border on most elements); true = border + shadow */
+/* Single-theme (light or dark only) */
+body.stroke-style-false .nought-stroke {
+  border-width: 0;
+}
+
+/* Context (auto/all) + light preference */
+@media (prefers-color-scheme: light) {
+  body.stroke-light-false .nought-stroke {
+    border-width: 0;
+  }
+}
+
+/* Context (auto/all) + dark preference */
+@media (prefers-color-scheme: dark) {
+  body.stroke-dark-false .nought-stroke {
+    border-width: 0;
+  }
+}
