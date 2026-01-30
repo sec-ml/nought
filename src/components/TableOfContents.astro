@@ -39,7 +39,7 @@ const filtered = headings.filter(
 </style>
 
 {variant === "mobile" ? (
-  <details class={`bg-base-300 overflow-y-auto shadow-[4px_4px_0px_0px] hover:shadow-[0px_0px_0px_0px] px-2 py-1 border-2 rounded-field bg-base-100 text-base-content border-base-content shadow-base-content transition-shadow duration-300 ease-in-out ${toc_mobile_style_overrides}`}>
+  <details class={`nought-stroke bg-base-300 overflow-y-auto shadow-[4px_4px_0px_0px] hover:shadow-[0px_0px_0px_0px] px-2 py-1 border-2 rounded-field bg-base-100 text-base-content border-base-content shadow-base-content transition-shadow duration-300 ease-in-out ${toc_mobile_style_overrides}`}>
     <summary class="cursor-pointer text-center ">Table of Contents</summary>
     <ul>
       {filtered.map((heading) => (
@@ -63,7 +63,7 @@ const filtered = headings.filter(
     data-max-depth={max_depth}
     class="hidden lg:block w-64 shrink-0 mt-[200px]"
   >
-    <div class={`sticky top-10 max-h-[calc(100vh-5rem)] bg-base-300 overflow-y-auto shadow-[4px_4px_0px_0px] hover:shadow-[0px_0px_0px_0px] px-2 py-1 border-2 rounded-field bg-base-100 text-base-content border-base-content shadow-base-content transition-shadow duration-300 ease-in-out ${toc_desktop_style_overrides}`}>
+    <div class={`nought-stroke sticky top-10 max-h-[calc(100vh-5rem)] bg-base-300 overflow-y-auto shadow-[4px_4px_0px_0px] hover:shadow-[0px_0px_0px_0px] px-2 py-1 border-2 rounded-field bg-base-100 text-base-content border-base-content shadow-base-content transition-shadow duration-300 ease-in-out ${toc_desktop_style_overrides}`}>
       {
         filtered.length > 0 && (
           <nav class="toc">
