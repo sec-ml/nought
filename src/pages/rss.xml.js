@@ -13,9 +13,9 @@ export async function GET(context) {
     description: CONFIG.DESCRIPTION,
     site: context.site,
     items: blog_posts.map((post) => ({
-      title: post.data.title,
-      pubDate: post.data.dateCreated,
-      description: post.data.description,
+      title: typeof post.data.title === "string" ? post.data.title.trim() : "",
+      description: typeof post.data.description === "string" ? post.data.description.trim() : "",
+      pubDate: post.data.dateCreated instanceof Date ? post.data.dateCreated : new Date(post.data.dateCreated),
       link: `/${post.id}`,
     })),
   });
