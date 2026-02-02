@@ -21,9 +21,9 @@
     "astro-expressive-code": "^0.41.6",
     "astro-masonry": "^1.2.2",
     "astro-robots-txt": "^1.0.0",
-    "daisyui": "^5.5.14",
+    "daisyui": "^5.5.16",
     "tailwindcss": "^4.0.6",
-    "updates": "^17.0.9"
+    "updates": "^17.1.0"
   },
   "devDependencies": {
     "@igor.dvlpr/astro-post-excerpt": "^4.0.0",
