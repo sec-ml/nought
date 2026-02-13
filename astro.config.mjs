@@ -6,11 +6,15 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import robotsTxt from "astro-robots-txt";
+import run from "vite-plugin-run";
 
 import mdx from "@astrojs/mdx";
 
 import expressiveCode from "astro-expressive-code";
 import ecConfig from "./ec.config.mjs";
+
+// TODO: fallback to src/posts is set in 4 different locations. Move into configLoader.
+const postsDir = CONFIG.POSTS_DIR ?? "src/posts";
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,7 +26,18 @@ export default defineConfig({
         : [],
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss(),
+      CONFIG.TODOS_ENABLED &&
+        run([
+          {
+            name: "todo index",
+            run: ["node", "src/scripts/buildTodos.js"],
+            condition: (file) =>
+              file.includes(postsDir) && /\.mdx$/.test(file),
+          },
+        ]),
+    ].filter(Boolean),
   },
   site: CONFIG.URL,
   markdown: {
