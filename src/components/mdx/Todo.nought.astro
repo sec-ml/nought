@@ -1,0 +1,113 @@
+---
+import { configLoader } from "../../utils/configLoader";
+const CONFIG = await configLoader();
+
+const { content = "" } = Astro.props;
+
+// TODOS_ENABLED needs to be true in config and either dev mode needs to be running
+// to display blocks, or PUBLIC_SHOW_TODOS needs to be set to true in .env.
+// If one or the other is not true, the block will not be displayed (contained content will be hidden)
+const env = import.meta.env;
+const show_todo =
+  CONFIG.TODOS_ENABLED === true &&
+  (env.DEV || ["true", "1", "yes"].includes(String(env.PUBLIC_SHOW_TODOS ?? "")));
+
+// Shared across Todo instances on the same page. First run with a slug 
+// fetches the list and sets these globals. Later runs (each <Todo> block)
+// reuse the list instead of re-calling getTodos.
+type TodoGlobals = {
+  __current_post_todos?: Array<{ id: string; content: string }>;
+  __current_post_todo_index?: number;
+  __current_post_slug?: string;
+};
+const g = globalThis as typeof globalThis & TodoGlobals;
+const slug = (Astro.url.pathname || "").replace(/^\//, "");
+
+let list: Array<{ id: string; content: string }> = [];
+if (show_todo && slug) {
+  try {
+    const { getTodos } = await import("../../generated/todo-meta.js");
+    list = getTodos(slug) ?? [];
+    g.__current_post_todos = list;
+    g.__current_post_todo_index = 0;
+    g.__current_post_slug = slug;
+  } catch {
+    list = [];
+  }
+} else {
+  list = g.__current_post_todos ?? [];
+}
+
+const show_list = show_todo && list.length > 0;
+// IDs are set by script from list order (no shared state between component runs)
+const list_json = show_list ? JSON.stringify(list).replace(/</g, "\\u003c") : "[]";
+
+const has_slot = Astro.slots.has("default");
+// List icon for Todo header box (Heroicons list-bullet)
+const list_header_svg_path = "M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z";
+// Clipboard-with-check for each todo block (Heroicons clipboard-document-check)
+const todo_block_svg_path = "M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12";
+---
+{show_list && (
+  <div class="nought-todo-list-header -mt-1 mb-3 rounded-field border border-base-content bg-base-300 px-3 py-2 flex flex-col gap-2">
+    <div class="flex items-center gap-3">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d={list_header_svg_path} />
+      </svg>
+      <p class="font-semibold text-base-content mt-1 m-0">TODOs in this post</p>
+    </div>
+    <ul class="-ml-6 mt-0 mb-0 list-decimal list-inside space-yh-000 text-sm">
+      {list.map((todo) => (
+        <li>
+          <a href={`#${todo.id}`} class="link link-hover">
+            {todo.content || "TODO"}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+{show_todo
+  ? (has_slot ? (
+      <div
+        class="nought-todo-block my-4 rounded-field border-2 border-dashed border-error/60 bg-base-200/50 px-4 py-3 text-error"
+        role="status"
+        aria-label={content || "TODO"}
+      >
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d={todo_block_svg_path} />
+            </svg>
+            <span class="font-semibold">TODO</span>
+            {content ? <span class="font-normal text-base-content">{content}</span> : null}
+          </div>
+          <a href="#" class="link link-hover text-sm font-normal shrink-0">back to top</a>
+        </div>
+        <hr class="mt-2 mb-2 border-base-content/20" />
+        <div class="todo-slot prose prose-sm max-w-none mt-2 text-base-content">
+          <slot />
+        </div>
+      </div>
+    ) : (
+      <div
+        class="nought-todo-block my-4 rounded-field border-2 border-dashed border-error/60 bg-base-200/50 px-4 py-3 text-error"
+        role="status"
+        aria-label={content || "TODO"}
+      >
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d={todo_block_svg_path} />
+            </svg>
+            <span class="font-semibold">TODO</span>
+            {content ? <span class="font-normal text-base-content">{content}</span> : null}
+          </div>
+          <a href="#" class="link link-hover text-sm font-normal shrink-0">back to top</a>
+        </div>
+      </div>
+    ))
+  : null}
+{show_list && (
+  <script is:inline set:html={`window.__TODOS_FOR_THIS_PAGE__=window.__TODOS_FOR_THIS_PAGE__||${list_json};setTimeout(function(){var L=window.__TODOS_FOR_THIS_PAGE__;if(L)document.querySelectorAll(".nought-todo-block").forEach(function(el,i){if(L[i])el.id=L[i].id});document.querySelectorAll(".nought-todo-list-header").forEach(function(el,i){if(i>0)el.style.display="none"});var h=document.querySelector(".nought-todo-list-header");var art=document.querySelector("article");var meta=document.getElementById("meta_data");if(h&&art&&meta)art.insertBefore(h,meta.nextSibling);},0);`}></script>
+)}

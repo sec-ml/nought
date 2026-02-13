@@ -136,4 +136,7 @@ export const CONFIG = {
 
   // DEMO SITE SPECIFIC OPTIONS //
   DISABLE_THEME_SWITCHER: false, // true or false. DISABLE THEME SWITCHER. Defaults to true if not set.
+
+  // TODO FEATURE (script: scripts/buildTodos.js; component: mdx/Todo.nought.astro) //
+  TODOS_ENABLED: true, // true = show <Todo> blocks. If wanted in production, set PUBLIC_SHOW_TODOS=1 to show blocks.
 };
