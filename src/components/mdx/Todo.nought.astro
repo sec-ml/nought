@@ -21,7 +21,9 @@ type TodoGlobals = {
   __current_post_slug?: string;
 };
 const g = globalThis as typeof globalThis & TodoGlobals;
-const slug = (Astro.url.pathname || "").replace(/^\//, "");
+// Fix Todo list box not showing: Strip leading and trailing
+// slashes so slug matches todo-meta keys
+const slug = (Astro.url.pathname || "").replace(/^\/|\/$/g, "");
 
 let list: Array<{ id: string; content: string }> = [];
 if (show_todo && slug) {
