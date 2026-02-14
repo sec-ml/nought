@@ -58,11 +58,11 @@ const todo_block_svg_path = "M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.
       </svg>
       <p class="font-semibold text-base-content mt-1 m-0">TODOs in this post</p>
     </div>
-    <ul class="-ml-6 mt-0 mb-0 list-decimal list-inside space-yh-000 text-sm">
+    <ul class="-ml-7 list-decimal list-inside pl-7 mt-0 mb-0 space-yh-000 text-sm">
       {list.map((todo) => (
         <li>
           <a href={`#${todo.id}`} class="link link-hover">
-            {todo.content || "TODO"}
+            <span class="line-clamp-2">{todo.content || "TODO"}</span>
           </a>
         </li>
       ))}
