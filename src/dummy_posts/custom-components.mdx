@@ -8,6 +8,7 @@ slug: custom-components
 tags:
   - MDX
   - Custom Components
+  - todo
 redirects:
 excerpt: This post will demonstrate built-in custom components for use within MDX files.
 ---
@@ -72,7 +73,7 @@ This is how it is displayed on a dark theme:
 And this is how it is displayed on a light theme:
 ![example diagram on light theme](images/diag-light_display.png)
 
-<Todo content="Maybe more information needs to be added here" />
+<Todo content="A short reminder?" />
 
 With `bg='no'`:
 ```mdx
@@ -89,7 +90,7 @@ Or override background colour:
 <Diag light='true' bg='bg-secondary'>![example excalidraw diagram](images/example.excalidraw.png)</Diag>
 
 ## Collapsible sections
-<Todo>Maybe add some more about these collapse boxes</Todo>
+<Todo>Maybe add some more about these collapse boxes. If there's a lot of content here, it will display ok in the actual Todo box, but will get truncated in the Todo link box at the top of the post, thanks to `line-clamp-2` TailwindCSS class.</Todo>
 ````mdx
 <Collapse title="Default Styling">This is a collapsible section with default styling.</Collapse>
 
