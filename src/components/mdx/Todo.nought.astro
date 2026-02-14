@@ -76,15 +76,15 @@ const todo_block_svg_path = "M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.
         role="status"
         aria-label={content || "TODO"}
       >
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <div class="flex items-center gap-2">
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex min-w-0 items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d={todo_block_svg_path} />
             </svg>
-            <span class="font-semibold">TODO</span>
-            {content ? <span class="font-normal text-base-content">{content}</span> : null}
+            <span class="hidden font-semibold shrink-0 md:inline">TODO</span>
+            {content ? <span class="min-w-0 max-w-md font-normal text-base-content">{content}</span> : null}
           </div>
-          <a href="#" class="link link-hover text-sm font-normal shrink-0">back to top</a>
+          <a href="#" class="link link-hover shrink-0 text-sm font-normal">back to top</a>
         </div>
         <hr class="mt-2 mb-2 border-base-content/20" />
         <div class="todo-slot prose prose-sm max-w-none mt-2 text-base-content">
@@ -97,15 +97,15 @@ const todo_block_svg_path = "M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.
         role="status"
         aria-label={content || "TODO"}
       >
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <div class="flex items-center gap-2">
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex min-w-0 items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d={todo_block_svg_path} />
             </svg>
-            <span class="font-semibold">TODO</span>
-            {content ? <span class="font-normal text-base-content">{content}</span> : null}
+            <span class="hidden font-semibold shrink-0 md:inline">TODO</span>
+            {content ? <span class="min-w-0 max-w-md font-normal text-base-content">{content}</span> : null}
           </div>
-          <a href="#" class="link link-hover text-sm font-normal shrink-0">back to top</a>
+          <a href="#" class="link link-hover shrink-0 text-sm font-normal">back to top</a>
         </div>
       </div>
     ))
