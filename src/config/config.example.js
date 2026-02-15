@@ -1,12 +1,26 @@
 export const YEAR = new Date().getFullYear();
 
 export const CONFIG = {
+  /*
+  All config options will run in both DEV ('npm run dev') and PROD ('npm run build')
+  modes, unless overridden by a DEV_ option.
+
+  E.g. copy/paste an option, add DEV_ prefix. This could be useful for setting a
+  local path that differs from a build pipeline: DEV_POSTS_DIR: "../../posts".
+
+  This only applies to top-level options. E.g. an entire dict-like object would
+  need to be copied to a DEV_ counterpart, NAV_LINKS -> DEV_NAV_LINKS.
+  */
+
   TITLE: "Nought",
   LOGO_TEXT: "nought.", // IF DIFFERENT FROM TITLE
   DESCRIPTION: "An Astro 5 starter with Tailwind CSS",
   DEFAULT_AUTHOR: "ml",
-  POSTS_DIR: "src/dummy_posts", // RELATIVE TO PROJECT DIRECTORY
-  TAG_PAGES_DIR: "src/dummy_tag-pages", // RELATIVE TO PROJECT DIRECTORY. For custom content on tag page, i.e. /tags/<tag-name>
+  POSTS_DIR: "src/dummy_posts", // RELATIVE TO PROJECT DIRECTORY, OR ABSOLUTE PATH
+  TAG_PAGES_DIR: "src/dummy_tag-pages", // RELATIVE TO PROJECT DIRECTORY, OR ABSOLUTE PATH. For custom content on tag page, i.e. /tags/<tag-name>
+
+  //DEV_POSTS_DIR: "", // See DEV_ options explainer above.
+  //DEV_TAG_PAGES_DIR: "",
 
   // DAISYUI THEME SETTINGS //
   LIGHT_THEME: "winter", // DAISYUI LIGHT THEME NAME. SEE THEME SWITCHER FOR OPTIONS
