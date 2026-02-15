@@ -73,10 +73,17 @@ async function extractTodosFromFile(file_path) {
   return { slug, entries };
 }
 
+// CONFIG.POSTS_DIR (or DEV_POSTS_DIR in dev mode) can be absolute.
+// path.join(ROOT, absolutePath) would return wrong path.
+// Use abs path as-is, join rel path with root.
+function resolvePostsDir(posts_path) {
+  return path.isAbsolute(posts_path) ? path.normalize(posts_path) : path.join(ROOT, posts_path);
+}
+
 // Scan all .mdx in posts_path and build a map slug -> todo entries. Only includes posts that have at least one Todo.
 // Takes path to posts dir as arg.
 async function extractTodosFromPosts(posts_path) {
-  const dir = path.join(ROOT, posts_path);
+  const dir = resolvePostsDir(posts_path);
   let files = [];
   try {
     const entries = await fs.readdir(dir, { withFileTypes: true });
@@ -152,7 +159,7 @@ async function cleanupWhenDisabled(gen_dir, posts_path) {
   } catch {
     // No file or parse error: nothing to clean; slugs stays []
   }
-  const dir = path.join(ROOT, posts_path);
+  const dir = resolvePostsDir(posts_path);
   let files = [];
   try {
     const entries = await fs.readdir(dir, { withFileTypes: true });
@@ -192,7 +199,7 @@ async function cleanupWhenDisabled(gen_dir, posts_path) {
 // Sync the "todo" tag into each post's frontmatter: add it if the post has todos, remove it if not.
 // Rest of site then just reads tags as normal. Takes paths to posts and slugs with todos as args.
 async function syncTodoTagInPostFiles(posts_path, slugs_with_todos) {
-  const dir = path.join(ROOT, posts_path);
+  const dir = resolvePostsDir(posts_path);
   let files = [];
   try {
     const entries = await fs.readdir(dir, { withFileTypes: true });
