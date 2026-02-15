@@ -43,7 +43,7 @@ const page_title = CONFIG.TITLE + " - Page " + current_page + " - " + CONFIG.DES
 const page_url = CONFIG.URL + "/" + current_page;
 ---
 <BaseLayout page_title={page_title} page_description={CONFIG.DESCRIPTION} page_url={page_url}>
-  <div class="p-6 max-w-7xl">
+  <div class="p-6 max-w-7xl mx-auto">
   <Masonry breakpointCols={{default: break_two, 1224: 1}}, class="flex gap-6">
     {paginated_posts.map((post: any) => <BlogPost url={"/" + post.data.slug} title={post.data.title} tags={post.data.tags} post={post} image={post.data.image} image_alt={post.data.imageAlt} tag=null author={post.data.author} created={post.data.dateCreated} excerpt={post.data.excerpt} />)}
   </Masonry>
