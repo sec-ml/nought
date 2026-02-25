@@ -16,15 +16,20 @@ import ecConfig from "./ec.config.mjs";
 // TODO: fallback to src/posts is set in 4 different locations. Move into configLoader.
 const postsDir = CONFIG.POSTS_DIR ?? "src/posts";
 
+const imageConfig =
+  // Check if user is bypassing the warning by setting IMAGE_REMOTE_DOMAINS to 'unsafe'.
+  CONFIG.IMAGE_REMOTE_DOMAINS === "unsafe"
+    // If so, allow all remote images by using remotePatterns
+    ? { remotePatterns: [{ protocol: "https" }, { protocol: "http" }] }
+    // Otherwise, check that an array of domains (or blank array) has been provided
+    : CONFIG.IMAGE_REMOTE_DOMAINS instanceof Array
+      ? { domains: CONFIG.IMAGE_REMOTE_DOMAINS }
+      // If anything else is set, use a blank array to prevent errors.
+      : { domains: [] };
+
 // https://astro.build/config
 export default defineConfig({
-  image: {
-    // check that CONFIG.IMAGE_REMOTE_DOMAINS is an array, else set empty array
-    domains:
-      CONFIG.IMAGE_REMOTE_DOMAINS instanceof Array
-        ? CONFIG.IMAGE_REMOTE_DOMAINS
-        : [],
-  },
+  image: imageConfig,
   vite: {
     plugins: [
       tailwindcss(),
