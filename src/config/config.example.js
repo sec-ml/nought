@@ -123,7 +123,16 @@ export const CONFIG = {
 
   // IMAGE SETTINGS //
   // LIST OF DOMAINS FOR ASTRO IMAGE OPTIMIZATION
-  IMAGE_REMOTE_DOMAINS: [], // NOTE: [''] essentially wildcards all remote images. Use empty array, or comment out to disable.
+  // Use an array of hostnames to allow specific domains: ['images.unsplash.com', 'cdn.example.com']
+  // Astro 5.17.3 fixed a bug which allowed all remote image domains to be optimised without checking the allowlist.
+  // https://github.com/withastro/docs/pull/13282:
+  // > "It's no longer true that inferSize will fetch unauthorized images. Allowing this exposes a
+  // > vulnerability with internal services, so we now check image.domains."
+  //
+  // ^^ that's your warning. While there is less of a risk for SSGs, you should still
+  // think twice before bypassing this, but setting IMAGE_REMOTE_DOMAINS: 'unsafe' will allow all.
+  // Use [] or omit to disable remote images entirely.
+  IMAGE_REMOTE_DOMAINS: ['images.unsplash.com'],
 
   // STYLING OVERRIDES //
   // CSS/TAILWINDCSS/DAISYUI CLASSES/OVERRIDES
