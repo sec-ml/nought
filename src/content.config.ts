@@ -28,11 +28,13 @@ var posts_path =
 // TIL about z.preprocess... transforms raw data before schema validation runs.
 // https://zod.dev/?id=preprocess
 //
-// Painful sidequest: Astro maintains a data-store.json file in .astro/ to cache the collection
-// data. This is used to speed up builds, and is only updated when the collection data changes.
+// Painful sidequest: Astro maintains a data-store.json file in .astro/ (oh, and in
+// node_modules/.astro/ too) to cache the collection data. This is used to speed
+// up builds, and is only updated when the collection data changes.
 // Because we're injecting into frontmatter, Astro believes this is from the files, so if images
 // are added/changed (i.e. in dev, testing), data-store.json is not updated.
-// Workaround: use `del-cli .astro/data-store.json` as `predev` and `prebuild` scripts in package.json.
+// Workaround: use `del-cli .astro/data-store.json .astro/content-assets.mjs node_modules/.astro`
+// as `predev` and `prebuild` scripts in package.json.
 // 
 // Fallback order (each can be enabled/disabled in config):
 // 1. slug match: image basename matches the post's slug (maybe useful? Can't
