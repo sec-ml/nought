@@ -3,8 +3,8 @@
   "type": "module",
   "version": "0.0.4",
   "scripts": {
-    "predev": "del-cli .astro/data-store.json && NOUGHT_DEV=1 node src/scripts/generateGlobalCSS.mjs && NOUGHT_DEV=1 node src/scripts/buildTodos.js",
-    "prebuild": "del-cli .astro/data-store.json && node src/scripts/generateGlobalCSS.mjs && node src/scripts/buildTodos.js",
+    "predev": "del-cli .astro/data-store.json .astro/content-assets.mjs node_modules/.astro && NOUGHT_DEV=1 node src/scripts/generateGlobalCSS.mjs && NOUGHT_DEV=1 node src/scripts/buildTodos.js",
+    "prebuild": "del-cli .astro/data-store.json .astro/content-assets.mjs node_modules/.astro && node src/scripts/generateGlobalCSS.mjs && node src/scripts/buildTodos.js",
     "dev": "NOUGHT_DEV=1 astro dev",
     "build": "astro build",
     "preview": "astro preview",
