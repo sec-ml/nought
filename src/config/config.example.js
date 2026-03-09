@@ -134,6 +134,16 @@ export const CONFIG = {
   // Use [] or omit to disable remote images entirely.
   IMAGE_REMOTE_DOMAINS: ['images.unsplash.com'],
 
+  // IMAGE FALLBACK //
+  // Hierarchical fallback when a post has no image set in frontmatter.
+  // 1. Slug match. Look for an image where basename matches post slug
+  FALLBACK_IMAGE_SLUG: true,
+  // 2. Tag match. Iterate a post's tags (in order) looking for an image where basename matches tag slug
+  FALLBACK_IMAGE_TAG: true,
+  // 3. Catch-all. Set a specific image to use when nothing else matches. remove option or set to null to disable.
+  FALLBACK_IMAGE: "ju-guan-D-jLxBtEwaA-unsplash.webp", // << Image by Ju Guan, https://unsplash.com/@guanjz
+
+
   // STYLING OVERRIDES //
   // CSS/TAILWINDCSS/DAISYUI CLASSES/OVERRIDES
   // ! Note: TailwindCSS doesn't set precedence by order.
