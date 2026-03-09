@@ -3,8 +3,8 @@
   "type": "module",
   "version": "0.0.4",
   "scripts": {
-    "predev": "NOUGHT_DEV=1 node src/scripts/generateGlobalCSS.mjs && NOUGHT_DEV=1 node src/scripts/buildTodos.js",
-    "prebuild": "node src/scripts/generateGlobalCSS.mjs && node src/scripts/buildTodos.js",
+    "predev": "del-cli .astro/data-store.json && NOUGHT_DEV=1 node src/scripts/generateGlobalCSS.mjs && NOUGHT_DEV=1 node src/scripts/buildTodos.js",
+    "prebuild": "del-cli .astro/data-store.json && node src/scripts/generateGlobalCSS.mjs && node src/scripts/buildTodos.js",
     "dev": "NOUGHT_DEV=1 astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -29,6 +29,7 @@
   "devDependencies": {
     "@igor.dvlpr/astro-post-excerpt": "^4.0.0",
     "@tailwindcss/typography": "^0.5.19",
+    "del-cli": "^7.0.0",
     "prettier-plugin-astro": "^0.14.1",
     "vite-plugin-run": "^0.6.1"
   }
