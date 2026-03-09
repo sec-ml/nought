@@ -141,7 +141,8 @@ export const CONFIG = {
   // 2. Tag match. Iterate a post's tags (in order) looking for an image where basename matches tag slug
   FALLBACK_IMAGE_TAG: true,
   // 3. Catch-all. Set a specific image to use when nothing else matches. remove option or set to null to disable.
-  FALLBACK_IMAGE: null,
+  FALLBACK_IMAGE: "ju-guan-D-jLxBtEwaA-unsplash.webp", // << Image by Ju Guan, https://unsplash.com/@guanjz
+
 
   // STYLING OVERRIDES //
   // CSS/TAILWINDCSS/DAISYUI CLASSES/OVERRIDES
