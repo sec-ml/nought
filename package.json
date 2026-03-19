@@ -27,7 +27,7 @@
     "updates": "^17.10.1"
   },
   "devDependencies": {
-    "@igor.dvlpr/astro-post-excerpt": "^4.0.0",
+    "@igor.dvlpr/astro-post-excerpt": "^4.1.1-alpha.0",
     "@tailwindcss/typography": "^0.5.19",
     "del-cli": "^7.0.0",
     "prettier-plugin-astro": "^0.14.1",
