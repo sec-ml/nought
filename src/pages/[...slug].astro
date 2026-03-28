@@ -1,0 +1,90 @@
+---
+import { getCollection, render } from "astro:content";
+import PostLayout from "../layouts/PostLayout.astro";
+import { filterBlogPosts } from "../utils/filterBlogPosts";
+import { components } from "../utils/mdxComponentAutoLoader";
+
+export async function getStaticPaths() {
+  const blog_posts = filterBlogPosts(await getCollection("blog"));
+
+  // build a flat list of entries
+  // 1) canonical entry for each post
+  // 2) zero or more redirect entries that mark themselves with props.redirect_to
+  const entries = blog_posts.flatMap((post) => {
+    const primary = {
+      params: { slug: post.data.slug },
+      props: { post },
+    };
+
+    const redirects = (post.data.redirects ?? [])
+      .filter(Boolean)
+      .map((redirect: string) => ({
+        // each redirect is a separate route that points to the canonical post
+        params: { slug: redirect },
+        // use absolute path (to support change to [...slug].astro)
+        props: { redirect_to: `/${post.data.slug}` },
+      }));
+
+    return [primary, ...redirects];
+  });
+
+/*
+  Not strictly necessary, but useful to add a warning if the same
+  redirect string is used on multiple posts.
+*/
+
+// count how many times each redirect string appears across all posts
+const redirect_use_count = new Map<string, number>();
+
+// track which canonical targets each redirect points to (set avoids duplicates)
+const redirect_targets = new Map<string, Set<string>>();
+
+for (const post of blog_posts) {
+  // get redirects array from frontmatter
+  const redirect_list = (post.data.redirects ?? []).filter(Boolean);
+
+  for (const redirect of redirect_list) {
+    // +1 usage count for redirect
+    redirect_use_count.set(redirect, (redirect_use_count.get(redirect) ?? 0) + 1);
+
+    // record canonical target for redirect
+    const targets = redirect_targets.get(redirect) ?? new Set<string>();
+    targets.add(`/${post.data.slug}`);
+    redirect_targets.set(redirect, targets);
+  }
+}
+
+// warn when redirect is listed on multiple posts
+// doesn't change output, it only logs a message
+for (const [redirect, count] of redirect_use_count) {
+  if (count > 1) {
+    const targets = Array.from(redirect_targets.get(redirect) ?? []);
+    console.warn(
+      `[WARN] Redirect "${redirect}" is defined on ${count} posts` +
+        (targets.length ? `, targets: ${targets.join(", ")}` : "") +
+        `.`,
+    );
+  }
+}
+
+  return entries;
+}
+
+const { post, redirect_to } = Astro.props;
+
+/*
+  This is very much a static site generator... I imagine the performance
+  would be horrible if using SSR. That said, it seems silly to no include
+  the actual 301 SSR redirect.
+*/
+if (redirect_to) {
+  return Astro.redirect(redirect_to, 301);
+}
+
+// Canonical render path only below this line
+const { Content, headings } = await render(post);
+---
+
+<PostLayout data={post.data} headings={headings}>
+  <Content components={components} />
+</PostLayout>
