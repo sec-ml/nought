@@ -17,7 +17,7 @@
     "@expressive-code/plugin-collapsible-sections": "^0.44.1",
     "@expressive-code/plugin-line-numbers": "^0.44.1",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.2.0",
+    "astro": "^7.2.2",
     "astro-expressive-code": "^0.44.1",
     "astro-masonry": "^1.2.2",
     "astro-robots-txt": "^1.0.0",
