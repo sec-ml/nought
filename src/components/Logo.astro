@@ -30,15 +30,15 @@ if (sidebar) {
 } else {
   logo_classes = " " + logo_post_override;
   wrapper_classes =
-    "transition-opacity duration-1000 text-center w-64 md:hidden pt-5 md:pt-0";
+    "transition-opacity duration-1000 flex justify-center w-64 md:hidden pt-5 md:pt-0 pl-20 pr-4";
   logo_id = "logoMain";
 }
 ---
 
 <div id={logo_id} class={`${wrapper_classes} `}>
-  <a href="/"
+  <a href="/" class="min-w-0 max-w-full"
     ><button
-      class={`nought-stroke cursor-pointer text-center shadow-[4px_4px_0px_0px] hover:shadow-[0px_0px_0px_0px] px-2 py-1 border-2 rounded-field text-2xl font-bold bg-base-100 text-base-content border-base-content shadow-base-content transition-shadow duration-300 ease-in-out ${logo_all_override} ${logo_classes}`}
+      class={`nought-stroke cursor-pointer text-center shadow-[4px_4px_0px_0px] hover:shadow-[0px_0px_0px_0px] px-2 py-1 border-2 rounded-field text-2xl font-bold bg-base-100 text-base-content border-base-content shadow-base-content transition-shadow duration-300 ease-in-out max-w-full break-normal whitespace-normal ${logo_all_override} ${logo_classes}`}
       ><Fragment set:html={logo_text} /></button
     >
   </a>
