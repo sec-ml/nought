@@ -14,6 +14,7 @@ export const CONFIG = {
 
   TITLE: "Nought",
   LOGO_TEXT: "nought.", // IF DIFFERENT FROM TITLE
+  HAMBURGER_POSITION: "left", // 'left' or 'right'. Position of hamburger/menu icon on mobile/narrow pages. Default: left. Right allows more content in LOGO_TEXT before logo wraps.
   DESCRIPTION: "An Astro 5 starter with Tailwind CSS",
   DEFAULT_AUTHOR: "ml",
   POSTS_DIR: "src/dummy_posts", // RELATIVE TO PROJECT DIRECTORY, OR ABSOLUTE PATH

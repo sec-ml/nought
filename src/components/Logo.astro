@@ -29,8 +29,11 @@ if (sidebar) {
   logo_id = "logoSidebar";
 } else {
   logo_classes = " " + logo_post_override;
-  wrapper_classes =
-    "transition-opacity duration-1000 flex justify-center w-64 md:hidden pt-5 md:pt-0 pl-20 pr-4";
+  // set hamburger icon pos as left-default.
+  const hamburger_position = CONFIG.HAMBURGER_POSITION === "right" ? "right" : "left";
+  const left_hamburger_clearance = hamburger_position === "right" ? "" : "pl-20 pr-4";
+  // remove pl-20 pr-4 from default wrapper_classes, add in for only if hamburger menu icon is left positioned.
+  wrapper_classes = `transition-opacity duration-1000 flex justify-center w-64 md:hidden pt-5 md:pt-0 ${left_hamburger_clearance}`;
   logo_id = "logoMain";
 }
 ---
