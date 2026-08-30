@@ -14,7 +14,7 @@ export const CONFIG = {
 
   TITLE: "Nought",
   LOGO_TEXT: "nought.", // IF DIFFERENT FROM TITLE
-  DESCRIPTION: "An Astro 5 starter with Tailwind CSS",
+  DESCRIPTION: "An Astro 7 starter with Tailwind CSS",
   DEFAULT_AUTHOR: "ml",
   POSTS_DIR: "src/dummy_posts", // RELATIVE TO PROJECT DIRECTORY, OR ABSOLUTE PATH
   TAG_PAGES_DIR: "src/dummy_tag-pages", // RELATIVE TO PROJECT DIRECTORY, OR ABSOLUTE PATH. For custom content on tag page, i.e. /tags/<tag-name>
@@ -156,7 +156,7 @@ export const CONFIG = {
 
   LOGO_ALL_OVERRIDE: "",
   LOGO_SIDEBAR_OVERRIDE: "",
-  LOGO_BODY_OVERRIDE: "",
+  LOGO_POST_OVERRIDE: "",
 
   // TABLE OF CONTENTS //
 
