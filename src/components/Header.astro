@@ -20,7 +20,6 @@ if (typeof CONFIG.DESCRIPTION_SIDEBAR === "undefined") {
 // default, butright allows longer logo content before wrapping
 const hamburger_position = CONFIG.HAMBURGER_POSITION === "right" ? "right" : "left";
 const hamburger_side_class = hamburger_position === "right" ? "right-6" : "left-6";
-const sidebar_logo_clearance = hamburger_position === "right" ? "" : "pl-20 pr-4";
 ---
 
 <button
@@ -33,7 +32,7 @@ const sidebar_logo_clearance = hamburger_position === "right" ? "" : "pl-20 pr-4
   id="sidebar"
   class="z-50 bg-base-300 fixed top-0 left-0 w-64 h-full text-white pt-5 overflow-y-auto transform transition-transform duration-300 ease-in-out -translate-x-full md:translate-x-0"
 >
-  <div class={`flex flex-row justify-center items-center md:pl-0 md:pr-0 ${sidebar_logo_clearance}`}>
+  <div class="flex flex-row justify-center items-center px-3">
     <Logo sidebar={true} />
   </div>
 
