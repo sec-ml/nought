@@ -29,7 +29,9 @@ if (sidebar) {
   logo_id = "logoSidebar";
 } else {
   logo_classes = " " + logo_post_override;
-  wrapper_classes = "transition-opacity duration-1000 flex justify-center w-64 md:hidden pt-5 md:pt-0 px-3";
+  // This PR has turned into a full existential crisis on how to support logos of varying lengths...
+  // Hamburger menu is now right only. Logo is left aligned when menu drawer is closed, and centered in menu drawer when open.
+  wrapper_classes = "transition-opacity duration-1000 flex justify-start w-64 md:hidden pt-5 md:pt-0 pl-6";
   logo_id = "logoMain";
 }
 ---
