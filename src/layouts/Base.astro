@@ -19,6 +19,18 @@ const theme =
     ? CONFIG.LIGHT_THEME
     : null;
 
+// Preload fonts to (try to) fix "FOUT" (flash of unstyled text), using
+// <link rel="preload">. Note: custom font also needs setting in custom.css.
+// `preload_fonts` is an array set in config file, or defaults to empty array.
+// Paths are rel to the 'served' site root (public dir).
+const preload_fonts = Array.isArray(CONFIG.PRELOAD_FONTS) ? CONFIG.PRELOAD_FONTS : [];
+const FONT_TYPES: Record<string, string> = {
+  woff2: "font/woff2",
+  woff: "font/woff",
+  ttf: "font/ttf",
+  otf: "font/otf",
+};
+
 const stroke_light = CONFIG.STROKE_STYLE_LIGHT ?? true;
 const stroke_dark = CONFIG.STROKE_STYLE_DARK ?? true;
 const theme_mode = CONFIG.THEME_SWITCH_MODE ?? "light";
@@ -35,6 +47,15 @@ const stroke_classes =
   <head>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
+    {
+      preload_fonts.map((font_path: string) => {
+      const ext = font_path.split(".").pop()?.toLowerCase() ?? "";
+      if (!FONT_TYPES[ext]) return null; // check font ext is valid, otherwise skip.
+      return (
+        <link rel="preload" href={font_path} as="font" type={FONT_TYPES[ext]} crossorigin />
+      );
+      })
+    }
     <Metadata
       meta_type={meta_type}
       meta_title={page_title}

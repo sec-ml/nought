@@ -22,6 +22,22 @@ export const CONFIG = {
   //DEV_POSTS_DIR: "", // See DEV_ options explainer above.
   //DEV_TAG_PAGES_DIR: "",
 
+  // FONTS //
+  // Paths (relative to public root, i.e. in /public) to preload via <link rel="preload" ... />.
+  // Note: requires a custom @font-face declared in custom.css.
+  PRELOAD_FONTS: [], // e.g. ["/fonts/MyFont.woff2"]
+  // Note 2: This only preloads fonts. Nothing in the theme is set to use a different font.
+  // Add something like this to custom.css:
+  /*
+  @font-face {
+    font-family: 'your-font';
+    src: url('/fonts/your-font.woff2') format('woff2');
+  }
+  h1, h2, h3, h4, h5, h6, blockquote span.quote {
+    font-family: 'your-font', sans-serif;
+  }
+  */
+
   // DAISYUI THEME SETTINGS //
   LIGHT_THEME: "winter", // DAISYUI LIGHT THEME NAME. SEE THEME SWITCHER FOR OPTIONS
   DARK_THEME: "aqua", // DAISYUI DARK THEME NAME. SEE THEME SWITCHER FOR OPTIONS

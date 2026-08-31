@@ -61,6 +61,8 @@ const page_url = CONFIG.URL + "/" + data.slug;
 const optimised_image = data.image
   ? await getImage({ src: data.image, inferSize: true })
   : null;
+
+const toc = toc_enable && toc_headings?.length >= toc_min_heading_qty;
 ---
 
 <BaseLayout
@@ -89,8 +91,10 @@ const optimised_image = data.image
     ) : null
   }
 
-  <div class="flex flex-row justify-center gap-8">
-    <div class="max-w-2xl w-full">
+  <div
+    class={`grid grid-cols-1 justify-center gap-8 ${toc ? "xl:grid-cols-[42rem_16rem]" : "xl:grid-cols-[42rem]"}`}
+  >
+    <div class="max-w-2xl w-full justify-self-center xl:justify-self-auto">
       <div class="align-middle flex flex-col items-center justify-center">
         <article
           class="prose min-w-0 w-full mt-0 prose-headings:-my-0 prose-headings:mb-2 prose-headings:mt-4 prose-h2:mb-2 prose-h2:mt-4 prose-p:mb-1 p-6 prose-img:my-5"
@@ -125,7 +129,7 @@ const optimised_image = data.image
           </div>
           {
             // Table of Contents - Mobile (top of article)
-            toc_enable && toc_headings?.length >= toc_min_heading_qty ? (
+            toc ? (
               <div class="block xl:hidden">
                 <TableOfContents
                   headings={headings}
@@ -143,7 +147,7 @@ const optimised_image = data.image
 
     {
       // Table of Contents - Desktop (aside)
-      toc_enable && toc_headings?.length >= toc_min_heading_qty ? (
+      toc ? (
         <TableOfContents
           headings={headings}
           min_depth={toc_min_depth}
