@@ -11,26 +11,26 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^8.1.0",
+    "@astrojs/mdx": "^8.1.2",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
-    "@expressive-code/plugin-collapsible-sections": "^0.44.2",
-    "@expressive-code/plugin-line-numbers": "^0.44.2",
+    "@expressive-code/plugin-collapsible-sections": "^0.44.3",
+    "@expressive-code/plugin-line-numbers": "^0.44.3",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.4.0",
-    "astro-expressive-code": "^0.44.2",
+    "astro": "^7.4.4",
+    "astro-expressive-code": "^0.44.3",
     "astro-masonry": "^1.2.2",
     "astro-robots-txt": "^1.0.0",
     "daisyui": "^5.7.50",
     "gray-matter": "^4.0.3",
     "tailwindcss": "^4.0.6",
-    "updates": "^19.2.1"
+    "updates": "^19.4.1"
   },
   "devDependencies": {
     "@igor.dvlpr/astro-post-excerpt": "4.1.1-alpha.0",
     "@tailwindcss/typography": "^0.5.20",
     "del-cli": "^8.0.1",
-    "prettier-plugin-astro": "^1.1.1",
+    "prettier-plugin-astro": "^1.1.2",
     "vite-plugin-run": "^0.9.1"
   }
 }
